@@ -1,5 +1,12 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0614: 1.5 (Diazo) for KSP 0.23.5
+	+ Add support for multiple partModules with the same name on the same part.
+	+ Add support for multiple actions with the same name on a part.
+	+ Note that for a part with the same partModule and the same action name I will have to manually tweak the code, but the structure is in place and it will take about 30 seconds to add.
+	+ So far the Module EnviroSensor from base KSP is the only place this has been necessary.
+	+ Revise significant portions of the save/load code to fix weaknesses revealed by the above changes. (Should result in significantly fewer errors.)
+	+ Simplify error handling significantly. Now instead of trying to actually handling errors, it simply stops loading that part and writes to the log ("AGX Fail...." messages). This means if an error happens, configured actions will vanish, but everything will keep working so no more KSP lockup issues.
 * 2014-0608: 1.4.1 (Diazo) for KSP 0.23.5
 	+ Hotfix to allow launching more then one rocket per game load.
 	+ Also includes the start of my work to incorporate the base game actiongroups. The only thing in this version is that Keyset1, Groups 1 to 10 have the same keybind as KSP's default action groups.
