@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0104: 1.29.1 (Diazo) for KSP 0.90
+	+ Tweak key lockout
 * 2015-0104: 1.29 (Diazo) for KSP 0.90
 	+ Overhaul external mod support for integration
 	+ No changes to AGX itself this version
