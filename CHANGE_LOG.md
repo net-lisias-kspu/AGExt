@@ -1,5 +1,14 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0830: 1.13 (Diazo) for KSP 0.24.2
+	+ Beta test of new save/load routines that no longer use partModules
+	+ remove all references to partModules, so ModuleManager is no longer needed, included deletion of part.cfg file from the mod directly
+		- Therefore ModuleManager is no longer required and the part.cfg file is no longer part of the download. (See note in download post before deleting this file however.)
+	+ no UI changes this version, should work the same as Version 1.12'
+	+ edit: Download pulled, critical bug present.
+* 2014-0728: 1.12 (Diazo) for KSP 0.24.2
+	+ KSP 0.24.2 recompile.
+	+ Add ability to show/hide the Keycodes in Flight. To do so, right-click on the AGX button on the toolbar and use the button that shows to change this setting.
 * 2014-0724: 1.11 (Diazo) for KSP 0.24.2
 	+ KSP 0.24.1 Compatibility confirmation.
 	+ DMagic Orbital Science fix
