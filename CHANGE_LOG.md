@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2016-0429: 2.0.2 (Diazo) for KSP 1.1
+	+ Fix bug where some parts (notably the new wheels) could not be selected in flight mode to edit their actions.
 * 2016-0423: 2.0.1 (Diazo) for KSP 1.1
 	+ Show/Hide mod windows on F2 key.
 	+ Fix settings file so it doesn't void ModuleManager's cache every load.
