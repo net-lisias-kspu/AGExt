@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0407: 1.31.3 (Diazo) for KSP 0.90
+	+ GUI Fixes
+		- Lock down the font
+		- Fix when Scroll Windows show.
 * 2015-0404: 1.31.2 (Diazo) for KSP 0.90
 	+ Sub-Assemblies now save Toggle and Hold states.
 * 2015-0403: 1.31.1 (Diazo) for KSP 0.90
