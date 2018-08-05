@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1031: 1.20.1 (Diazo) for KSP 0.24.2
+	+ kOS inter-op test version, not for public release
 * 2014-1030: 1.20 (Diazo) for KSP 0.24.2
 	+ Add Part Location crosses (blue plus, green cross, red large cross)
 	+ Add editing of non-numeric actions to editor (Brakes/Lights/etc)
