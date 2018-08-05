@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0831: 1.13.1 (Diazo) for KSP 0.24.2
+	+ Hotfix to delete the clicked action in flight mode rather then a random action.
+	+ edit: download pulled, key bindings do not load correctly in this version
 * 2014-0830: 1.13 (Diazo) for KSP 0.24.2
 	+ Beta test of new save/load routines that no longer use partModules
 	+ remove all references to partModules, so ModuleManager is no longer needed, included deletion of part.cfg file from the mod directly
