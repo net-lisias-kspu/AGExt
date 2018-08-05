@@ -1,5 +1,10 @@
 # Action Groups Extended :: Change Log
 
+* 2018-0127: 2.3.2.1 (linuxgurugamer) for KSP 1.3.1
+	+ Moved Localization folder into AGExt (was being missed by Jenkins)
+* 2018-0122: 2.3.2 (linuxgurugamer) for KSP 1.3.1
+	+ Added Log module
+	+ Changed all Debug.Log to Log.Info
 * 2017-1106: 2.3.1 (linuxgurugamer) for KSP 1.3.1
 	+ Simplification and optimization of Flight.CheckActionsActiveActualCode
 * 2017-1104: 2.3.0 (linuxgurugamer) for KSP 1.3.1
