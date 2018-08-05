@@ -1,5 +1,10 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0901: 1.13.4 (Diazo) for KSP 0.24.2
+	+ Bugfixing of 1.13 continues
+		- Fix loading of base KSP actions so existing actions import when mod is installed
+		- Fix spaceplane coordinate issues so the mod works in the SPH
+	+ edit: Download pulled as 1.13e has important bugfixes
 * 2014-0831: 1.13.2 (Diazo) for KSP 0.24.2
 	+ Fix Key Binds so they load correctly and the keyboard can be used to activate action groups.
 	+ Read in action groups from the base 10 KSP groups correctly.
