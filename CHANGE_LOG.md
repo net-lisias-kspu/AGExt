@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2016-0321: 1.34.2 (Diazo) for KSP 1.0.5
+	+ Fix an error in checking for Kerbal on EVA vs. a vessel that would cause log spam while on EVA.
 * 2016-0318: 1.35 (Diazo) for KSP 1.0.5
 	+ Refactor how saving of non-actions data (group names, keybinds, etc.) work to fix docking errors. 
 * 2015-1225: 1.34.4 (Diazo) for KSP 1.0.5
