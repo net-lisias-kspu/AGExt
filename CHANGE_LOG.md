@@ -1,5 +1,15 @@
 # Action Groups Extended :: Change Log
 
+* 2014-xxyy: 1.17.1 (Diazo) for KSP 0.24.2
+	+ Version 1.17a through 1.17f
+	+ Add Near Future and RemoteTech support (remove Action Ambiguous message).
+	+ Tweak ModuleScience support.
+	+ Fix handling of "Untitled Space Craft" in Editor
+	+ Add support for Undo function in editor
+	+ Toggle state of Action groups on vessel object for other mods to monitor (kOS requested this.)
+	+ Add Better Then Starting Manned support
+	+ Reduce aggressiveness of Editor auto-save so it no longer saves invalid data
+	+ Add ability to skip cleanup of old save files.
 * 2014-0923: 1.17 (Diazo) for KSP 0.24.2
 	+ Expand saving in editor, now when mods offer a non-standard way to leave the editor AGX will save correctly.
 	+ Note that this means there is no way to leave the editor without saving, even an Alt-F4 quit will save now, although it saves the AGExtEditor.cfg file to a non-standard location.
