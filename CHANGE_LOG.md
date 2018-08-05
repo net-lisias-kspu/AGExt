@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2016-1023: 2.1.1 (Diazo) for KSP 1.2
+	+ [blizzy78/ksp_toolbar#39](https://github.com/blizzy78/ksp_toolbar/pull/39)
+	+ No changes to AGX itself, will run with Contract Configurator installed now
 * 2016-1016: 2.1 (Diazo) for KSP 1.2
 	+ KSP 1.2 Update
 	+ Recognize new stock Always Show Actiongroups option.
