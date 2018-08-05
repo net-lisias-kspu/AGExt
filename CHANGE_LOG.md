@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-1118: 1.34.2 (Diazo) for KSP 1.0.5
+	+ Fix Editor panels.
+	+ Fix error on Kerbal EVA
  * 2015-1115: 1.34.1 (Diazo) for KSP 1.0.5
 	+ Fix Editor windows going screwy under several circumstances.
 	+ Add workaround for Toggle action on controls surfaces to account for wierdness.
