@@ -1,3 +1,5 @@
+# Action Groups Extended :: Change Log
+
 2.3.3.6
 	Updated to regsitering with Toolbar Controller
 	Removed Blizzy option from settings
