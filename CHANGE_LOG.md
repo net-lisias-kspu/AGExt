@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0104: 1.29 (Diazo) for KSP 0.90
+	+ Overhaul external mod support for integration
+	+ No changes to AGX itself this version
 * 2015-0101: 1.28.2 (Diazo) for KSP 0.90
 	+ Add more error traps around the AGXEditorNode null error currently being seen.
 	+ Tweak external support for other mods. 
