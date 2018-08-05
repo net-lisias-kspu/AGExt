@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0492: 1.3 (Diazo) for KSP 0.23.5
+	+ KSP 23.5 Compatibility. No other changes of note.
 * 2014-0401: 1.2.1 (Diazo)
 	+ Fix to work with RemoteTech. New users download the file from Spaceport as normal, existing users see this post before updating.
 * 2014-0331: 1.2 (Diazo)
