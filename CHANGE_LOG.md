@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1216: 1.25 (Diazo) for KSP 0.90
+	+ KSP 0.90 fix
+	+ This version runs without error and basic functionality is present.
+	+ While most features should be working, there is a known issue that only Keyset1 works in flight mode.
 * 2014-1129: 1.24.1 (Diazo) for KSP 0.24.2
 	+ NOT KSP 0.90 COMPATIBLE
 	+ Force activate the engine part so that when the Activate Engine or Toggle Engine is activated, the Gimbal attaced to that engine also activates.
