@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0624: 1.33 (Diazo) for KSP 1.0.4
+	+ KSP 1.0.4 Recompile
+	+ Minor tweaks and bugfixes
+	+ ModActions compatibility
 * 2015-0607: 1.32.4 (Diazo) for KSP 1.0
 	+ Compatibility for the new mod ModActions.
 * 2015-0516: 1.32.2 (Diazo) for KSP 1.0
