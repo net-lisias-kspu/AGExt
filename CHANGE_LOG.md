@@ -1,5 +1,11 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0629: 1.7 (Diazo) for KSP 0.23.5
+	+ Flight window now changes its anchor to the bottom of the window when at the bottom of the screen. (Within 20 pixels.)
+	+ Optional toggle state monitoring can be added on a per group basis.
+	+ Actiongroups can now be grouped into 5 views so you can show/hide individual action groups without having to show/hide all of them.
+	+ Added method for other mods to get an actiongroup's activated status. (See dev thread here.)
+	+ This update changes the UI, overview of the changes only here. This first post is in the process of being updated and does not show the changes yet.
 * 2014-0615: 1.6 (Diazo) for KSP 0.23.5
 	+ Fully integrate with KSP's default action groups.
 	+ Hide KSP's default action group editor when AGX is showing.
