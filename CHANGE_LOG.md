@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0404: 1.31.2 (Diazo) for KSP 0.90
+	+ Sub-Assemblies now save Toggle and Hold states.
 * 2015-0403: 1.31.1 (Diazo) for KSP 0.90
 	+ kOS tweaks
 	+ MonitorDefaultActions error loggin
