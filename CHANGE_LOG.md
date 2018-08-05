@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0416: 1.31.7 (Diazo) for KSP 0.90
+	+ Disable toggle checking on hiding window, trying to track down a memory leak.
 * 2015-0411: 1.31.6 (Diazo) for KSP 0.90
 	+ Fix duplicating actions
 * 2015-0411: 1.31.5 (Diazo) for KSP 0.90
