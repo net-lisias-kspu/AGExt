@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0912: 1.15 (Diazo) for KSP 0.24.2
+	+ Fix loading of actions for Spaceplanes when a Spaceplane and a Rocket have the same name.
+	+ Add ability to edit actions on Abort/Brake/Gear/Light action groups in flight mode. (Editor still uses KSP default editor for these groups.)
+	+ Start adding code to support vessels remembering settings after dock/undock. This does not work yet however.
 * 2014-0906: 1.14 (Diazo) for KSP 0.24.2
 	+ Upgrading from Version 1.12 will lose all data, except for the Action assignments themselves on groups 1-10
 	+ Vessels do not save KeySet or Group visibility or names during dock/undock (see comment below)
