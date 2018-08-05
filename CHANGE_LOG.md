@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0428: 1.32 (Diazo) for KSP 1.0
+	+ KSP 1.0 Update.
 * 2015-0419: 1.31.8 (Diazo) for KSP 0.90
 	+ Memory leak fix.
 * 2015-0416: 1.31.7 (Diazo) for KSP 0.90
