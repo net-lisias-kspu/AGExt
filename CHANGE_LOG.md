@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0205: 1.30.1 (Diazo) for KSP 0.90
+	+ Fix ModuleRCS
+	+ Add RemoteTech Bypass
 * 2015-0201: 1.30 (Diazo) for KSP 0.90
 	+ Add remotetech support
 	+ Run cleanup once per session
