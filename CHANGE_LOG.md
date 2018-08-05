@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2016-1031: 2.1.2 (Diazo) for KSP 1.2
+	+ Fix solar panels.
+	+ Change "Toggle" button to "StateVis" (State Visibility) to make clear what it actually does.
 * 2016-1023: 2.1.1 (Diazo) for KSP 1.2
 	+ [blizzy78/ksp_toolbar#39](https://github.com/blizzy78/ksp_toolbar/pull/39)
 	+ No changes to AGX itself, will run with Contract Configurator installed now
