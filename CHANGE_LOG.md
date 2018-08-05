@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0919: 1.16 (Diazo) for KSP 0.24.2
+	+ Refactor Save/Load code in Flight Scene so it will save/load correctly.
+	+ This fixes the Timewarp issue as well.
+	+ Include CCraigen's tweak to make how the mod handles old files better.
 * 2014-0914: 1.15.1 (Diazo) for KSP 0.24.2
 	+ Timewarp fix so data save/loads correctly.
 * 2014-0912: 1.15 (Diazo) for KSP 0.24.2
