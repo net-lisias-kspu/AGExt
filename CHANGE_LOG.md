@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2016-0423: 2.0.1 (Diazo) for KSP 1.1
+	+ Show/Hide mod windows on F2 key.
+	+ Fix settings file so it doesn't void ModuleManager's cache every load.
+	+ Fix nullref error on Flags that have been planted.
 * 2016-0401: 2.0 (Diazo) for KSP 1.1
 	+ KSP 1.1 Update. 
 * 2016-0321: 1.34.2 (Diazo) for KSP 1.0.5
