@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0902: 1.13.6 (Diazo) for KSP 0.24.2
+	+ Add icon showing related part when mouse-over a part in the selected parts window or the current actions window.
+	+ Is a black and yellow square and it shows through other parts.
 * 2014-0901: 1.13.5 (Diazo) for KSP 0.24.2
 	+ Fix group name behavior on docking/undocking
 	+ download pulled as 1.13f superceeds is with bugfixes
