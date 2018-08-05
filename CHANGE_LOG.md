@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1116: 1.22 (Diazo) for KSP 0.24.2
+	+ ExtraPlanatary Launchpads compatibility.
+	+ Tweak Docking Code for weaknesses reveale''''d
 * 2014-1109: 1.21.1 (Diazo) for KSP 0.24.2
 	+ Fix ModuleAnimateGeneric to remove some Action Ambiguous messages.
 	+ Fix showing of Part Cross when not in Action Editing mode
