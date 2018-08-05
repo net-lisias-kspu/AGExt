@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0607: 1.32.4 (Diazo) for KSP 1.0
+	+ Compatibility for the new mod ModActions.
 * 2015-0516: 1.32.2 (Diazo) for KSP 1.0
 	+ Version fix for CKAN.
 	+ Previous version 1.32a still had the version 1.32 .dll file, need to push a new version so CKAN updates.
