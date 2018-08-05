@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0914: 1.15.1 (Diazo) for KSP 0.24.2
+	+ Timewarp fix so data save/loads correctly.
 * 2014-0912: 1.15 (Diazo) for KSP 0.24.2
 	+ Fix loading of actions for Spaceplanes when a Spaceplane and a Rocket have the same name.
 	+ Add ability to edit actions on Abort/Brake/Gear/Light action groups in flight mode. (Editor still uses KSP default editor for these groups.)
