@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-xxyy: 1.7.1 (Diazo) for KSP 0.23.5
+	+ Fix Toggle state so it saves correctly.
 * 2014-0629: 1.7 (Diazo) for KSP 0.23.5
 	+ Flight window now changes its anchor to the bottom of the window when at the bottom of the screen. (Within 20 pixels.)
 	+ Optional toggle state monitoring can be added on a per group basis.
