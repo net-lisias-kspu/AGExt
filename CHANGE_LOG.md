@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0831: 1.13.2 (Diazo) for KSP 0.24.2
+	+ Fix Key Binds so they load correctly and the keyboard can be used to activate action groups.
+	+ Read in action groups from the base 10 KSP groups correctly.
+	+ edit: Pulled file, had some major bugs
 * 2014-0831: 1.13.1 (Diazo) for KSP 0.24.2
 	+ Hotfix to delete the clicked action in flight mode rather then a random action.
 	+ edit: download pulled, key bindings do not load correctly in this version
