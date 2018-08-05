@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1122: 1.23 (Diazo) for KSP 0.24.2
+	+ Add modifier key support
 * 2014-1120: 1.22.2 (Diazo) for KSP 0.24.2
 	+ Add SCANsat (Karbonite) fix for AGX Ambiguous action.
 	+ Initial support for modifier keys (Alt-1) to activate actions. Not yet working in flight, do not use.
