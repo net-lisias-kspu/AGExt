@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0713: 1.8.1 (Diazo) for KSP 0.23.5
+	+ Add Kethane, ScanSAT and started on Firespitter Toggle state monitoring.
 * 2014-xxyy: 1.8 (Diazo) for KSP 0.23.5
 	+ Rewrite Toggle state logic from scratch. Actions are now monitored in real time and when changed via any means (such as a part's right-click menu), the Actions list updates correctly.
 	+ Note that as a part of this, actions that previously could not be monitored (such as if a wheel had its steering inverted) can now be monitored via this feature.
