@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1030: 1.20 (Diazo) for KSP 0.24.2
+	+ Add Part Location crosses (blue plus, green cross, red large cross)
+	+ Add editing of non-numeric actions to editor (Brakes/Lights/etc)
+	+ Add RCS/SAS/Stage action groups to non-numeric editing.
 * 2014-1018: 1.19 (Diazo) for KSP 0.24.2
 	+ Change from Vessel.ID to Part.flightID
 	+ Add ability to override KSP default action groups lockout
