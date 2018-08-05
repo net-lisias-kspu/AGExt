@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0326: 1.31 (Diazo) for KSP 0.90
+	+ Add option to have a "hold-to-activate" group, as per the Brakes group.
+	+ Change how options file saves so it will no longer reset when updating in future versions. (This version will still reset your options however.) This also allows for a modulemanager patch to set options for this mod.
 * 2015-0208: 1.30.3 (Diazo) for KSP 0.90
 	+ Fix Smartparts so local activations are not RemoteTech delayed.
 	+ Tweak RemoteTech bypass so it is a true bypass (both connection and delay)
