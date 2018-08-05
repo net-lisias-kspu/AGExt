@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-1217: 1.34.3 (Diazo) for KSP 1.0.5
+	+ Fix action save/load for new format Squad is using.
+	+ Lock action groups out correctly when a vessel is out of control. (Was being done previously in the wrong way.)
 * 2015-1118: 1.34.2 (Diazo) for KSP 1.0.5
 	+ Fix Editor panels.
 	+ Fix error on Kerbal EVA
