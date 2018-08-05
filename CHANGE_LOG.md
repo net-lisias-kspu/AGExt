@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0411: 1.31.6 (Diazo) for KSP 0.90
+	+ Fix duplicating actions
 * 2015-0411: 1.31.5 (Diazo) for KSP 0.90
 	+ Fix some stupid typos.
 * 2015-0410: 1.31.4 (Diazo) for KSP 0.90
