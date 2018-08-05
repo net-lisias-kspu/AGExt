@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1129: 1.24.1 (Diazo) for KSP 0.24.2
+	+ NOT KSP 0.90 COMPATIBLE
+	+ Force activate the engine part so that when the Activate Engine or Toggle Engine is activated, the Gimbal attaced to that engine also activates.
+	+ Full explanation in forum thread.
 * 2014-1129: 1.24 (Diazo) for KSP 0.24.2
 	+ Add cooldown to action group activation to work around KSP passing a key press twice.
 	+ Move toggle state monitoring from Update() to FixedUpdate()
