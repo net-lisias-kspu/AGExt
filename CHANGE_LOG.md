@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0401: 1.2.1 (Diazo)
+	+ Fix to work with RemoteTech. New users download the file from Spaceport as normal, existing users see this post before updating.
 * 2014-0331: 1.2 (Diazo)
 	+ Bugfix to symmetry placement. You can now assign actions then go back and multiply the part with symmetry.
 	+ Visibility of Flight Window now saved in Flight Scene. At present the only way to hide it is though the Toolbar.
