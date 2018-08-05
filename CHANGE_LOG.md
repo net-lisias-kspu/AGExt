@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1231: 1.28.1 (Diazo) for KSP 0.90
+	+ Fix bug where deleted actions could reappear under some circumstances. 
 * 2014-1230: 1.28 (Diazo) for KSP 0.90
 	+ Add sub-assembly support
 * 2014-1228: 1.27 (Diazo) for KSP 0.90
