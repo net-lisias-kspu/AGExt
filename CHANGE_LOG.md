@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0201: 1.30 (Diazo) for KSP 0.90
+	+ Add remotetech support
+	+ Run cleanup once per session
+	+ add support for COntrol Lock
 * 2015-0108: 1.29.4 (Diazo) for KSP 0.90
 	+ Move Auto-Hide button from the top-left of the Groups window to the Right-Click menu on the toolbar button.
 	+ Fix FSCopter action monitoring code
