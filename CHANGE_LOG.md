@@ -1,5 +1,10 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0608: 1.4.1 (Diazo) for KSP 0.23.5
+	+ Hotfix to allow launching more then one rocket per game load.
+	+ Also includes the start of my work to incorporate the base game actiongroups. The only thing in this version is that Keyset1, Groups 1 to 10 have the same keybind as KSP's default action groups.
+		- IE: Changing the key in the KSP settings window will change the keybind in the AGX keyset window and changing the keybind in the AGX keyset window will change the key in KSP's setting window.
+		- Note that only the Primary key is linked, the Secondary key is not linked and setting a key to this in default KSP will not be affected by AGX.
 * 2014-0607: 1.4 (Diazo) for KSP 0.23.5
 	+ Bugfix and stability release.
 	+ Error trap VAB/SPH so you can't get stuck with a piece picked up you can't drop.
