@@ -1,5 +1,10 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0724: 1.11 (Diazo) for KSP 0.24.2
+	+ KSP 0.24.1 Compatibility confirmation.
+	+ DMagic Orbital Science fix
+	+ Roll up fixes from several test releases including several minor bugfixes.
+	+ Add more detailed logging to try and track down a case where the actions do not save. (Hopefully fixed by KSP 0.24.1, but left in just in case)
 * 2014-0721: 1.10 (Diazo) for KSP 0.24.2
 	+ Further KSP 0.24 tweaks
 	+ Lock down GUI to prevent bleed over from other mods
