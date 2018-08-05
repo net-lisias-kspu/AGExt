@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1224: 1.26 (Diazo) for KSP 0.90
+	+ Add career mode compatibility so that only action groups you have unlocked show up.
+	+ In flight, the highest level building between the SPH and VAB will be used.
+	+ Add override capability for this feature so that you can always use all action groups if you wish.
 * 2014-1222: 1.25.4 (Diazo) for KSP 0.90
 	+ Fix Keysets so they actually work.
 	+ Reduce log spam clutter including removal of AGX Ambiguous message from main screen, it is still logged.
