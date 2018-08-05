@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0901: 1.13.5 (Diazo) for KSP 0.24.2
+	+ Fix group name behavior on docking/undocking
+	+ download pulled as 1.13f superceeds is with bugfixes
 * 2014-0901: 1.13.4 (Diazo) for KSP 0.24.2
 	+ Bugfixing of 1.13 continues
 		- Fix loading of base KSP actions so existing actions import when mod is installed
