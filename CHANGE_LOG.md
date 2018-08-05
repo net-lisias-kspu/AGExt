@@ -1,5 +1,16 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0718: 1.9 (Diazo) for KSP 0.24.2
+	+ Compile for KSP 0.24 64-bit
+	+ Update download to include ModuleManager 2.2.0
+	+ Reduce checking of toggle states from 60 to 3 times a second.
+	+ Add ability to override custom action groups lockout
+	+ Add Interstellar, TAC Life Support to toggle state monitoring.
+	+ Procedural Fairings and Kerbal Attachment system checked and have no actions to monitor.
+	+ Throttle toggle state checking from 60 times a second to 3 times a second.
+* 2014-xxyy: 1.8.2 (Diazo) for KSP 0.23.5
+	+ Full support for Firespitter and add FAR, and Infernal Robotics toggle state monitor.
+	+ Tweak ReactionWheel to only show off when disabled by player, not lack of resources
 * 2014-0713: 1.8.1 (Diazo) for KSP 0.23.5
 	+ Add Kethane, ScanSAT and started on Firespitter Toggle state monitoring.
 * 2014-xxyy: 1.8 (Diazo) for KSP 0.23.5
