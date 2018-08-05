@@ -1,5 +1,11 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0607: 1.4 (Diazo) for KSP 0.23.5
+	+ Bugfix and stability release.
+	+ Error trap VAB/SPH so you can't get stuck with a piece picked up you can't drop.
+	+ When the Flight Scene loads with AGX hidden via the toolbar from a previous game session, ActionGroups will now work without having to show and then hide AGX first.
+	+ Changes made in flight mode now save correctly. Note that I use the exposed KSP save methods, not my own so if you unexpectedly exit (crash, Alt-F4), you may still lose any recent changes you have made.
+	+ Can now select small parts, sort of. Workaround: No change to left click but if you right click a part to show it's menu, that now counts as selecting the part for my mod and will add it to the list.
 * 2014-0492: 1.3 (Diazo) for KSP 0.23.5
 	+ KSP 23.5 Compatibility. No other changes of note.
 * 2014-0401: 1.2.1 (Diazo)
