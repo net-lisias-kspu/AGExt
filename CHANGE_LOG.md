@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1219: 1.25.1 (Diazo) for KSP 0.90
+	+ Various bugfixes
+	+ Add stock toolbar support
+	+ This version does not fix the known issue of only KeySet1 working in flight mode.
 * 2014-1216: 1.25 (Diazo) for KSP 0.90
 	+ KSP 0.90 fix
 	+ This version runs without error and basic functionality is present.
