@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1230: 1.28 (Diazo) for KSP 0.90
+	+ Add sub-assembly support
 * 2014-1228: 1.27 (Diazo) for KSP 0.90
 	+ Fix SPH made vessels not saving their data across game sessions
 	+ ModuleManager is now required for upcoming changes to support sub-assemblies. This is not functional in this version but enough of the code is present that ModuleManager is required in the background for the code to execute.
