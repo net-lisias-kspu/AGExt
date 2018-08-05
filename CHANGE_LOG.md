@@ -1,5 +1,11 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0721: 1.10 (Diazo) for KSP 0.24.2
+	+ Further KSP 0.24 tweaks
+	+ Lock down GUI to prevent bleed over from other mods
+	+ Add detailed logging to try and track down a case of the data not saving
+	+ Tighten up UI so bleed over from other mods can not mess up my GUI window layouts
+	+ Add detailed logging to try and track down a case where the actions do not save.
 * 2014-0718: 1.9 (Diazo) for KSP 0.24.2
 	+ Compile for KSP 0.24 64-bit
 	+ Update download to include ModuleManager 2.2.0
