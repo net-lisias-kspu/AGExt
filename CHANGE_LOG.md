@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1122: 1.23.1 (Diazo) for KSP 0.24.2
+	+ Fix AGX Ambiguous and Toggle State monitoring issues
 * 2014-1122: 1.23 (Diazo) for KSP 0.24.2
 	+ Add modifier key support
 * 2014-1120: 1.22.2 (Diazo) for KSP 0.24.2
