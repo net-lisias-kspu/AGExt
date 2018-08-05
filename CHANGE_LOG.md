@@ -1,5 +1,11 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1109: 1.21.1 (Diazo) for KSP 0.24.2
+	+ Fix ModuleAnimateGeneric to remove some Action Ambiguous messages.
+	+ Fix showing of Part Cross when not in Action Editing mode
+	+ Move Edit In Flight button to the toolbar due to space issues (Right-Click Toolbar, Edit button).
+	+ Add Keyset selection button to Flight window the same as the Group Visibility button.
+	+ Overhaul externally exposed code for other mods to interface (this change will not be visible to the average player.)
 * 2014-1031: 1.20.1 (Diazo) for KSP 0.24.2
 	+ kOS inter-op test version, not for public release
 * 2014-1030: 1.20 (Diazo) for KSP 0.24.2
