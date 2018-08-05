@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2017-1106: 2.3.1 (linuxgurugamer) for KSP 1.3.1
+	+ Simplification and optimization of Flight.CheckActionsActiveActualCode
+* 2017-1104: 2.3.0 (linuxgurugamer) for KSP 1.3.1
+	+ This is just a straight recompile, with my normal updates for my build process
 * 2016-1211: 2.2 (Diazo) for KSP 1.2
 	+ Fix SmartParts radio compatibiliy (OtherVessel class)
 	+ Fix DefaultActionGroups compatibility (Now look for assigned action groups when part placed.)
