@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0403: 1.31.1 (Diazo) for KSP 0.90
+	+ kOS tweaks
+	+ MonitorDefaultActions error loggin
 * 2015-0326: 1.31 (Diazo) for KSP 0.90
 	+ Add option to have a "hold-to-activate" group, as per the Brakes group.
 	+ Change how options file saves so it will no longer reset when updating in future versions. (This version will still reset your options however.) This also allows for a modulemanager patch to set options for this mod.
