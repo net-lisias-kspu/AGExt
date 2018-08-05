@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-xxyy: 1.7.2 (Diazo) for KSP 0.23.5
+	+ Update to ModuleManager Version 2. Update part.cfg to match. 	+ Note that older versions of Module Manager should still work. No .dll changes.
 * 2014-xxyy: 1.7.1 (Diazo) for KSP 0.23.5
 	+ Fix Toggle state so it saves correctly.
 * 2014-0629: 1.7 (Diazo) for KSP 0.23.5
