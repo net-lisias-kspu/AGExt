@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0101: 1.28.2 (Diazo) for KSP 0.90
+	+ Add more error traps around the AGXEditorNode null error currently being seen.
+	+ Tweak external support for other mods. 
 * 2014-1231: 1.28.1 (Diazo) for KSP 0.90
 	+ Fix bug where deleted actions could reappear under some circumstances. 
 * 2014-1230: 1.28 (Diazo) for KSP 0.90
