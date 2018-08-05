@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0710: 1.33.1 (Diazo) for KSP 1.0.4
+	+ Fix symmetry loading bug where a set of symmetry placement parts would always load all actions symmetrically even if the action was only present of one part.
 * 2015-0624: 1.33 (Diazo) for KSP 1.0.4
 	+ KSP 1.0.4 Recompile
 	+ Minor tweaks and bugfixes
