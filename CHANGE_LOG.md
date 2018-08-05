@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-xxyy: 1.23.4 (Diazo) for KSP 0.24.2
+	+ Add expanded logging to track down an error.
+	+ (No binary found)
 * 2014-1128: 1.23.3 (Diazo) for KSP 0.24.2
 	+ Fix AGX Ambiguous and Toggle State monitoring issues
 * 2014-1122: 1.23.1 (Diazo) for KSP 0.24.2
