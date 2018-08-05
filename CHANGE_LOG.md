@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-1112: 1.34 (Diazo) for KSP 1.0.5
+	+ KSP 1.0.5
+	+ Move data storage to PartModule, no more external files.
 * 2015-0710: 1.33.1 (Diazo) for KSP 1.0.4
 	+ Fix symmetry loading bug where a set of symmetry placement parts would always load all actions symmetrically even if the action was only present of one part.
 * 2015-0624: 1.33 (Diazo) for KSP 1.0.4
