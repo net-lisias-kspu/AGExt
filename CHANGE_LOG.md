@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1117: 1.22.1 (Diazo) for KSP 0.24.2
+	+ Add in-game button to right-click button on toolbar to reset window locations when they teleport off screen.
 * 2014-1116: 1.22 (Diazo) for KSP 0.24.2
 	+ ExtraPlanatary Launchpads compatibility.
 	+ Tweak Docking Code for weaknesses reveale''''d
