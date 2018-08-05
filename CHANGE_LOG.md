@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0615: 1.6 (Diazo) for KSP 0.23.5
+	+ Fully integrate with KSP's default action groups.
+	+ Hide KSP's default action group editor when AGX is showing.
 * 2014-0614: 1.5 (Diazo) for KSP 0.23.5
 	+ Add support for multiple partModules with the same name on the same part.
 	+ Add support for multiple actions with the same name on a part.
