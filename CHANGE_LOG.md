@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0105: 1.29.3 (Diazo) for KSP 0.90
+	+ Fix ModuleEnginesFX so they load correctly
+	+ More External Interface tweaks.
 * 2015-0104: 1.29.2 (Diazo) for KSP 0.90
 	+ Further external support tweaks.
 * 2015-0104: 1.29.1 (Diazo) for KSP 0.90
