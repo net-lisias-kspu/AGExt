@@ -1,5 +1,12 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0515: 1.32.1 (Diazo) for KSP 1.0
+	+ Edit: Release file is version 1.32 (oops). Leaving it in place so CKAN does not throw a fit.
+		- Will not be able to upload the correct release until Saturday morning.
+	+ External Interface tweaks (previous commit)
+	+ Monitor FAR spoiler actions correctly
+	+ Add KIS config so parts will stack in inventory
+	+ Fix MERGE option in editor when loading a second craft
 * 2015-0428: 1.32 (Diazo) for KSP 1.0
 	+ KSP 1.0 Update.
 * 2015-0419: 1.31.8 (Diazo) for KSP 0.90
