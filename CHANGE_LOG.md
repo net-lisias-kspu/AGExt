@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1222: 1.25.4 (Diazo) for KSP 0.90
+	+ Fix Keysets so they actually work.
+	+ Reduce log spam clutter including removal of AGX Ambiguous message from main screen, it is still logged.
 * 2014-1219: 1.25.1 (Diazo) for KSP 0.90
 	+ Various bugfixes
 	+ Add stock toolbar support
