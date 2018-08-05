@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0920: 1.16.2 (Diazo) for KSP 0.24.2
+	+ Fix show/hide of AGExt in flight mode
+	+ Rework action-part saving to improve launching of new vessels
 * 2014-0919: 1.16 (Diazo) for KSP 0.24.2
 	+ Refactor Save/Load code in Flight Scene so it will save/load correctly.
 	+ This fixes the Timewarp issue as well.
