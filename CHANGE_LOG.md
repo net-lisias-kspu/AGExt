@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0108: 1.29.4 (Diazo) for KSP 0.90
+	+ Move Auto-Hide button from the top-left of the Groups window to the Right-Click menu on the toolbar button.
+	+ Fix FSCopter action monitoring code
 * 2015-0105: 1.29.3 (Diazo) for KSP 0.90
 	+ Fix ModuleEnginesFX so they load correctly
 	+ More External Interface tweaks.
