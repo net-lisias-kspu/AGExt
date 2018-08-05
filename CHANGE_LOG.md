@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1129: 1.24 (Diazo) for KSP 0.24.2
+	+ Add cooldown to action group activation to work around KSP passing a key press twice.
+	+ Move toggle state monitoring from Update() to FixedUpdate()
 * 2014-xxyy: 1.23.4 (Diazo) for KSP 0.24.2
 	+ Add expanded logging to track down an error.
 	+ (No binary found)
