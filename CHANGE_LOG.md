@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1018: 1.19 (Diazo) for KSP 0.24.2
+	+ Change from Vessel.ID to Part.flightID
+	+ Add ability to override KSP default action groups lockout
+	+ note: This is the correct version 1.19. The previous version 1.19 is a typo, it should be version 1.9 
 * 2014-1004: 1.18 (Diazo) for KSP 0.24.2
 	+ Add USI Survivability Pack Support
 	+ Compile 1.17 fixes for official release
