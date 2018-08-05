@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2016-1211: 2.2 (Diazo) for KSP 1.2
+	+ Fix SmartParts radio compatibiliy (OtherVessel class)
+	+ Fix DefaultActionGroups compatibility (Now look for assigned action groups when part placed.)
+	+ Revise Kerbal Reboarding method so hopefully it isn't considered a sub-vessel.
 * 2016-1031: 2.1.2 (Diazo) for KSP 1.2
 	+ Fix solar panels.
 	+ Change "Toggle" button to "StateVis" (State Visibility) to make clear what it actually does.
