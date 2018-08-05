@@ -1,5 +1,10 @@
 # Action Groups Extended :: Change Log
 
+* 2014-0906: 1.14 (Diazo) for KSP 0.24.2
+	+ Upgrading from Version 1.12 will lose all data, except for the Action assignments themselves on groups 1-10
+	+ Vessels do not save KeySet or Group visibility or names during dock/undock (see comment below)
+	+ Add ability to select parts from list rather then clicking on the vessel.
+	+ Mod now cleans up after itself and deletes old AGExt00000.cfg files automatically.
 * 2014-0902: 1.13.6 (Diazo) for KSP 0.24.2
 	+ Add icon showing related part when mouse-over a part in the selected parts window or the current actions window.
 	+ Is a black and yellow square and it shows through other parts.
