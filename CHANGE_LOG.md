@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1228: 1.27 (Diazo) for KSP 0.90
+	+ Fix SPH made vessels not saving their data across game sessions
+	+ ModuleManager is now required for upcoming changes to support sub-assemblies. This is not functional in this version but enough of the code is present that ModuleManager is required in the background for the code to execute.
 * 2014-1224: 1.26 (Diazo) for KSP 0.90
 	+ Add career mode compatibility so that only action groups you have unlocked show up.
 	+ In flight, the highest level building between the SPH and VAB will be used.
