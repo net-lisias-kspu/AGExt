@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0516: 1.32.2 (Diazo) for KSP 1.0
+	+ Version fix for CKAN.
+	+ Previous version 1.32a still had the version 1.32 .dll file, need to push a new version so CKAN updates.
 * 2015-0515: 1.32.1 (Diazo) for KSP 1.0
 	+ Edit: Release file is version 1.32 (oops). Leaving it in place so CKAN does not throw a fit.
 		- Will not be able to upload the correct release until Saturday morning.
