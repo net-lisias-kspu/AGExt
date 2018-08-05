@@ -1,5 +1,11 @@
 # Action Groups Extended :: Change Log
 
+* 2014-1004: 1.18 (Diazo) for KSP 0.24.2
+	+ Add USI Survivability Pack Support
+	+ Compile 1.17 fixes for official release
+	+ Notable changes:
+		- Add undo functionality
+		- Fix deletion/creating of same named vessels compatibiliy
 * 2014-xxyy: 1.17.1 (Diazo) for KSP 0.24.2
 	+ Version 1.17a through 1.17f
 	+ Add Near Future and RemoteTech support (remove Action Ambiguous message).
