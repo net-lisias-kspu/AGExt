@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2015-0208: 1.30.3 (Diazo) for KSP 0.90
+	+ Fix Smartparts so local activations are not RemoteTech delayed.
+	+ Tweak RemoteTech bypass so it is a true bypass (both connection and delay)
+	+ Fix issue where disabled actions were not being hidden
 * 2015-0205: 1.30.1 (Diazo) for KSP 0.90
 	+ Fix ModuleRCS
 	+ Add RemoteTech Bypass
