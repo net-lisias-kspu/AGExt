@@ -1,31 +1,33 @@
 {
-  "NAME": "AGExt",
-  "URL": "http://ksp-avc.cybutek.net/version.php?id=529",
-  "DOWNLOAD": "https://github.com/linuxgurugamer/AGExt/releases",
-  "GITHUB" :
-  {
-	"USERNAME" : "linuxgurugamer",
-	"REPOSITORY" : "AGExt"
-  },
-  "VERSION": {
-    "MAJOR": 2,
-    "MINOR": 3,
-    "PATCH": 3,
-    "BUILD": 6
-  },
-  "KSP_VERSION": {
-    "MAJOR": 1,
-    "MINOR": 4,
-    "PATCH": 1
-  },
-  "KSP_VERSION_MIN": {
-    "MAJOR": 1,
-    "MINOR": 4,
-    "PATCH": 1
-  },
-  "KSP_VERSION_MAX": {
-    "MAJOR": 1,
-    "MINOR": 4,
-    "PATCH": 99
-  }
+	"NAME":		"AGExt Unofficial",
+	"URL":		"https://raw.githubusercontent.com/net-lisias-kspu/AGExt/master/AGExt.version",
+	"DOWNLOAD":	"https://github.com/net-lisias-kspu/AGExt/releases".
+	"CHANGE_LOG":	"https://raw.githubusercontent.com/net-lisias-kspu/AGExt/master/CHANGE_LOG.md",
+	"CHANGE_LOG_URL":"https://raw.githubusercontent.com/net-lisias-kspu/AGExt/master/CHANGES.md",
+	"GITHUB": {
+		"USERNAME": "net-lisias-kspu",
+		"REPOSITORY": "AGExt"
+		"ALLOW_PRE_RELEASE":false
+		},
+	"VERSION":{
+		"MAJOR":2,
+		"MINOR":3,
+		"PATCH":3,
+		"BUILD":6
+		},
+	"KSP_VERSION":{
+		"MAJOR":1,
+		"MINOR":4,
+		"PATCH":1
+		},
+	"KSP_VERSION_MIN":{
+		"MAJOR":1,
+		"MINOR":4,
+		"PATCH":1
+		},
+	"KSP_VERSION_MAX":{
+		"MAJOR":1,
+		"MINOR":4,
+		"PATCH":99
+		}
 }
