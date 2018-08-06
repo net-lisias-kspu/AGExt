@@ -43,43 +43,56 @@ namespace ActionGroupsExtended
 
     public static class AGXStaticData
     {
-        public static bool cleanupAlreadyRun = false;
+		public static readonly string GAMEDATA_DIR = Path.Combine(KSPUtil.ApplicationRootPath, "GameData/Diazo/AGExt");
+		public static readonly string PLUGINDATA_DIR = Path.Combine(KSPUtil.ApplicationRootPath, "PluginData/Diazo/AGExt");
+		public static bool cleanupAlreadyRun = false;
         public static ConfigNode AGExtConfig;
         public static bool nodeLoaded = false;
         public static ConfigNode LoadBaseConfigNode()
 
         {
-            if (nodeLoaded)
+			if (nodeLoaded)
             {
                 return AGExtConfig;
             }
             else
             {
-                ConfigNode nodeLoad =new ConfigNode("AGExtConfig");
-                if(System.IO.File.Exists(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/AGExt.settings"))
+				if (!System.IO.Directory.Exists(PLUGINDATA_DIR)) System.IO.Directory.CreateDirectory(PLUGINDATA_DIR);
+
+				ConfigNode nodeLoad =new ConfigNode("AGExtConfig");
+
+				string current_path = Path.Combine(PLUGINDATA_DIR, "AGExt.settings");
+				string previous_path = Path.Combine(GAMEDATA_DIR, "AGExt.settings");
+				string old_name = Path.Combine(GAMEDATA_DIR, "AGext.cfg");
+				if (System.IO.File.Exists(current_path))
                 {
-                    ConfigNode tempNode = ConfigNode.Load(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/AGExt.settings");
+					ConfigNode tempNode = ConfigNode.Load(current_path);
                     nodeLoad = tempNode.GetNode("AGExtConfig");
-                    Log.Info("Case 1 " + nodeLoad.ToString());
+					Log.Info("Case 1 " + nodeLoad.ToString() + " - " + current_path);
                 }
-                else if (System.IO.File.Exists(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/AGext.cfg"))
+				else if (System.IO.File.Exists(old_name))
                 {
-                    ConfigNode tempNode = ConfigNode.Load(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/AGext.cfg");
+					ConfigNode tempNode = ConfigNode.Load(old_name);
                     nodeLoad = tempNode.GetNode("AGExtConfig");
-                    System.IO.File.Delete(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/AGext.cfg");
-                    Log.Info("Case 2 " + nodeLoad.ToString());
-                }
-                //else
-                //{
-                //    Log.Info("case 3 " + nodeLoad.ToString());
-                //}
-                
-                //nodeLoad = GameDatabase.Instance.GetConfigNode("Diazo/AGExt/AGExt/AGExtConfig");
-                //if (nodeLoad == null)
-                //{
-                //    nodeLoad = new ConfigNode("AGExtConfig");
-                //}
-                if (!nodeLoad.HasValue("name"))
+					nodeLoad.Save(current_path); // Prevents dataloss in case of crash
+					System.IO.File.Delete(old_name);
+					Log.Info("Case 2 " + nodeLoad.ToString() + " - " + old_name);
+				}
+				else if (System.IO.File.Exists(previous_path))
+				{
+					ConfigNode tempNode = ConfigNode.Load(previous_path);
+					nodeLoad = tempNode.GetNode("AGExtConfig");
+					nodeLoad.Save(current_path); // Prevents dataloss in case of crash
+					System.IO.File.Delete(previous_path);
+					Log.Info("Case 3 " + nodeLoad.ToString() + " - " + previous_path);
+				}
+
+				//nodeLoad = GameDatabase.Instance.GetConfigNode("Diazo/AGExt/AGExt/AGExtConfig");
+				//if (nodeLoad == null)
+				//{
+				//    nodeLoad = new ConfigNode("AGExtConfig");
+				//}
+				if (!nodeLoad.HasValue("name"))
                 {
                     nodeLoad.AddValue("name", "AGExtConfig");
                 }
@@ -344,9 +357,10 @@ namespace ActionGroupsExtended
 
         public static void SaveBaseConfigNode(ConfigNode cNode)
         {
-            ConfigNode toSave = new ConfigNode("AGExtConfig");
+			if (!System.IO.Directory.Exists(PLUGINDATA_DIR)) System.IO.Directory.CreateDirectory(PLUGINDATA_DIR);
+			ConfigNode toSave = new ConfigNode("AGExtConfig");
             toSave.AddNode(cNode);
-            toSave.Save(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/AGExt.settings");
+			toSave.Save(Path.Combine(PLUGINDATA_DIR, "AGExt.settings"));
 
         }
     }
