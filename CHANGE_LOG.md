@@ -1,5 +1,10 @@
 # Action Groups Extended :: Change Log
 
+* 2018-0316: 2.3.3 (linuxgurugamer) for KSP 1.4.1
+	+ Updated for 1.4.1
+	+ Added support for the Toolbar Controller
+	+ Added simple settings page to toggle use of the Blizzy toolbar
+	+ Added additional button to settings window to toggle Blizzy toolbar
 * 2018-0302: 2.3.2.3 (linuxgurugamer) for KSP 1.3.1
 	+ Thanks to forum user @Arivald Ha'gel for the following:
 		- Invalid conversion from uint to int fixed
