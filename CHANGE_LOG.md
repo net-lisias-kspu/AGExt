@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2018-0408: 2.3.3.2 (linuxgurugamer) for KSP 1.4.2
+	+ Fixed missing localization function for Group2 in Flight
 * 2018-0407: 2.3.3.1 (linuxgurugamer) for KSP 1.4.2
 	+ Fixed localization typo for Group2 in Editor
 * 2018-0316: 2.3.3 (linuxgurugamer) for KSP 1.4.1
