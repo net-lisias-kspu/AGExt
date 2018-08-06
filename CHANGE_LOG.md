@@ -1,5 +1,9 @@
 # Action Groups Extended :: Change Log
 
+* 2018-0302: 2.3.2.3 (linuxgurugamer) for KSP 1.3.1
+	+ Thanks to forum user @Arivald Ha'gel for the following:
+		- Invalid conversion from uint to int fixed
+	+ Added support for the Click Through Blocker.  ClickThroughBlocker is now a requirement
 * 2018-0201: 2.3.2.2 (linuxgurugamer) for KSP 1.3.1
 	+ Fixed localization strings in the editor
 * 2018-0127: 2.3.2.1 (linuxgurugamer) for KSP 1.3.1
