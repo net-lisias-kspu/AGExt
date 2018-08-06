@@ -1,3 +1,0 @@
-Action Groups Extended source can be found on GitHub at:
-
-https://github.com/SirDiazo/AGExt
