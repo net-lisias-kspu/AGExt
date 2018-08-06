@@ -1,5 +1,7 @@
 # Action Groups Extended :: Change Log
 
+* 2018-0201: 2.3.2.2 (linuxgurugamer) for KSP 1.3.1
+	+ Fixed localization strings in the editor
 * 2018-0127: 2.3.2.1 (linuxgurugamer) for KSP 1.3.1
 	+ Moved Localization folder into AGExt (was being missed by Jenkins)
 * 2018-0122: 2.3.2 (linuxgurugamer) for KSP 1.3.1
