@@ -1,5 +1,8 @@
 # Action Groups Extended :: Change Log
 
+* 2018-0412: 2.3.3.4 (linuxgurugamer) for KSP 1.4.2
+	+ Commented out MM code which was adding depreciated ModuleAGX to all parts
+	+ Commented out unused variables
 * 2018-0408: 2.3.3.3 (linuxgurugamer) for KSP 1.4.2
 	+ Added German Translation
 * 2018-0408: 2.3.3.2 (linuxgurugamer) for KSP 1.4.2
