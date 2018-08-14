@@ -1,6 +1,6 @@
 .vs
 */obj
-**/Version.cs
+**/Properties/Version.cs
 bin
 Archive
 GameData/**/README.md
