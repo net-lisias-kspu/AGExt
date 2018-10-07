@@ -25,10 +25,18 @@ To override and always have all action groups available, find the `KSP\GameData\
 - Toggle monitoring allows visual feedback of actions that lack this, such as the "Inverted Steering" on a wheel.
 - Supports saving actions to sub-assemblies
 
-### Dependencies
+## Installation
 
-* [ToolbarController](https://forum.kerbalspaceprogram.com/index.php?/topic/169509-141-toolbar-controller-for-modders/)
-* [Module Manager](https://github.com/sarbian/ModuleManager)
+To install, place the GameData folder inside your Kerbal Space Program folder.
+
+**REMOVE ANY OLD VERSIONS OF THE PRODUCT BEFORE INSTALLING**.
+
+### Dependencies
+* Hard Dependencies
+<!--		* [KSP API Extensions/L](https://github.com/net-lisias-ksp/KSPAPIExtensions) 2.0 or newer -->
+	* [Toolbar Control](https://github.com/net-lisias-kspu/ToolbarControl) 0.1.6.15 or newer
+* Soft Dependencies
+	* [Module Manager](https://github.com/sarnet-lisias-kspu/ModuleManager)
 
 ### License
 
