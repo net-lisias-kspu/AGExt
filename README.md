@@ -27,7 +27,6 @@ To override and always have all action groups available, find the `KSP\GameData\
 
 ### Dependencies
 
-* [Click Through Blocker](https://forum.kerbalspaceprogram.com/index.php?/topic/170747-141-click-through-blocker/)
 * [ToolbarController](https://forum.kerbalspaceprogram.com/index.php?/topic/169509-141-toolbar-controller-for-modders/)
 * [Module Manager](https://github.com/sarbian/ModuleManager)
 

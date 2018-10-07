@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGExt", "AGExt\AGExt.csproj", "{64CDFB25-9856-4B24-A0C4-5DDC0DD1AB8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGExt", "Source\AGExt\AGExt.csproj", "{64CDFB25-9856-4B24-A0C4-5DDC0DD1AB8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{72516D45-C60B-4DDB-AB07-AA1D4515B3C5}"
 	ProjectSection(SolutionItems) = preProject
