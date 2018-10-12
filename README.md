@@ -6,10 +6,10 @@ Kerbal Space Program mod that increases the number of action groups to 250 and a
 ## In a Hurry
 
 * [Latest Release](https://github.com/net-lisias-kspu/AGExt/releases)
+    + [Binaries](https://github.com/net-lisias-kspu/AGExt/tree/Archive)
 * [Source](https://github.com/net-lisias-kspu/AGExt)
-* [Releases](https://github.com/net-lisias-kspu/AGExt/tree/Archive)
 * [Change Log](./CHANGE_LOG.md)
- 
+
 
 ## Description
 
