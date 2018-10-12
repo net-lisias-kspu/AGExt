@@ -4,11 +4,6 @@
 	"DOWNLOAD"	: "https://github.com/net-lisias-kspu/AGExt/releases",
 	"CHANGE_LOG"	: "https://raw.githubusercontent.com/net-lisias-kspu/AGExt/master/CHANGE_LOG.md",
 	"CHANGE_LOG_URL":"https://raw.githubusercontent.com/net-lisias-kspu/AGExt/master/CHANGES.md",
-	"GITHUB": {
-		"USERNAME": "net-lisias-kspu",
-		"REPOSITORY": "AGExt",
-		"ALLOW_PRE_RELEASE":false
-		},
 	"VERSION":{
 		"MAJOR":2,
 		"MINOR":3,
