@@ -1,3 +1,6 @@
+2.3.4
+	Fixed panel selection for KSP 1.7, now required to wait until panel is displayed, the internal flags in KSP are now being set slightly differently
+
 2.3.3.7
 	Version bump for 1.5 rebuild
 
