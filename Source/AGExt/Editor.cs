@@ -792,6 +792,7 @@ namespace ActionGroupsExtended
             {
                 if (showCareerStockAGs)
                 {
+                    Log.Info("onLeftButtonClick, EditorLogic.fetch.editorScreen: " + EditorLogic.fetch.editorScreen);
                     if (EditorLogic.fetch.editorScreen != EditorScreen.Actions)
                     {
                         if (EditorLogic.SortedShipList.Count > 0)
@@ -4080,29 +4081,111 @@ namespace ActionGroupsExtended
         //    }
         //}
 
-
+        static bool transitioning = false;
         public void Update()
         {
             string errLine = "1";
             Log.Info("update start " +Time.realtimeSinceStartup);
             try
             {
-                //Log.Info("panels current " + EditorPanels.Instance.panelManager.CurrentPanel.ToString());
+                //Log.Info("EditorLogic.fetch.editorScreen " + EditorLogic.fetch.editorScreen.ToString());
 
+                switch (EditorLogic.fetch.editorScreen)
+                {
+                    case EditorScreen.Parts:
+                        if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.partsEditor.State != "In")
+                        {
+
+                            Log.Info("BRING IN PARTS");
+
+                            if (!transitioning)
+                            {
+                                EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.partsEditor);
+                                transitioning = true;
+                            }
+
+                        }
+                        else
+                            transitioning = false;
+                        break;
+
+                    case EditorScreen.Crew:
+                        if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.crew.State != "In")
+                        {
+
+                            Log.Info("BRING IN CREW");
+
+                            if (!transitioning)
+                            {
+                                EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.crew);
+                                transitioning = true;
+                            }
+
+                        }
+                        else
+                            transitioning = false;
+                        break;
+
+                    case EditorScreen.Actions:
+                        if (AGXShow)
+                        {
+                            if (EditorPanels.Instance.panelManager != null)
+                            {
+                                Log.Info("HIDE PANELS");
+                                EditorPanels.Instance.panelManager.Dismiss(EditorPanels.Instance.actions);
+                            }
+                        }
+                        else
+                        {
+                            if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.actions.State != "In")
+                            {
+                                Log.Info("BRING IN ACTIONS");
+                                if (!transitioning)
+                                {
+                                    EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.actions);
+                                    transitioning = true;
+                                }
+                            }
+                            else
+                                transitioning = false;
+                        }
+
+                        break;
+                }
+#if false
                 if (EditorLogic.fetch.editorScreen == EditorScreen.Parts)
                 {
                     if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.partsEditor.State != "In")
                     {
+
                         Log.Info("BRING IN PARTS");
-                        EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.partsEditor);
+                       
+                        if (!transitioning)
+                        {
+                            EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.partsEditor);
+                            transitioning = true;
+                        }
+
                     }
+                    else
+                        transitioning = false;
                 }
                 else if (EditorLogic.fetch.editorScreen == EditorScreen.Crew)
                 {
                     if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.crew.State != "In")
                     {
+                        
                         Log.Info("BRING IN CREW");
-                        EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.crew);
+                        
+                        if (!transitioning)
+                        {
+                            EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.crew);
+                            transitioning = true;
+                        }
+                        
+                    } else
+                    {
+                        transitioning = false;
                     }
                 }
                 else if (EditorLogic.fetch.editorScreen == EditorScreen.Actions)
@@ -4120,12 +4203,20 @@ namespace ActionGroupsExtended
                         if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.actions.State != "In")
                         {
                             Log.Info("BRING IN ACTIONS");
-                            EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.actions);
+                            if (!transitioning)
+                            {
+                                EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.actions);
+                                transitioning = true;
+                            }
                         }
+                        else
+                            transitioning = false;
+
                     }
                 }
-
-                EditorLogic ELCur = new EditorLogic();
+                
+#endif
+                EditorLogic ELCur; // = new EditorLogic();
                 ELCur = EditorLogic.fetch;//get current editor logic instance
 
                 errLine = "2";
