@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
 using System.Reflection;
 using System.Collections;
 using KSP.UI.Screens;
 using KSP.Localization;
 using UnityEngine;
-using AGExt;
 using ToolbarControl_NS;
 
 namespace ActionGroupsExtended

@@ -2,13 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
 using System.Timers;
 using UnityEngine;
 using KSP.UI.Screens;
 using KSP.Localization;
-using AGExt;
 using ToolbarControl_NS;
 
 
