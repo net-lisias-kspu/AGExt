@@ -9,6 +9,9 @@ using KSP.Localization;
 using UnityEngine;
 using ToolbarControl_NS;
 
+using GUILayout = KSPe.UI.GUILayout;
+using GUI = KSPe.UI.GUI;
+
 namespace ActionGroupsExtended
 {
     [KSPAddon(KSPAddon.Startup.Flight, false)]

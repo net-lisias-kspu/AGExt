@@ -9,6 +9,8 @@ using KSP.UI.Screens;
 using KSP.Localization;
 using ToolbarControl_NS;
 
+using GUILayout = KSPe.UI.GUILayout;
+using GUI = KSPe.UI.GUI;
 
 
 namespace ActionGroupsExtended

@@ -72,6 +72,9 @@
     <Reference Include="ToolbarControl">
       <HintPath>..\..\..\..\..\..\LIB\plugins\ToolbarControl.dll</HintPath>
     </Reference>
+    <Reference Include="KSPe.UI">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.UI.dll</HintPath>
+    </Reference>
     <Reference Include="KSPe">
       <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
     </Reference>

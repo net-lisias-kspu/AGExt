@@ -5,6 +5,8 @@ using System.Text;
 
 using UnityEngine;
 
+using GUILayout = KSPe.UI.GUILayout;
+using GUI = KSPe.UI.GUI;
 
 namespace ActionGroupsExtended
 {
