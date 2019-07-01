@@ -1,105 +1,53 @@
-﻿using System;
-using System.Collections;
-using System.Diagnostics;
+using UnityEngine;
 
-namespace AGExt
+using Logger = KSPe.Util.Log.Logger;
+
+namespace ActionGroupsExtended
 {
     public static class Log
     {
-        public enum LEVEL
-        {
-            OFF = 0,
-            ERROR = 1,
-            WARNING = 2,
-            INFO = 3,
-            DETAIL = 4,
-            TRACE = 5
-        };
+        private static readonly Logger LOG = Logger.CreateForType<AGXEditor>();
 
-        public static LEVEL level = LEVEL.INFO;
-
-        private static readonly String PREFIX = "AGExt" + ": ";
-
-        public static LEVEL GetLevel()
-        {
-            return level;
+        public static int debuglevel {
+            get => (int)LOG.level;
+            set => LOG.level = (KSPe.Util.Log.Level)(value % 6);
         }
 
-        public static void SetLevel(LEVEL level)
+        public static void log(string format, params object[] @parms)
         {
-            UnityEngine.Debug.Log("log level " + level);
-            Log.level = level;
+            LOG.force(format, parms);
         }
 
-        public static LEVEL GetLogLevel()
+        public static void Detail(string format, params object[] @parms)
         {
-            return level;
+            LOG.detail(format, parms);
         }
 
-        private static bool IsLevel(LEVEL level)
+        public static void Info(string format, params object[] @parms)
         {
-            return level == Log.level;
+            LOG.info(format, parms);
         }
 
-        public static bool IsLogable(LEVEL level)
+        public static void Warn(string format, params object[] @parms)
         {
-            return level <= Log.level;
+            LOG.warn(format, parms);
         }
 
-        public static void Trace(String msg)
+        public static void Err(string format, params object[] parms)
         {
-            if (IsLogable(LEVEL.TRACE))
-            {
-                UnityEngine.Debug.Log(PREFIX + msg);
-            }
+            LOG.error(format, parms);
         }
 
-        public static void Detail(String msg)
+        public static void ex(MonoBehaviour offended, System.Exception e)
         {
-            if (IsLogable(LEVEL.DETAIL))
-            {
-                UnityEngine.Debug.Log(PREFIX + msg);
-            }
+            LOG.error(offended, e);
         }
 
-        [ConditionalAttribute("DEBUG")]
-        public static void Info(String msg)
+        // TODO: Deixar ativado apenas em DEBUG *OU* Experimental
+        //[Conditional("DEBUG")]
+        public static void Dbg(string format, params object[] @parms)
         {
-            if (IsLogable(LEVEL.INFO))
-            {
-                UnityEngine.Debug.Log(PREFIX + msg);
-            }
+            LOG.dbg(format, parms);
         }
-
-        [ConditionalAttribute("DEBUG")]
-        public static void Test(String msg)
-        {
-            //if (IsLogable(LEVEL.INFO))
-            {
-                UnityEngine.Debug.LogWarning(PREFIX + "TEST:" + msg);
-            }
-        }
-
-        public static void Warning(String msg)
-        {
-            if (IsLogable(LEVEL.WARNING))
-            {
-                UnityEngine.Debug.LogWarning(PREFIX + msg);
-            }
-        }
-
-        public static void Error(String msg)
-        {
-            if (IsLogable(LEVEL.ERROR))
-            {
-                UnityEngine.Debug.LogError(PREFIX + msg);
-            }
-        }
-
-        public static void Exception(Exception e)
-        {
-            Log.Error("exception caught: " + e.GetType() + ": " + e.Message);
-        }
-
     }
 }
