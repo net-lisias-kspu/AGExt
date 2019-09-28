@@ -48,8 +48,8 @@ namespace ActionGroupsExtended
 		public static bool cleanupAlreadyRun = false;
         public static ConfigNode AGExtConfig;
         public static bool nodeLoaded = false;
+        
         public static ConfigNode LoadBaseConfigNode()
-
         {
 			if (nodeLoaded)
             {
@@ -57,8 +57,14 @@ namespace ActionGroupsExtended
             }
             else
             {
-                if (SETTINGS.IsLoadable) SETTINGS.Load();
-
+                if (SETTINGS.IsLoadable) 
+                {
+                    SETTINGS.Load();
+                    nodeLoaded = true;
+                    return SETTINGS.Node;
+                }
+                
+                SETTINGS.Clear();
 				ConfigNode nodeLoad = SETTINGS.Node;
 
 				string deprecated_path = Path.Combine(PLUGINDATA_DIR_DEPRECATED, "AGExt.settings");
