@@ -1387,7 +1387,7 @@ namespace ActionGroupsExtended
                             }
                         }
                         ErrLine = "11";
-                        foreach (AGXPart agPrt in AGEditorSelectedParts)
+                        foreach (AGXPart agPrt in AGEditorSelectedParts) if (null != agPrt.AGPart)
                         {
                             ErrLine = "3";
                             Vector3 partScreenPosB = FlightCamera.fetch.mainCamera.WorldToScreenPoint(agPrt.AGPart.transform.position);

@@ -1,3 +1,19 @@
+ChangeLog
+
+2.4.0.1
+	Fixed nullref on an edge case:
+		* Have the action editor open before going on EVA.
+		* Left click on EVA Kerbal to select in editor (blue cross)
+		* Board vessel
+		* Exception spam
+		
+2.4.0
+	Updated for KSP 1.8
+
+2.3.5
+	Added InstallChecker.cs
+	Updated AssemblyVersion.tt
+
 2.3.4.1
 	fixed missing kOSVoidAction
 
