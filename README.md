@@ -8,7 +8,11 @@ Kerbal Space Program mod that increases the number of action groups to 250 and a
 * [Latest Release](https://github.com/net-lisias-kspu/AGExt/releases)
     + [Binaries](https://github.com/net-lisias-kspu/AGExt/tree/Archive)
 * [Source](https://github.com/net-lisias-kspu/AGExt)
-* [Change Log](./CHANGE_LOG.md)
+* Documentation
+	+ [Project's README](https://github.com/net-lisias-kspu/AGExt/blob/master/README.md)
+	+ [Install Instructions](https://github.com/net-lisias-kspu/AGExt/blob/master/INSTALL.md)
+	+ [Change Log](./CHANGE_LOG.md)
+	+ [Known Issues](./KNOWN_ISSUES.md)
 
 
 ## Description
@@ -53,6 +57,8 @@ This work is licensed under the [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.t
 	- You relicense (and fully comply) your works using GPL 2.0 (or later)
 	- You don't mix your work with GPL incompatible works.
 
+See [NOTICE](./NOTICE) for further copyright and trademarks notices.
+
 
 ## UPSTREAM
 
@@ -66,3 +72,4 @@ This work is licensed under the [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.t
 
 
 
+	
