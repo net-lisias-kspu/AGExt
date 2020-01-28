@@ -51,6 +51,7 @@
     <Compile Include="Properties\Version.cs">
       <DependentUpon>Version.tt</DependentUpon>
     </Compile>
+    <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

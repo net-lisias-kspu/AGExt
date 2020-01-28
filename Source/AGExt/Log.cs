@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 
 using Logger = KSPe.Util.Log.Logger;
@@ -43,8 +44,7 @@ namespace ActionGroupsExtended
             LOG.error(offended, e);
         }
 
-        // TODO: Deixar ativado apenas em DEBUG *OU* Experimental
-        //[Conditional("DEBUG")]
+        [Conditional("DEBUG")]
         public static void Dbg(string format, params object[] @parms)
         {
             LOG.dbg(format, parms);
