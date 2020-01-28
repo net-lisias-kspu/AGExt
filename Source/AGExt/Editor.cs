@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Timers;
 using UnityEngine;
 using KSP.UI.Screens;
@@ -13,7 +14,8 @@ using GUI = KSPe.UI.GUI;
 
 namespace ActionGroupsExtended
 {
-	using File = KSPe.IO.File<Startup>;
+	using Asset = KSPe.IO.Asset<AGXEditor>;
+	using File = KSPe.IO.File<AGXEditor>;
 
     [KSPAddon(KSPAddon.Startup.EditorAny, false)]
     public class AGXEditor : PartModule
@@ -124,12 +126,18 @@ namespace ActionGroupsExtended
         private static GUIStyle AGXLblStyle = null; //window style
         private static GUIStyle AGXBtnStyle = null; //window style
         private static GUIStyle AGXFldStyle = null; //window style
+        private readonly Texture2D ButtonTexture = Asset.Texture2D.LoadFromFile("Textures", "ButtonTexture");
+        private readonly Texture2D ButtonTextureRed = Asset.Texture2D.LoadFromFile("Textures", "ButtonTextureRed");
+        private readonly Texture2D ButtonTextureGreen = Asset.Texture2D.LoadFromFile("Textures", "ButtonTextureGreen");
         //bool checkShipsExist = false; //flag to check existing ships on load window open
         //int checkShipsExistDelay = 0;//delay timer to wait after opening load ship window
         static bool inVAB = true; //true if in VAB, flase in SPH
         bool highlightPartThisFrameSelWin = false;
         bool highlightPartThisFrameActsWin = false;
         Part partToHighlight = null;
+        private readonly Texture2D PartCenter = Asset.Texture2D.LoadFromFile("Textures", "PartLocationCross");
+        private readonly Texture2D PartCross = Asset.Texture2D.LoadFromFile("Textures", "PartLocCross");
+        private readonly Texture2D PartPlus = Asset.Texture2D.LoadFromFile("Textures", "PartLocPlus");
         bool showAllPartsList = false; //show list of all parts in group window?
         List<string> showAllPartsListTitles; //list of all parts with actions to show in group window
         KSPActionGroup KSPDefaultLastActionGroup = KSPActionGroup.Custom01;
@@ -224,16 +232,16 @@ namespace ActionGroupsExtended
 
 
             }
-            AGXBtnStyle.normal.background = AutoHideGroupsWin ? UI.ButtonTextureRed : UI.ButtonTexture;
-            AGXBtnStyle.hover.background = AutoHideGroupsWin ? UI.ButtonTextureRed : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = AutoHideGroupsWin ? ButtonTextureRed : ButtonTexture;
+            AGXBtnStyle.hover.background = AutoHideGroupsWin ? ButtonTextureRed : ButtonTexture;
             // if (GUI.Button(new Rect(10, 50, 130, 25), "Auto-Hide Groups", AGXBtnStyle))
             if (GUI.Button(new Rect(10, 50, 130, 25), Localizer.Format("#AGEXT_UI_setting_auto_hide_groups"), AGXBtnStyle))
             {
                 AutoHideGroupsWin = !AutoHideGroupsWin;
             }
 
-            AGXBtnStyle.normal.background = UI.ButtonTexture;
-            AGXBtnStyle.hover.background = UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ButtonTexture;
+            AGXBtnStyle.hover.background = ButtonTexture;
 
         }
         public void Start()
@@ -292,6 +300,8 @@ namespace ActionGroupsExtended
 
 
                 AGXguiKeys = new Dictionary<int, KeyCode>();
+
+
 
                 for (int i = 1; i <= 250; i = i + 1)
                 {
@@ -554,14 +564,14 @@ namespace ActionGroupsExtended
                 //print("AGX " + AGXBtnStyle.normal.background);
                 //byte[] testXport = AGXBtnStyle.normal.background.EncodeToPNG();
                 //File.WriteAllBytes(Application.dataPath + "/SavedScreen.png", testXport);
-                AGXBtnStyle.normal.background = UI.ButtonTexture;
-                AGXBtnStyle.onNormal.background = UI.ButtonTexture;
-                AGXBtnStyle.onActive.background = UI.ButtonTexture;
-                AGXBtnStyle.onFocused.background = UI.ButtonTexture;
-                AGXBtnStyle.onHover.background = UI.ButtonTexture;
-                AGXBtnStyle.active.background = UI.ButtonTexture;
-                AGXBtnStyle.focused.background = UI.ButtonTexture;
-                AGXBtnStyle.hover.background = UI.ButtonTexture;
+                AGXBtnStyle.normal.background = ButtonTexture;
+                AGXBtnStyle.onNormal.background = ButtonTexture;
+                AGXBtnStyle.onActive.background = ButtonTexture;
+                AGXBtnStyle.onFocused.background = ButtonTexture;
+                AGXBtnStyle.onHover.background = ButtonTexture;
+                AGXBtnStyle.active.background = ButtonTexture;
+                AGXBtnStyle.focused.background = ButtonTexture;
+                AGXBtnStyle.hover.background = ButtonTexture;
                 AGXBtnStyle.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
                 AGXLblStyle.font = AGXBtnStyle.font;
                 AGXFldStyle.font = AGXBtnStyle.font;
@@ -1849,7 +1859,7 @@ namespace ActionGroupsExtended
                                 ErrLine = "9";
                                 Rect partCenterWinD = new Rect(partScreenPosD.x - 10, (Screen.height - partScreenPosD.y) - 10, 21, 21);
                                 ErrLine = "10";
-                                GUI.DrawTexture(partCenterWinD, UI.PartPlus);
+                                GUI.DrawTexture(partCenterWinD, PartPlus);
                             }
                         }
                         else
@@ -1863,7 +1873,7 @@ namespace ActionGroupsExtended
                                     ErrLine = "9";
                                     Rect partCenterWinC = new Rect(partScreenPosC.x - 10, (Screen.height - partScreenPosC.y) - 10, 21, 21);
                                     ErrLine = "10";
-                                    GUI.DrawTexture(partCenterWinC, UI.PartPlus);
+                                    GUI.DrawTexture(partCenterWinC, PartPlus);
                                 }
                                 catch
                                 {
@@ -1880,7 +1890,7 @@ namespace ActionGroupsExtended
                                 ErrLine = "4";
                                 Rect partCenterWinB = new Rect(partScreenPosB.x - 10, (Screen.height - partScreenPosB.y) - 10, 21, 21);
                                 ErrLine = "5";
-                                GUI.DrawTexture(partCenterWinB, UI.PartCross);
+                                GUI.DrawTexture(partCenterWinB, PartCross);
                                 ErrLine = "6";
                             }
                             catch
@@ -1912,7 +1922,7 @@ namespace ActionGroupsExtended
                 Vector3 partScreenPos = EditorLogic.fetch.editorCamera.WorldToScreenPoint(partToHighlight.transform.position);
                 Rect partCenterWin = new Rect(partScreenPos.x - 20, (Screen.height - partScreenPos.y) - 20, 41, 41);
                 // partCenterWin = GUI.Window(673767790, partCenterWin, PartTarget, "", AGXWinStyle);
-                GUI.DrawTexture(partCenterWin, UI.PartCenter);
+                GUI.DrawTexture(partCenterWin, PartCenter);
 
 
             }
@@ -2085,7 +2095,7 @@ namespace ActionGroupsExtended
 
             //GUI.DrawTexture(new Rect(6, (CurrentKeySet * 25) +1, 68, 18), BtnTexGrn,if();
 
-            AGXBtnStyle.normal.background = CurrentKeySet == 1 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = CurrentKeySet == 1 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 25, 70, 20), "Select 1:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 25, 70, 20), Localizer.Format("#AGEXT_UI_select_1"), AGXBtnStyle))
             {
@@ -2097,7 +2107,7 @@ namespace ActionGroupsExtended
                 LoadCurrentKeyBindings();
             }
             KeySetNames[0] = GUI.TextField(new Rect(80, 25, 100, 20), KeySetNames[0], AGXFldStyle);
-            AGXBtnStyle.normal.background = CurrentKeySet == 2 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = CurrentKeySet == 2 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 50, 70, 20), "Select 2:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 50, 70, 20), Localizer.Format("#AGEXT_UI_select_2"), AGXBtnStyle))
             {
@@ -2109,7 +2119,7 @@ namespace ActionGroupsExtended
                 LoadCurrentKeyBindings();
             }
             KeySetNames[1] = GUI.TextField(new Rect(80, 50, 100, 20), KeySetNames[1], AGXFldStyle);
-            AGXBtnStyle.normal.background = CurrentKeySet == 3 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = CurrentKeySet == 3 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 75, 70, 20), "Select 3:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 75, 70, 20), Localizer.Format("#AGEXT_UI_select_3"), AGXBtnStyle))
             {
@@ -2120,7 +2130,7 @@ namespace ActionGroupsExtended
                 LoadCurrentKeyBindings();
             }
             KeySetNames[2] = GUI.TextField(new Rect(80, 75, 100, 20), KeySetNames[2], AGXFldStyle);
-            AGXBtnStyle.normal.background = CurrentKeySet == 4 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = CurrentKeySet == 4 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 100, 70, 20), "Select 4:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 100, 70, 20), Localizer.Format("#AGEXT_UI_select_4"), AGXBtnStyle))
             {
@@ -2131,7 +2141,7 @@ namespace ActionGroupsExtended
                 LoadCurrentKeyBindings();
             }
             KeySetNames[3] = GUI.TextField(new Rect(80, 100, 100, 20), KeySetNames[3], AGXFldStyle);
-            AGXBtnStyle.normal.background = CurrentKeySet == 5 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = CurrentKeySet == 5 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 125, 70, 20), "Select 5:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 125, 70, 20), Localizer.Format("#AGEXT_UI_select_5"), AGXBtnStyle))
             {
@@ -2142,7 +2152,7 @@ namespace ActionGroupsExtended
                 LoadCurrentKeyBindings();
             }
             KeySetNames[4] = GUI.TextField(new Rect(80, 125, 100, 20), KeySetNames[4], AGXFldStyle);
-            AGXBtnStyle.normal.background = UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ButtonTexture;
 
             Color TxtClr3 = GUI.contentColor;
             GUI.contentColor = new Color(0.5f, 1f, 0f, 1f);
@@ -2160,35 +2170,35 @@ namespace ActionGroupsExtended
             GUI.contentColor = TxtClr3;
 
             //GUI.DrawTexture(new Rect(6, (ShowGroupInFlightCurrent * 25) + 141, 68, 18), BtnTexGrn);
-            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 1 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 1 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 165, 70, 20), "Group 1:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 165, 70, 20), Localizer.Format("#AGEXT_UI_group_1"), AGXBtnStyle))
             {
                 ShowGroupInFlightCurrent = 1;
             }
             ShowGroupInFlightNames[1] = GUI.TextField(new Rect(80, 165, 100, 20), ShowGroupInFlightNames[1]);
-            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 2 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 2 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 190, 70, 20), "Group 2:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 190, 70, 20), Localizer.Format("#AGEXT_UI_group_2"), AGXBtnStyle))
             {
                 ShowGroupInFlightCurrent = 2;
             }
             ShowGroupInFlightNames[2] = GUI.TextField(new Rect(80, 190, 100, 20), ShowGroupInFlightNames[2]);
-            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 3 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 3 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 215, 70, 20), "Group 3:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 215, 70, 20), Localizer.Format("#AGEXT_UI_group_3"), AGXBtnStyle))
             {
                 ShowGroupInFlightCurrent = 3;
             }
             ShowGroupInFlightNames[3] = GUI.TextField(new Rect(80, 215, 100, 20), ShowGroupInFlightNames[3]);
-            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 4 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 4 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 240, 70, 20), "Group 4:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 240, 70, 20), Localizer.Format("#AGEXT_UI_group_4"), AGXBtnStyle))
             {
                 ShowGroupInFlightCurrent = 4;
             }
             ShowGroupInFlightNames[4] = GUI.TextField(new Rect(80, 240, 100, 20), ShowGroupInFlightNames[4]);
-            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 5 ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ShowGroupInFlightCurrent == 5 ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(5, 265, 70, 20), "Group 5:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 265, 70, 20), Localizer.Format("#AGEXT_UI_group_5"), AGXBtnStyle))
             {
@@ -2196,7 +2206,7 @@ namespace ActionGroupsExtended
 
             }
             ShowGroupInFlightNames[5] = GUI.TextField(new Rect(80, 265, 100, 20), ShowGroupInFlightNames[5]);
-            AGXBtnStyle.normal.background = UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ButtonTexture;
             // if (GUI.Button(new Rect(5, 300, 175, 30), "Close Window", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 300, 175, 30), Localizer.Format("#AGEXT_UI_close_window"), AGXBtnStyle))
             {
@@ -2516,18 +2526,18 @@ namespace ActionGroupsExtended
 
             if (AGXguiMod1KeySelecting)
             {
-                AGXBtnStyle.normal.background = UI.ButtonTextureRed;
-                AGXBtnStyle.hover.background = UI.ButtonTextureRed;
+                AGXBtnStyle.normal.background = ButtonTextureRed;
+                AGXBtnStyle.hover.background = ButtonTextureRed;
             }
             else if (AGXguiMod1Groups[AGXCurActGroup] == true)
             {
-                AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                AGXBtnStyle.normal.background = ButtonTextureGreen;
+                AGXBtnStyle.hover.background = ButtonTextureGreen;
             }
             else
             {
-                AGXBtnStyle.normal.background = UI.ButtonTexture;
-                AGXBtnStyle.hover.background = UI.ButtonTexture;
+                AGXBtnStyle.normal.background = ButtonTexture;
+                AGXBtnStyle.hover.background = ButtonTexture;
             }
             if (GUI.Button(new Rect(80, 3, 60, 25), AGXguiMod1Key.ToString(), AGXBtnStyle))
             {
@@ -2543,18 +2553,18 @@ namespace ActionGroupsExtended
             }
             if (AGXguiMod2KeySelecting)
             {
-                AGXBtnStyle.normal.background = UI.ButtonTextureRed;
-                AGXBtnStyle.hover.background = UI.ButtonTextureRed;
+                AGXBtnStyle.normal.background = ButtonTextureRed;
+                AGXBtnStyle.hover.background = ButtonTextureRed;
             }
             else if (AGXguiMod2Groups[AGXCurActGroup] == true)
             {
-                AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                AGXBtnStyle.normal.background = ButtonTextureGreen;
+                AGXBtnStyle.hover.background = ButtonTextureGreen;
             }
             else
             {
-                AGXBtnStyle.normal.background = UI.ButtonTexture;
-                AGXBtnStyle.hover.background = UI.ButtonTexture;
+                AGXBtnStyle.normal.background = ButtonTexture;
+                AGXBtnStyle.hover.background = ButtonTexture;
             }
             if (GUI.Button(new Rect(140, 3, 60, 25), AGXguiMod2Key.ToString(), AGXBtnStyle))
             {
@@ -2568,19 +2578,19 @@ namespace ActionGroupsExtended
                     AGXguiMod1KeySelecting = false;
                 }
             }
-            AGXBtnStyle.normal.background = UI.ButtonTexture;
-            AGXBtnStyle.hover.background = UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ButtonTexture;
+            AGXBtnStyle.hover.background = ButtonTexture;
             //if (ShowJoySticks)
             //{
             //    GUI.DrawTexture(new Rect(281, 3, 123, 18), BtnTexGrn);
             //}
-            AGXBtnStyle.normal.background = ShowJoySticks ? UI.ButtonTextureGreen : UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ShowJoySticks ? ButtonTextureGreen : ButtonTexture;
             // if (GUI.Button(new Rect(280, 2, 125, 20), "Show JoySticks", AGXBtnStyle))
             if (GUI.Button(new Rect(280, 2, 125, 20), Localizer.Format("#AGEXT_UI_show_joy_Sticks"), AGXBtnStyle))
             {
                 ShowJoySticks = !ShowJoySticks;
             }
-            AGXBtnStyle.normal.background = UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ButtonTexture;
             if (!ShowJoySticks)
             {
                 int KeyListCount = new int();
@@ -2880,14 +2890,14 @@ namespace ActionGroupsExtended
             if (SelPartsIncSym)
             {
                 //GUI.DrawTexture(new Rect(SelPartsLeft + 246, 26, 108, 23), BtnTexGrn, ScaleMode.StretchToFill, false);
-                AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
+                AGXBtnStyle.normal.background = ButtonTextureGreen;
                 // BtnTxt = "Symmetry? Yes";
                 BtnTxt = Localizer.Format("#AGEXT_UI_select_mode_yes");
             }
             else
             {
                 //GUI.DrawTexture(new Rect(SelPartsLeft + 246, 26, 108, 23), BtnTexRed, ScaleMode.StretchToFill, false);
-                AGXBtnStyle.normal.background = UI.ButtonTextureRed;
+                AGXBtnStyle.normal.background = ButtonTextureRed;
                 // BtnTxt = "Symmetry? No";
                 BtnTxt = Localizer.Format("#AGEXT_UI_select_mode_no");
             }
@@ -2899,7 +2909,7 @@ namespace ActionGroupsExtended
                 SelPartsIncSym = !SelPartsIncSym;
 
             }
-            AGXBtnStyle.normal.background = UI.ButtonTexture;
+            AGXBtnStyle.normal.background = ButtonTexture;
             // if (GUI.Button(new Rect(SelPartsLeft + 245, 55, 110, 25), "Clear List", AGXBtnStyle))
             if (GUI.Button(new Rect(SelPartsLeft + 245, 55, 110, 25), Localizer.Format("#AGEXT_UI_clear_all"), AGXBtnStyle))
             {
@@ -3410,8 +3420,8 @@ namespace ActionGroupsExtended
 
                 //}
                 ErrLine = "2";
-                AGXBtnStyle.normal.background = UI.ButtonTexture;
-                AGXBtnStyle.hover.background = UI.ButtonTexture;
+                AGXBtnStyle.normal.background = ButtonTexture;
+                AGXBtnStyle.hover.background = ButtonTexture;
                 bool[] PageGrn = new bool[5];
                 ErrLine = "3";
                 foreach (AGXAction AGact in StaticData.CurrentVesselActions)
@@ -3493,19 +3503,19 @@ namespace ActionGroupsExtended
                 //AGXBtnStyle.normal.background = GroupsPage == 1 ? ButtonTextureRed : ButtonTexture;
                 if (GroupsPage == 1)
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureRed;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureRed;
+                    AGXBtnStyle.normal.background = ButtonTextureRed;
+                    AGXBtnStyle.hover.background = ButtonTextureRed;
                 }
                 else if (PageGrn[0])
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                    AGXBtnStyle.normal.background = ButtonTextureGreen;
+                    AGXBtnStyle.hover.background = ButtonTextureGreen;
 
                 }
                 else
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTexture;
-                    AGXBtnStyle.hover.background = UI.ButtonTexture;
+                    AGXBtnStyle.normal.background = ButtonTexture;
+                    AGXBtnStyle.hover.background = ButtonTexture;
 
                 }
                 ErrLine = "6";
@@ -3517,18 +3527,18 @@ namespace ActionGroupsExtended
                 //AGXBtnStyle.normal.background = GroupsPage == 2 ? ButtonTextureRed : ButtonTexture;
                 if (GroupsPage == 2)
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureRed;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureRed;
+                    AGXBtnStyle.normal.background = ButtonTextureRed;
+                    AGXBtnStyle.hover.background = ButtonTextureRed;
                 }
                 else if (PageGrn[1])
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                    AGXBtnStyle.normal.background = ButtonTextureGreen;
+                    AGXBtnStyle.hover.background = ButtonTextureGreen;
                 }
                 else
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTexture;
-                    AGXBtnStyle.hover.background = UI.ButtonTexture;
+                    AGXBtnStyle.normal.background = ButtonTexture;
+                    AGXBtnStyle.hover.background = ButtonTexture;
                 }
                 if (GUI.Button(new Rect(145, 3, 25, 20), "2", AGXBtnStyle))
                 {
@@ -3538,18 +3548,18 @@ namespace ActionGroupsExtended
                 //AGXBtnStyle.normal.background = GroupsPage == 3 ? ButtonTextureRed : ButtonTexture;
                 if (GroupsPage == 3)
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureRed;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureRed;
+                    AGXBtnStyle.normal.background = ButtonTextureRed;
+                    AGXBtnStyle.hover.background = ButtonTextureRed;
                 }
                 else if (PageGrn[2])
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                    AGXBtnStyle.normal.background = ButtonTextureGreen;
+                    AGXBtnStyle.hover.background = ButtonTextureGreen;
                 }
                 else
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTexture;
-                    AGXBtnStyle.hover.background = UI.ButtonTexture;
+                    AGXBtnStyle.normal.background = ButtonTexture;
+                    AGXBtnStyle.hover.background = ButtonTexture;
                 }
                 ErrLine = "7";
                 if (GUI.Button(new Rect(170, 3, 25, 20), "3", AGXBtnStyle))
@@ -3560,18 +3570,18 @@ namespace ActionGroupsExtended
                 //AGXBtnStyle.normal.background = GroupsPage == 4 ? ButtonTextureRed : ButtonTexture;
                 if (GroupsPage == 4)
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureRed;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureRed;
+                    AGXBtnStyle.normal.background = ButtonTextureRed;
+                    AGXBtnStyle.hover.background = ButtonTextureRed;
                 }
                 else if (PageGrn[3])
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                    AGXBtnStyle.normal.background = ButtonTextureGreen;
+                    AGXBtnStyle.hover.background = ButtonTextureGreen;
                 }
                 else
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTexture;
-                    AGXBtnStyle.hover.background = UI.ButtonTexture;
+                    AGXBtnStyle.normal.background = ButtonTexture;
+                    AGXBtnStyle.hover.background = ButtonTexture;
                 }
                 if (GUI.Button(new Rect(195, 3, 25, 20), "4", AGXBtnStyle))
                 {
@@ -3581,18 +3591,18 @@ namespace ActionGroupsExtended
                 //AGXBtnStyle.normal.background = GroupsPage == 5 ? ButtonTextureRed : ButtonTexture;
                 if (GroupsPage == 5)
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureRed;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureRed;
+                    AGXBtnStyle.normal.background = ButtonTextureRed;
+                    AGXBtnStyle.hover.background = ButtonTextureRed;
                 }
                 else if (PageGrn[4])
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                    AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                    AGXBtnStyle.normal.background = ButtonTextureGreen;
+                    AGXBtnStyle.hover.background = ButtonTextureGreen;
                 }
                 else
                 {
-                    AGXBtnStyle.normal.background = UI.ButtonTexture;
-                    AGXBtnStyle.hover.background = UI.ButtonTexture;
+                    AGXBtnStyle.normal.background = ButtonTexture;
+                    AGXBtnStyle.hover.background = ButtonTexture;
                 }
                 if (GUI.Button(new Rect(220, 3, 25, 20), "5", AGXBtnStyle))
                 {
@@ -3642,13 +3652,13 @@ namespace ActionGroupsExtended
                     ErrLine = "10";
                     if (defaultGroupToShow == KSPActionGroup.Abort)
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                        AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                        AGXBtnStyle.normal.background = ButtonTextureGreen;
+                        AGXBtnStyle.hover.background = ButtonTextureGreen;
                     }
                     else
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTexture;
-                        AGXBtnStyle.hover.background = UI.ButtonTexture;
+                        AGXBtnStyle.normal.background = ButtonTexture;
+                        AGXBtnStyle.hover.background = ButtonTexture;
                     }
                     ErrLine = "11";
                     // if (GUI.Button(new Rect(5, 25, 58, 20), "Abort", AGXBtnStyle)) //button code
@@ -3659,13 +3669,13 @@ namespace ActionGroupsExtended
                     }
                     if (defaultGroupToShow == KSPActionGroup.Brakes)
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                        AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                        AGXBtnStyle.normal.background = ButtonTextureGreen;
+                        AGXBtnStyle.hover.background = ButtonTextureGreen;
                     }
                     else
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTexture;
-                        AGXBtnStyle.hover.background = UI.ButtonTexture;
+                        AGXBtnStyle.normal.background = ButtonTexture;
+                        AGXBtnStyle.hover.background = ButtonTexture;
                     }
                     ErrLine = "12";
                     // if (GUI.Button(new Rect(64, 25, 58, 20), "Brakes", AGXBtnStyle)) //button code
@@ -3676,13 +3686,13 @@ namespace ActionGroupsExtended
                     }
                     if (defaultGroupToShow == KSPActionGroup.Gear)
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                        AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                        AGXBtnStyle.normal.background = ButtonTextureGreen;
+                        AGXBtnStyle.hover.background = ButtonTextureGreen;
                     }
                     else
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTexture;
-                        AGXBtnStyle.hover.background = UI.ButtonTexture;
+                        AGXBtnStyle.normal.background = ButtonTexture;
+                        AGXBtnStyle.hover.background = ButtonTexture;
                     }
                     // if (GUI.Button(new Rect(122, 25, 59, 20), "Gear", AGXBtnStyle)) //button code
                     if (GUI.Button(new Rect(122, 25, 59, 20), Localizer.Format("#AGEXT_UI_type_gear"), AGXBtnStyle)) //button code
@@ -3692,13 +3702,13 @@ namespace ActionGroupsExtended
                     }
                     if (defaultGroupToShow == KSPActionGroup.Light)
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                        AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                        AGXBtnStyle.normal.background = ButtonTextureGreen;
+                        AGXBtnStyle.hover.background = ButtonTextureGreen;
                     }
                     else
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTexture;
-                        AGXBtnStyle.hover.background = UI.ButtonTexture;
+                        AGXBtnStyle.normal.background = ButtonTexture;
+                        AGXBtnStyle.hover.background = ButtonTexture;
                     }
                     // if (GUI.Button(new Rect(182, 25, 58, 20), "Lights", AGXBtnStyle)) //button code
                     if (GUI.Button(new Rect(182, 25, 58, 20), Localizer.Format("#AGEXT_UI_type_lights"), AGXBtnStyle)) //button code
@@ -3709,13 +3719,13 @@ namespace ActionGroupsExtended
 
                     if (defaultGroupToShow == KSPActionGroup.RCS)
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                        AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                        AGXBtnStyle.normal.background = ButtonTextureGreen;
+                        AGXBtnStyle.hover.background = ButtonTextureGreen;
                     }
                     else
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTexture;
-                        AGXBtnStyle.hover.background = UI.ButtonTexture;
+                        AGXBtnStyle.normal.background = ButtonTexture;
+                        AGXBtnStyle.hover.background = ButtonTexture;
                     }
                     // if (GUI.Button(new Rect(5, 45, 76, 20), "RCS", AGXBtnStyle)) //button code
                     if (GUI.Button(new Rect(5, 45, 76, 20), Localizer.Format("#AGEXT_UI_type_rcs"), AGXBtnStyle)) //button code
@@ -3725,13 +3735,13 @@ namespace ActionGroupsExtended
                     }
                     if (defaultGroupToShow == KSPActionGroup.SAS)
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                        AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                        AGXBtnStyle.normal.background = ButtonTextureGreen;
+                        AGXBtnStyle.hover.background = ButtonTextureGreen;
                     }
                     else
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTexture;
-                        AGXBtnStyle.hover.background = UI.ButtonTexture;
+                        AGXBtnStyle.normal.background = ButtonTexture;
+                        AGXBtnStyle.hover.background = ButtonTexture;
                     }
                     // if (GUI.Button(new Rect(81, 45, 76, 20), "SAS", AGXBtnStyle)) //button code
                     if (GUI.Button(new Rect(81, 45, 76, 20), Localizer.Format("#AGEXT_UI_type_sas"), AGXBtnStyle)) //button code
@@ -3741,13 +3751,13 @@ namespace ActionGroupsExtended
                     }
                     if (defaultGroupToShow == KSPActionGroup.Stage)
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTextureGreen;
-                        AGXBtnStyle.hover.background = UI.ButtonTextureGreen;
+                        AGXBtnStyle.normal.background = ButtonTextureGreen;
+                        AGXBtnStyle.hover.background = ButtonTextureGreen;
                     }
                     else
                     {
-                        AGXBtnStyle.normal.background = UI.ButtonTexture;
-                        AGXBtnStyle.hover.background = UI.ButtonTexture;
+                        AGXBtnStyle.normal.background = ButtonTexture;
+                        AGXBtnStyle.hover.background = ButtonTexture;
                     }
                     // if (GUI.Button(new Rect(157, 45, 76, 20), "Stage", AGXBtnStyle)) //button code
                     if (GUI.Button(new Rect(157, 45, 76, 20), Localizer.Format("#AGEXT_UI_type_stage"), AGXBtnStyle)) //button code
@@ -3759,8 +3769,8 @@ namespace ActionGroupsExtended
                     ErrLine = "17";
 
 
-                    AGXBtnStyle.normal.background = UI.ButtonTexture;
-                    AGXBtnStyle.hover.background = UI.ButtonTexture;
+                    AGXBtnStyle.normal.background = ButtonTexture;
+                    AGXBtnStyle.hover.background = ButtonTexture;
                     //add vector2
                     groupWinScroll = GUI.BeginScrollView(new Rect(5, 70, 240, 455), groupWinScroll, new Rect(0, 0, 240, Mathf.Max(455, defaultActionsListThisType.Count * 20)));
                     int listCount2 = 1;
@@ -3788,8 +3798,8 @@ namespace ActionGroupsExtended
                 else
                 {
                     ErrLine = "20";
-                    AGXBtnStyle.normal.background = UI.ButtonTexture;
-                    AGXBtnStyle.hover.background = UI.ButtonTexture;
+                    AGXBtnStyle.normal.background = ButtonTexture;
+                    AGXBtnStyle.hover.background = ButtonTexture;
                     ScrollGroups = GUI.BeginScrollView(new Rect(5, 25, 240, 500), ScrollGroups, new Rect(0, 0, 240, 500));
 
                     int ButtonID = new int();
@@ -3838,15 +3848,15 @@ namespace ActionGroupsExtended
                             //    GUI.DrawTexture(new Rect(1, ((ButtonPos - 1) * 20) + 1, 118, 18), BtnTexGrn);
                             //}
 
-                            AGXBtnStyle.normal.background = StaticData.CurrentVesselActions.Any(pfd => pfd.group == ButtonID) ? UI.ButtonTextureGreen : UI.ButtonTexture;
-                            AGXBtnStyle.hover.background = StaticData.CurrentVesselActions.Any(pfd => pfd.group == ButtonID) ? UI.ButtonTextureGreen : UI.ButtonTexture;
+                            AGXBtnStyle.normal.background = StaticData.CurrentVesselActions.Any(pfd => pfd.group == ButtonID) ? ButtonTextureGreen : ButtonTexture;
+                            AGXBtnStyle.hover.background = StaticData.CurrentVesselActions.Any(pfd => pfd.group == ButtonID) ? ButtonTextureGreen : ButtonTexture;
                             if (GUI.Button(new Rect(0, (ButtonPos - 1) * 20, 120, 20), ButtonID + ": " + AGXguiNames[ButtonID], AGXBtnStyle))
                             {
                                 AGXCurActGroup = ButtonID;
                                 TempShowGroupsWin = false;
                             }
-                            AGXBtnStyle.normal.background = UI.ButtonTexture;
-                            AGXBtnStyle.hover.background = UI.ButtonTexture;
+                            AGXBtnStyle.normal.background = ButtonTexture;
+                            AGXBtnStyle.hover.background = ButtonTexture;
                         }
                         ButtonPos = ButtonPos + 1;
                         ButtonID = ButtonID + 1;
@@ -3886,8 +3896,8 @@ namespace ActionGroupsExtended
                             //{
                             //    GUI.DrawTexture(new Rect(121, ((ButtonPos - 26) * 20) + 1, 118, 18), BtnTexGrn);
                             //}
-                            AGXBtnStyle.normal.background = StaticData.CurrentVesselActions.Any(pfd => pfd.group == ButtonID) ? UI.ButtonTextureGreen : UI.ButtonTexture;
-                            AGXBtnStyle.hover.background = StaticData.CurrentVesselActions.Any(pfd => pfd.group == ButtonID) ? UI.ButtonTextureGreen : UI.ButtonTexture;
+                            AGXBtnStyle.normal.background = StaticData.CurrentVesselActions.Any(pfd => pfd.group == ButtonID) ? ButtonTextureGreen : ButtonTexture;
+                            AGXBtnStyle.hover.background = StaticData.CurrentVesselActions.Any(pfd => pfd.group == ButtonID) ? ButtonTextureGreen : ButtonTexture;
                             if (GUI.Button(new Rect(120, (ButtonPos - 26) * 20, 120, 20), ButtonID + ": " + AGXguiNames[ButtonID], AGXBtnStyle))
                             {
 
@@ -3896,8 +3906,8 @@ namespace ActionGroupsExtended
                                 TempShowGroupsWin = false;
 
                             }
-                            AGXBtnStyle.normal.background = UI.ButtonTexture;
-                            AGXBtnStyle.hover.background = UI.ButtonTexture;
+                            AGXBtnStyle.normal.background = ButtonTexture;
+                            AGXBtnStyle.hover.background = ButtonTexture;
                         }
                         ButtonPos = ButtonPos + 1;
                         ButtonID = ButtonID + 1;
