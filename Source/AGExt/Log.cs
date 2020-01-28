@@ -14,6 +14,18 @@ namespace ActionGroupsExtended
             set => LOG.level = (KSPe.Util.Log.Level)(value % 6);
         }
 
+
+        internal static void Init()
+        {
+            LOG.level =
+#if DEBUG
+                KSPe.Util.Log.Level.TRACE
+#else
+                KSPe.Util.Log.Level.INFO
+#endif
+                                ;
+        }
+
         public static void log(string format, params object[] @parms)
         {
             LOG.force(format, parms);

@@ -35,7 +35,6 @@
   <ItemGroup>
     <Compile Include="Button.cs" />
     <Compile Include="CommonMethods.cs" />
-    <Compile Include="Instantly.cs" />
     <Compile Include="Editor.cs" />
     <Compile Include="External.cs" />
     <Compile Include="kOSVoidAction.cs" />
@@ -52,6 +51,7 @@
       <DependentUpon>Version.tt</DependentUpon>
     </Compile>
     <Compile Include="UI.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
