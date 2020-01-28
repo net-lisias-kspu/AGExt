@@ -23,7 +23,7 @@ namespace ActionGroupsExtended
 #else
                 KSPe.Util.Log.Level.INFO
 #endif
-                                ;
+            ;
         }
 
         public static void log(string format, params object[] @parms)
