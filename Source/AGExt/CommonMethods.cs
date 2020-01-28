@@ -4,10 +4,9 @@ using System.Linq;
 using System.IO;
 using KSP.Localization;
 
-using DATA = KSPe.IO.Data;
-
 namespace ActionGroupsExtended
 {
+    using DATA = KSPe.IO.Data<Startup>;
 
     public enum AGXRemoteTechItemState
     {
@@ -42,7 +41,7 @@ namespace ActionGroupsExtended
 
     public static class AGXStaticData
     {
-        private static readonly DATA.ConfigNode SETTINGS = DATA.ConfigNode.ForType<AGXMainMenu>("AGExtConfig");
+        private static readonly DATA.ConfigNode SETTINGS = DATA.ConfigNode.For("AGExtConfig", "AGExt.settings");
 		private static readonly string GAMEDATA_DIR_DEPRECATED = Path.Combine(KSPUtil.ApplicationRootPath, "GameData/Diazo/AGExt");
 		private static readonly string PLUGINDATA_DIR_DEPRECATED = Path.Combine(KSPUtil.ApplicationRootPath, "PluginData/Diazo/AGExt");
 		public static bool cleanupAlreadyRun = false;
