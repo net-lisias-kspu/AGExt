@@ -53,7 +53,7 @@
 //    //    public void DeleteOldSaveGames() //removed functionality in AGX 1.34
 //    //    {
             
-//    //        print("AGX Deleteing old save games start: " + DateTime.Now);
+//    //        Log.Info("AGX Deleteing old save games start: " + DateTime.Now);
 
 //    //        string[] existingGames = Directory.GetFiles(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder); //full path of all files in save dir
 //    //        List<int> existingGamesNum = new List<int>(); //existing AGExt00000.cfg files, as number
@@ -61,15 +61,15 @@
 //    //        int dirLength = (new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder).Length; //character length of file path
 //    //        foreach (string fileName in existingGames) //cycle through found files
 //    //        {
-//    //            //print("gamename " + fileName.Substring(dirLength + 1));
+//    //            //Log.Info("gamename " + fileName.Substring(dirLength + 1));
 //    //            if (fileName.Substring(dirLength + 1, 5) == "AGExt" && fileName.Trim().EndsWith(".cfg")) //is file an AGX file?
 //    //            {
-//    //                //print("gamenameb " + fileName.Substring(dirLength + 6,5));
+//    //                //Log.Info("gamenameb " + fileName.Substring(dirLength + 6,5));
 //    //                try //this will work if file fould is an AGX flight file
 //    //                {
 //    //                    int gameNum = Convert.ToInt32(fileName.Substring(dirLength + 6, 5));
 //    //                    existingGamesNum.Add(gameNum);
-//    //                    //print("gameNumb " + gameNum);
+//    //                    //Log.Info("gameNumb " + gameNum);
 //    //                }
 //    //                catch //did not work, was not an AGX flight file, but not actually an error so silently fail
 //    //                {
@@ -79,21 +79,21 @@
 //    //            {
 //    //                try //this will work on KSP save files
 //    //                {
-//    //                    // print("sfsa");
+//    //                    // Log.Info("sfsa");
 //    //                    ConfigNode saveNode = ConfigNode.Load(fileName); //load the .sfs file
-//    //                    //print("sfsb");
+//    //                    //Log.Info("sfsb");
 //    //                    if (saveNode.HasNode("GAME")) //is a KSP save file?//move from the 'root' to "GAME" node
 //    //                    {
 //    //                        ConfigNode saveNode2 = saveNode.GetNode("GAME");//move from the 'root' to "GAME" node
-//    //                        //print("sfsc");
+//    //                        //Log.Info("sfsc");
 //    //                        foreach (ConfigNode scenNode in saveNode2.GetNodes("SCENARIO")) //cycle through all SCENARIO nodes
 //    //                        {
-//    //                            //print("sfsd");
+//    //                            //Log.Info("sfsd");
 //    //                            if (scenNode.HasValue("name") && scenNode.GetValue("name") == "AGextScenario") //stop at AGExtScenario node
 //    //                            {
-//    //                                //print("sfse");
+//    //                                //Log.Info("sfse");
 //    //                                persistentGamesNum.Add(Convert.ToInt32(scenNode.GetValue("LastSave"))); //add lastsave num to list
-//    //                                //print("sfsf");
+//    //                                //Log.Info("sfsf");
 //    //                            }
 //    //                        }
 //    //                    }
@@ -106,13 +106,13 @@
 //    //        foreach (int iGame in existingGamesNum) //check each existing game
 //    //        {
 //    //            bool keep = false; // CCraigen - file should be kept
-//    //            //print("Games " + iGame);
+//    //            //Log.Info("Games " + iGame);
 //    //            //if (!persistentGamesNum.Contains(i)) //is the AGX flight file found in a persistent file? if not, delete it. not sure what quicksave is doing, leave a one back file just in case
 //    //            foreach (int iPersist in persistentGamesNum)
 //    //            {
 //    //                /*if (iGame != iPersist && iGame != iPersist - 1)
 //    //                {
-//    //                    //print("Deleted " + new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExt" + iGame.ToString("00000") + ".cfg");
+//    //                    //Log.Info("Deleted " + new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExt" + iGame.ToString("00000") + ".cfg");
 //    //                    File.Delete(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExt" + iGame.ToString("00000") + ".cfg");
 //    //                }*/
 
@@ -133,7 +133,7 @@
 
 //    //        }
 
-//    //        print("AGX Deleteing old save games end: " + DateTime.Now);
+//    //        Log.Info("AGX Deleteing old save games end: " + DateTime.Now);
 //    //    }
 //    //}
 
@@ -143,7 +143,7 @@
 //    //    {
 //    //        if (HighLogic.LoadedSceneIsEditor)
 //    //        {
-//    //            //print("Edit scen save called");
+//    //            //Log.Info("Edit scen save called");
 //    //            AGXEditor.EditorSaveToFile();
 //    //        }
 //    //    }
@@ -166,13 +166,13 @@
 
 //        ////public void GameEventSave(Game gm)
 //        ////{
-//        ////    print("game " + gm.linkCaption + " " + gm.linkURL);
+//        ////    Log.Info("game " + gm.linkCaption + " " + gm.linkURL);
 //        ////}
 //        //public override void OnLoad(ConfigNode node)
 //        //{
             
            
-//        //        //print("AGXFlight load");
+//        //        //Log.Info("AGXFlight load");
 //        //        if (node.HasValue("LastSave"))
 //        //        {
 //        //            lastAGXSave = Convert.ToInt32(node.GetValue("LastSave"));
@@ -190,7 +190,7 @@
 //        //            currentFlightNode = new ConfigNode("FLIGHT");
 //        //            currentFlightNode.AddValue("name", "flight");
 //        //        }
-//        //        //print("AGXScenLoad " + lastAGXSave);
+//        //        //Log.Info("AGXScenLoad " + lastAGXSave);
 //        //        AGXFlight.AGXFlightNode = currentFlightNode;
 //        //        //if (File.Exists(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExtRootParts.cfg"))
 //        //        //{
@@ -203,7 +203,7 @@
 //        //        //}
 
 //        //        AGXFlight.flightNodeIsLoaded = true;
-//        //        //print("Node laeded! "+ currentFlightNode);
+//        //        //Log.Info("Node laeded! "+ currentFlightNode);
             
 //        //}
  
@@ -211,32 +211,32 @@
 //        //public override void OnSave(ConfigNode node)
 //        //{
 
-//        //    //print("a");
+//        //    //Log.Info("a");
             
-//        //        //print("AGXFlightSave " + currentFlightNode);
+//        //        //Log.Info("AGXFlightSave " + currentFlightNode);
 //        //        if(node.HasValue("LastSave"))
 //        //        {
-//        //           // print("c");
+//        //           // Log.Info("c");
 //        //            lastAGXSave = Convert.ToInt32(node.GetValue("LastSave"));
-//        //           // print("d");
+//        //           // Log.Info("d");
 //        //            node.RemoveValue("LastSave");
 //        //        }
-//        //        //print("e");
-//        //        //print("scensave1 " + currentFlightNode);
+//        //        //Log.Info("e");
+//        //        //Log.Info("scensave1 " + currentFlightNode);
 //        //        ConfigNode flightToSave = AGXFlight.FlightSaveToFile(currentFlightNode);
-//        //        //print("f");
+//        //        //Log.Info("f");
 //        //        lastAGXSave = lastAGXSave + 1;
 //        //        while (File.Exists(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExt" + lastAGXSave.ToString("00000") + ".cfg"))
 //        //        {
 //        //            lastAGXSave = lastAGXSave + 1;
 //        //        }
-//        //       // print("g " + flightToSave);
+//        //       // Log.Info("g " + flightToSave);
 //        //        flightToSave.Save(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExt" + lastAGXSave.ToString("00000") + ".cfg");
-//        //       //print("scensave2 " + flightToSave);
+//        //       //Log.Info("scensave2 " + flightToSave);
 //        //        node.AddValue("LastSave", lastAGXSave.ToString());
-//        //        //print("i");
+//        //        //Log.Info("i");
             
-//        //   // print("j");
+//        //   // Log.Info("j");
 //        //}
 
 //        ////public static ConfigNode LoadBaseNode()
@@ -249,12 +249,12 @@
 //        ////        {
 //        ////            errLine = "3";
 //        ////            AGXBaseNode = ConfigNode.Load(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExt.cfg");
-//        ////            //print("AGX ConfigNode Load Okay!");
+//        ////            //Log.Info("AGX ConfigNode Load Okay!");
 //        ////        }
 //        ////        else
 //        ////        {
 //        ////            errLine = "4";
-//        ////            //print("AGX ConfigNode not found, creating.....");
+//        ////            //Log.Info("AGX ConfigNode not found, creating.....");
 //        ////            errLine = "5";
 //        ////            AGXBaseNode.AddValue("name", "Action Groups Extended save file");
 //        ////            AGXBaseNode.AddNode("FLIGHT");
@@ -268,7 +268,7 @@
 //        ////    }
 //        ////    catch (Exception e)
 //        ////    {
-//        ////        print("AGXScen LoadBaseNode FAIL " + errLine + " " + e);
+//        ////        Log.Info("AGXScen LoadBaseNode FAIL " + errLine + " " + e);
 //        ////            return new ConfigNode();
 //        ////    }
 //        ////}
@@ -290,7 +290,7 @@
 //        //    {
 //        //        hashedName = hashedName + (int)ch;
 //        //    }
-//        //    //print("hashName " + hashedName);
+//        //    //Log.Info("hashName " + hashedName);
 
 //        //    return hashedName;
 //        //}

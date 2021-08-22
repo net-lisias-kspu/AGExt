@@ -13,7 +13,7 @@ namespace ActionGroupsExtended
         //abandoned module, no longer needed for key rebinding
         public void Start()
         {
-            print("AGExt Ver. 2.2 loaded");
+            AGExt.Log.Info("AGExt Ver. 2.2 loaded");
 
             
         }

@@ -217,7 +217,7 @@ namespace ActionGroupsExtended
 #if true
         public void onStockToolbarClick() //void method, use delegates
         {
-            //print("mouse " + Input.GetMouseButtonUp(1) + Input.GetMouseButtonDown(1));
+            //Log.Info("mouse " + Input.GetMouseButtonUp(1) + Input.GetMouseButtonDown(1));
             //if (showCareerStockAGs)
             //{
             //    if (Input.GetMouseButtonUp(1))
@@ -350,11 +350,11 @@ namespace ActionGroupsExtended
                 }
                 catch
                 {
-                    print("AGX Flight Start CRITICAL FAIL: AGExt.settings not found. Check install path.");
+                    Log.Info("AGX Flight Start CRITICAL FAIL: AGExt.settings not found. Check install path.");
                 }
                 if (AGExtNode == null)
                 {
-                    print("AGX Flight Start CRITICAL FAIL: AGExt.settings not loaded. Check install path.");
+                    Log.Info("AGX Flight Start CRITICAL FAIL: AGExt.settings not loaded. Check install path.");
                 }
                 errLine = "6";
                 CurrentKeySetFlight = 1;
@@ -382,14 +382,14 @@ namespace ActionGroupsExtended
 
 
                 // UnbindDefaultKeys();  //obsolete with INputLockManager
-                //print("input lock");
+                //Log.Info("input lock");
                 try
                 {
                     if ((string)AGExtNode.GetValue("LockOutKSPManager") == "0")
                     {
 
                         AGXLockSet = false;
-                        //print("zero found");
+                        //Log.Info("zero found");
 
                     }
                     else
@@ -397,7 +397,7 @@ namespace ActionGroupsExtended
                         InputLockManager.SetControlLock(ControlTypes.CUSTOM_ACTION_GROUPS, "AGExtControlLock");
                         //InputLockManager.SetControlLock(ControlTypes.KEYBOARDINPUT, "AGExtControlLockTEST");
                         AGXLockSet = true;
-                        //print("one found");
+                        //Log.Info("one found");
                     }
                     errLine = "10";
 
@@ -407,7 +407,7 @@ namespace ActionGroupsExtended
                     errLine = "11";
                     InputLockManager.SetControlLock(ControlTypes.CUSTOM_ACTION_GROUPS, "AGExtControlLock");
                     AGXLockSet = true;
-                    //print("Catch");
+                    //Log.Info("Catch");
                 }
                 errLine = "12";
                 groupCooldowns = new List<AGXCooldown>(); //setup values for group cooldowns logic
@@ -417,7 +417,7 @@ namespace ActionGroupsExtended
                 }
                 catch
                 {
-                    print("AGX Default cooldown not found, using 5 Update frames");
+                    Log.Info("AGX Default cooldown not found, using 5 Update frames");
                 }
                 errLine = "13";
 #if false
@@ -484,36 +484,36 @@ namespace ActionGroupsExtended
                     facilityLevel = facilityLevelVAB;
                     VABmax = true;
                 }
-                //print("AGX Career check: " + facilityLevel);
+                //Log.Info("AGX Career check: " + facilityLevel);
                 if (AGExtNode.HasValue("OverrideCareer")) //are action groups unlocked?
                 {
-                    //print("b");
+                    //Log.Info("b");
                     errLine = "18";
                     if ((string)AGExtNode.GetValue("OverrideCareer") == "1")
                     {
-                        //print("c");
+                        //Log.Info("c");
                         showCareerCustomAGs = true;
                         showCareerStockAGs = true;
                     }
                     else
                     {
-                        //print("d");
+                        //Log.Info("d");
 
                         if (GameVariables.Instance.UnlockedActionGroupsCustom(facilityLevel, VABmax))
                         {
-                            // print("g");
+                            // Log.Info("g");
                             showCareerStockAGs = true;
                             showCareerCustomAGs = true;
                         }
                         else if (GameVariables.Instance.UnlockedActionGroupsStock(facilityLevel, VABmax))
                         {
-                            // print("h");
+                            // Log.Info("h");
                             showCareerStockAGs = true;
                             showCareerCustomAGs = false;
                         }
                         else
                         {
-                            //print("i");
+                            //Log.Info("i");
                             showCareerStockAGs = false;
                             showCareerCustomAGs = false;
                         }
@@ -521,29 +521,29 @@ namespace ActionGroupsExtended
                 }
                 else
                 {
-                    //print("j");
+                    //Log.Info("j");
                     errLine = "19";
 
                     if (GameVariables.Instance.UnlockedActionGroupsCustom(facilityLevel, VABmax))
                     {
-                        // print("m");
+                        // Log.Info("m");
                         showCareerStockAGs = true;
                         showCareerCustomAGs = true;
                     }
                     else if (GameVariables.Instance.UnlockedActionGroupsStock(facilityLevel, VABmax))
                     {
-                        // print("n");
+                        // Log.Info("n");
                         showCareerStockAGs = true;
                         showCareerCustomAGs = false;
                     }
                     else
                     {
-                        // print("o");
+                        // Log.Info("o");
                         showCareerStockAGs = false;
                         showCareerCustomAGs = false;
                     }
                 }
-                // print("startd " + showCareerCustomAGs);
+                // Log.Info("startd " + showCareerCustomAGs);
                 errLine = "20";
                 IsGroupToggle = new Dictionary<int, bool>();
                 ShowGroupInFlight = new bool[6, 251];
@@ -567,7 +567,7 @@ namespace ActionGroupsExtended
                     }
                 }
                 ShowGroupInFlightCurrent = 1;
-                // print("AGXStart " + Planetarium.GetUniversalTime());
+                // Log.Info("AGXStart " + Planetarium.GetUniversalTime());
                 errLine = "22";
                 //AGXSkin = (GUISkin)MonoBehaviour.Instantiate(HighLogic.Skin);
                 AGXSkin = (GUISkin)MonoBehaviour.Instantiate(HighLogic.Skin);
@@ -586,7 +586,7 @@ namespace ActionGroupsExtended
                 AGXBtnStyle.alignment = TextAnchor.MiddleCenter;
                 AGXBtnStyle.normal.textColor = new Color(0.9f, 0.9f, 0.9f, 1f);
                 //AGXScrollStyle.normal.background = null;
-                //print("AGX " + AGXBtnStyle.normal.background);
+                //Log.Info("AGX " + AGXBtnStyle.normal.background);
                 byte[] importTxt = File.ReadAllBytes(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/ButtonTexture.png");
                 byte[] importTxtRed = File.ReadAllBytes(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/ButtonTextureRed.png");
                 byte[] importTxtGreen = File.ReadAllBytes(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/ButtonTextureGreen.png");
@@ -663,15 +663,15 @@ namespace ActionGroupsExtended
                 errLine = "30";
                 oldShipParts = new List<Part>();
                 //KeySetNamesFlight[0] = AGExtNode.GetValue("KeySetName1");
-                // /print("3a");
+                // /Log.Info("3a");
                 //KeySetNamesFlight[1] = AGExtNode.GetValue("KeySetName2");
-                //print("4a");
+                //Log.Info("4a");
                 //KeySetNamesFlight[2] = AGExtNode.GetValue("KeySetName3");
-                // //print("5a");
+                // //Log.Info("5a");
                 //KeySetNamesFlight[3] = AGExtNode.GetValue("KeySetName4");
-                //print("6a");
+                //Log.Info("6a");
                 //KeySetNamesFlight[4] = AGExtNode.GetValue("KeySetName5");
-                //print("7a");
+                //Log.Info("7a");
                 //KeySetNamesFlight[CurrentKeySetFlight - 1] = CurrentKeySetNameFlight;
                 AGXRemoteTechQueue = new List<AGXRemoteTechQueueItem>();
                 RTFound = false;
@@ -684,7 +684,7 @@ namespace ActionGroupsExtended
                         RTFound = true;
                     }
                 }
-                //print("RT FOUND " + RTFound); 
+                //Log.Info("RT FOUND " + RTFound); 
                 errLine = "31";
                 if (RTFound && bool.Parse(AGExtNode.GetValue("RTWinShow")))
                 {
@@ -705,8 +705,8 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                print("AGX Flight Start FAIL " + errLine + " " + e);
-                print("AGX AGExt node dump: " + AGExtNode);
+                Log.Info("AGX Flight Start FAIL " + errLine + " " + e);
+                Log.Info("AGX AGExt node dump: " + AGExtNode);
             }
             GameEvents.onShowUI.Add(onMyUIShow);
             GameEvents.onHideUI.Add(onMyUIHide);
@@ -739,8 +739,8 @@ namespace ActionGroupsExtended
                 ApplicationLauncher.AppScenes.FLIGHT,
                 MODID,
                 "agextButton",
-                "Diazo/AGExt/icon_button_38",
-                "Diazo/AGExt/icon_button_24",
+                "Diazo/AGExt/PluginData/icon_button_38",
+                "Diazo/AGExt/PluginData/icon_button_24",
                 MODNAME
             );
             toolbarControl.AddLeftRightClickCallbacks(null, onRightButtonStockClick);
@@ -892,7 +892,7 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                print("AGX StartLoadWindowPostion Error, Recovered. " + errLine + " " + e);
+                Log.Info("AGX StartLoadWindowPostion Error, Recovered. " + errLine + " " + e);
                 GroupsWin = new Rect(100, 100, 250, 530);
                 SelPartsWin = new Rect(100, 100, 365, 270);
                 KeyCodeWin = new Rect(100, 100, 410, 730);
@@ -1029,7 +1029,7 @@ namespace ActionGroupsExtended
 
         //public static ConfigNode FlightSaveToFile(ConfigNode origNode)
         //{
-        //    // print("FlightSaveToFile ");
+        //    // Log.Info("FlightSaveToFile ");
 
         //    string errLine = "1";
         //    FlightSaveGlobalInfo();
@@ -1042,7 +1042,7 @@ namespace ActionGroupsExtended
         //            //actionsToSave.AddRange(AllVesselsActions.Where(ag => ag.ba != null));
         //            //foreach (AGXAction agAct in actionsToSave)
         //            //{
-        //            //    print("FlightSave " + agAct.ba.name + " " + agAct.ba.listParent.part.ConstructID);
+        //            //    Log.Info("FlightSave " + agAct.ba.name + " " + agAct.ba.listParent.part.ConstructID);
         //            //}
         //            //if(loadedVessels.Contains(FlightGlobals.ActiveVessel))
         //            //{
@@ -1083,7 +1083,7 @@ namespace ActionGroupsExtended
         //                errLine = "18";
         //                if (thisPartsActions.Count > 0)
         //                {
-        //                    //print("acts count " + thisPartsActions.Count);
+        //                    //Log.Info("acts count " + thisPartsActions.Count);
         //                    ConfigNode partTemp = new ConfigNode("PART");
         //                    errLine = "19";
         //                    partTemp.AddValue("name", p.partInfo.name);
@@ -1095,7 +1095,7 @@ namespace ActionGroupsExtended
         //                    errLine = "20";
         //                    foreach (AGXAction agxAct in thisPartsActions)
         //                    {
-        //                        //print("acts countb " + thisPartsActions.Count);
+        //                        //Log.Info("acts countb " + thisPartsActions.Count);
         //                        errLine = "21";
         //                        partTemp.AddNode(StaticData.SaveAGXActionVer2(agxAct));
         //                    }
@@ -1113,7 +1113,7 @@ namespace ActionGroupsExtended
         //            {
         //                AGXFlightNode.RemoveNode(FlightGlobals.ActiveVessel.rootPart.flightID.ToString());
         //            }
-        //            //print("save node " + thisVsl);
+        //            //Log.Info("save node " + thisVsl);
         //            AGXFlightNode.AddNode(thisVsl);
         //            return AGXFlightNode;
 
@@ -1126,7 +1126,7 @@ namespace ActionGroupsExtended
         //    }
         //    catch (Exception e)
         //    {
-        //        print("AGX FlightSaveToFile error " + errLine + " " + e);
+        //        Log.Info("AGX FlightSaveToFile error " + errLine + " " + e);
         //        return origNode;
         //    }
         //}
@@ -1134,14 +1134,14 @@ namespace ActionGroupsExtended
         public void RefreshCurrentActions()
         {
             //CurrentVesselActions.Clear();
-            //print("cleared " + CurrentVesselActions.Count());
+            //Log.Info("cleared " + CurrentVesselActions.Count());
 
             //foreach (AGXAction agAct in AllVesselsActions)
             //{
             //    if (FlightGlobals.ActiveVessel == agAct.ba.listParent.part.vessel)
             //    {
             //        CurrentVesselActions.Add(agAct);
-            //        //print("Added " + agAct.ba.listParent.part.ConstructID + " " + agAct.ba.listParent.part.vessel.id.ToString() + " " + FlightGlobals.ActiveVessel.id.ToString());
+            //        //Log.Info("Added " + agAct.ba.listParent.part.ConstructID + " " + agAct.ba.listParent.part.vessel.id.ToString() + " " + FlightGlobals.ActiveVessel.id.ToString());
             //    }
             //}
             CalculateActiveActions();
@@ -1197,7 +1197,7 @@ namespace ActionGroupsExtended
             }
             else
             {
-                // print("show");
+                // Log.Info("show");
                 AGExtNode.SetValue("FltShow", "1");
             }
             //AGExtNode.Save(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/AGExt.cfg");
@@ -1245,14 +1245,14 @@ namespace ActionGroupsExtended
                 {
                     StringToSave = StringToSave + '\u2023' + ShowGroupInFlightNames[i];
                 }
-                // print("return okay " + StringToSave);
+                // Log.Info("return okay " + StringToSave);
                 return StringToSave;
 
             }
 
             catch
             {
-                // print("Return fail" + str);
+                // Log.Info("Return fail" + str);
                 return str;
             }
         }
@@ -1422,7 +1422,7 @@ namespace ActionGroupsExtended
                     }
                     catch (Exception e)
                     {
-                        print("AGX Draw cross fail. " + ErrLine + " " + e);
+                        Log.Info("AGX Draw cross fail. " + ErrLine + " " + e);
                     }
                 }
                 if (ShowCurActsWin && ShowSelectedWin)
@@ -1437,9 +1437,9 @@ namespace ActionGroupsExtended
             if (highlightPartThisFrameActsWin || highlightPartThisFrameSelWin || highlightPartThisFrameGroupWin)
             {
                 //Camera edCam = EditorCamera.fe
-                // print("mouse over");
-                //print("screen pos " + EditorLogic.fetch.editorCamera.WorldToScreenPoint(partToHighlight.transform.position));
-                //print("orgpos" + partToHighlight.);
+                // Log.Info("mouse over");
+                //Log.Info("screen pos " + EditorLogic.fetch.editorCamera.WorldToScreenPoint(partToHighlight.transform.position));
+                //Log.Info("orgpos" + partToHighlight.);
                 Vector3 partScreenPos = FlightCamera.fetch.mainCamera.WorldToScreenPoint(partToHighlight.transform.position);
                 //EditorLogic.fetch.editorCamera.WorldToScreenPoint(partToHighlight.transform.position);
                 Rect partCenterWin = new Rect(partScreenPos.x - 20, (Screen.height - partScreenPos.y) - 20, 41, 41);
@@ -1467,7 +1467,7 @@ namespace ActionGroupsExtended
                 // ClickThruBlocker.GUIWindow(2233452, SettingsWin, DrawSettingsWin, "AGX Settings", AGXWinStyle);
                 ClickThruBlocker.GUIWindow(2233452, SettingsWin, DrawSettingsWin, Localizer.Format("#AGEXT_UI_agx_settings"), AGXWinStyle);
             }
-            //print("guis " + HighLogic.Skin.font.name + " " + GUI.skin.font.name); 
+            //Log.Info("guis " + HighLogic.Skin.font.name + " " + GUI.skin.font.name); 
 #if DEBUG
             Font[] fonts = FindObjectsOfType<UnityEngine.Font>();
             Log.Info("fntc " + fonts.Count());
@@ -1582,10 +1582,10 @@ namespace ActionGroupsExtended
         public static void ActivateActionGroupCheckModKeys(int group) //backwards compatibility, toggle group
         {
 
-            //print("AGX Key check for some reason " + group);
+            //Log.Info("AGX Key check for some reason " + group);
             if (AGXguiMod1Groups[group] == Input.GetKey(AGXguiMod1Key) && AGXguiMod2Groups[group] == Input.GetKey(AGXguiMod2Key))
             {
-                //print("AGX Key activate for some reason " + group);
+                //Log.Info("AGX Key activate for some reason " + group);
                 ActivateActionGroup(group, false, false);
             }
         }
@@ -1593,10 +1593,10 @@ namespace ActionGroupsExtended
         public static void ActivateActionGroupCheckModKeys(int group, bool force, bool forceDir) //backwards compatibility, toggle group
         {
 
-            //print("AGX Key check for some reason " + group);
+            //Log.Info("AGX Key check for some reason " + group);
             if (AGXguiMod1Groups[group] == Input.GetKey(AGXguiMod1Key) && AGXguiMod2Groups[group] == Input.GetKey(AGXguiMod2Key))
             {
-                //print("AGX Key activate for some reason " + group);
+                //Log.Info("AGX Key activate for some reason " + group);
                 ActivateActionGroup(group, force, forceDir);
             }
         }
@@ -1615,7 +1615,7 @@ namespace ActionGroupsExtended
                 Log.Info("delay " + AGXRemoteTechLinks.RTTimeDelay(FlightGlobals.ActiveVessel));
                 Log.Info("in local " + AGXRemoteTechLinks.InLocal(FlightGlobals.ActiveVessel));
                 //double curDelay = AGXRemoteTechLinks.RTTimeDelay(FlightGlobals.ActiveVessel);
-                //print("cur delay" + curDelay);
+                //Log.Info("cur delay" + curDelay);
                 if (useRT)
                 {
                     if (FlightGlobals.ActiveVessel.Parts.Any(p => p.protoModuleCrew.Any() && p.Modules.Contains("ModuleCommand"))) //are we in local control? Kerbal on board on a part with command abilities?
@@ -1654,11 +1654,11 @@ namespace ActionGroupsExtended
             Log.Info("activating group " + group);
             foreach (AGXAction agAct in StaticData.CurrentVesselActions.Where(agx => agx.group == group))
             {
-                //print("ActactA" + forceDir + " " + agAct.ba.name);
+                //Log.Info("ActactA" + forceDir + " " + agAct.ba.name);
                 if (groupCooldowns.Any(cd => cd.actGroup == agAct.group && cd.vslFlightID == agAct.ba.listParent.part.vessel.rootPart.flightID)) //rather then fight with double negative bools, do noting if both match, run if no match
                 {
                     //if this triggers, that action/group combo is in cooldown
-                    print("AGX Action not activated, that group still in cooldown");
+                    Log.Info("AGX Action not activated, that group still in cooldown");
                 }
                 else //action not in cooldown
                 {
@@ -1704,7 +1704,7 @@ namespace ActionGroupsExtended
                         //agAct.activated = true;
                         bool saveNoneState = agAct.ba.listParent.part.vessel.ActionGroups[actParam.group];
                         agAct.ba.listParent.part.vessel.ActionGroups[actParam.group] = true;
-                        //print("AGX action activate FIRE!" + agAct.ba.guiName);
+                        //Log.Info("AGX action activate FIRE!" + agAct.ba.guiName);
                         agAct.ba.Invoke(actParam);
                         agAct.activated = true;
                         if (agAct.ba.name != "kOSVoidAction")
@@ -1728,14 +1728,14 @@ namespace ActionGroupsExtended
                     {
                         //overide to activate part when activating an engine so gimbals come on
                         agAct.ba.listParent.part.force_activate();
-                        //print("Force act");
+                        //Log.Info("Force act");
 
                     }
                     if (agAct.ba.listParent.module.moduleName == "ModuleEnginesFX" && agAct.ba.name == "ActivateAction" || agAct.ba.listParent.module.moduleName == "ModuleEnginesFX" && agAct.ba.name == "OnAction")
                     {
                         //overide to activate part when activating an engine so gimbals come on
                         agAct.ba.listParent.part.force_activate();
-                        //print("Force act");
+                        //Log.Info("Force act");
 
                     }
                 }
@@ -2225,7 +2225,7 @@ namespace ActionGroupsExtended
                         if (Mouse.screenPos.y >= CurActsWin.y + 30 && Mouse.screenPos.y <= CurActsWin.y + 130 && new Rect(CurActsWin.x + 10, (CurActsWin.y + 30 + ((RowCnt - 1) * 20)) - CurGroupsWin.y, 300, 20).Contains(Mouse.screenPos))
                         {
                             highlightPartThisFrameActsWin = true;
-                            //print("part found to highlight acts " + highlightPartThisFrameActsWin + " " + ThisGroupActions.ElementAt(RowCnt - 1).ba.listParent.part.transform.position);
+                            //Log.Info("part found to highlight acts " + highlightPartThisFrameActsWin + " " + ThisGroupActions.ElementAt(RowCnt - 1).ba.listParent.part.transform.position);
                             partToHighlight = ThisGroupActions.ElementAt(RowCnt - 1).ba.listParent.part;
                         }
 
@@ -2602,7 +2602,7 @@ namespace ActionGroupsExtended
         //        }
         //        catch(Exception e)
         //        {
-        //            print("AGX Save KeySet FAIL! (SaveCurrentKeySet) " + errLine + " " + e);
+        //            Log.Info("AGX Save KeySet FAIL! (SaveCurrentKeySet) " + errLine + " " + e);
         //        }
 
         //        if (OkayToSave)
@@ -2622,7 +2622,7 @@ namespace ActionGroupsExtended
         //    }
         //    catch (Exception e)
         //    {
-        //        print("AGX Save KeySet FAIL! (SaveCurrentKeySet) " + errLine + " " + e);
+        //        Log.Info("AGX Save KeySet FAIL! (SaveCurrentKeySet) " + errLine + " " + e);
         //        return curKeySet;
         //    }
 
@@ -2673,18 +2673,18 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                print("AGX FlightSaveGlobalInfo fail " + ErrString + " " + e);
+                Log.Info("AGX FlightSaveGlobalInfo fail " + ErrString + " " + e);
             }
         }
 
         public void LoadCurrentKeyBindings()
         {
 
-            //print("jeyset load "+ CurrentKeySetFlight);
+            //Log.Info("jeyset load "+ CurrentKeySetFlight);
 
 
             String LoadString = AGExtNode.GetValue("KeySet" + CurrentKeySetFlight.ToString());
-            //print("Keyset load " + CurrentKeySet + " " + LoadString);
+            //Log.Info("Keyset load " + CurrentKeySet + " " + LoadString);
 
             for (int i = 1; i <= 250; i++)
             {
@@ -2758,7 +2758,7 @@ namespace ActionGroupsExtended
 
         public static void SaveCurrentKeyBindings()
         {
-            //print("Saving current keybinds " + CurrentKeySetFlight);
+            //Log.Info("Saving current keybinds " + CurrentKeySetFlight);
 
             AGExtNode.SetValue("KeySetName" + CurrentKeySetFlight, CurrentKeySetNameFlight);
             string SaveString = "";
@@ -3117,11 +3117,11 @@ namespace ActionGroupsExtended
                 {
                     PartActionsList.AddRange(pm.Actions.Where(ba => ba.active == true));
                 }
-                //print("AGX Actions refresh found actions: " + PartActionsList.Count);
+                //Log.Info("AGX Actions refresh found actions: " + PartActionsList.Count);
             }
             catch
             {
-                //              print("AGX Actions refresh fail");
+                //              Log.Info("AGX Actions refresh fail");
             }
 
         }
@@ -3284,7 +3284,7 @@ namespace ActionGroupsExtended
                     if (Mouse.screenPos.y >= SelPartsWin.y + 30 && Mouse.screenPos.y <= SelPartsWin.y + 140 && new Rect(SelPartsWin.x + SelPartsLeft + 25, (SelPartsWin.y + 30 + ((ButtonCount - 1) * 20)) - ScrollPosSelParts.y, 190, 20).Contains(Mouse.screenPos))
                     {
                         highlightPartThisFrameSelWin = true;
-                        //print("part found to highlight " + AGEditorSelectedParts.ElementAt(ButtonCount - 1).AGPart.ConstructID);
+                        //Log.Info("part found to highlight " + AGEditorSelectedParts.ElementAt(ButtonCount - 1).AGPart.ConstructID);
                         partToHighlight = AGEditorSelectedParts.ElementAt(ButtonCount - 1).AGPart;
                     }
 
@@ -3667,23 +3667,23 @@ namespace ActionGroupsExtended
             }
             if (GUI.Button(new Rect(SelPartsLeft + 245, 244, 120, 20), CurrentKeySetNameFlight, AGXBtnStyle))
             {
-                //print("1a");
+                //Log.Info("1a");
                 SaveCurrentKeyBindings();
-                //print("2a");
+                //Log.Info("2a");
                 // KeySetNames[0] = AGExtNode.GetValue("KeySetName1");
-                //// /print("3a");
+                //// /Log.Info("3a");
                 // KeySetNames[1] = AGExtNode.GetValue("KeySetName2");
-                // //print("4a");
+                // //Log.Info("4a");
                 // KeySetNames[2] = AGExtNode.GetValue("KeySetName3");
-                //// //print("5a");
+                //// //Log.Info("5a");
                 // KeySetNames[3] = AGExtNode.GetValue("KeySetName4");
-                // //print("6a");
+                // //Log.Info("6a");
                 // KeySetNames[4] = AGExtNode.GetValue("KeySetName5");
-                // //print("7a");
+                // //Log.Info("7a");
                 // KeySetNames[CurrentKeySet - 1] = CurrentKeySetName;
-                //print("8a");
+                //Log.Info("8a");
                 ShowKeySetWin = true;
-                //print("9a");
+                //Log.Info("9a");
             }
 
 
@@ -3984,7 +3984,7 @@ namespace ActionGroupsExtended
                     if (Mouse.screenPos.y >= GroupsWin.y + 70 && Mouse.screenPos.y <= GroupsWin.y + 525 && new Rect(GroupsWin.x + 5, (GroupsWin.y + 70 + ((listCount2 - 1) * 20)) - groupWinScroll.y, 240, 20).Contains(Mouse.screenPos))
                     {
                         highlightPartThisFrameGroupWin = true;
-                        //print("part found to highlight acts " + highlightPartThisFrameActsWin + " " + ThisGroupActions.ElementAt(RowCnt - 1).ba.listParent.part.transform.position);
+                        //Log.Info("part found to highlight acts " + highlightPartThisFrameActsWin + " " + ThisGroupActions.ElementAt(RowCnt - 1).ba.listParent.part.transform.position);
                         partToHighlight = defaultActionsListThisType.ElementAt(listCount2 - 1).listParent.part;
                     }
 
@@ -4162,7 +4162,7 @@ namespace ActionGroupsExtended
                 //foreach (PartModule pm in FlightGlobals.ActiveVessel.rootPart.Modules.OfType<ModuleAGExtData>())
                 //{
                 string LoadString = stringToLoad;// (string)pm.Fields.GetValue("AGXGroupStates");
-                // print("AGXTogLoad" + pm.part.ConstructID + " " + LoadString);
+                // Log.Info("AGXTogLoad" + pm.part.ConstructID + " " + LoadString);
                 if (LoadString.Length == 1501)
                 {
                     errLine = "2";
@@ -4218,11 +4218,11 @@ namespace ActionGroupsExtended
                 errLine = "10";
                 //}
                 CalculateActionsToShow();
-                // print("AGXTogLoadFin: " + IsGroupToggle[1] + IsGroupToggle[2] + IsGroupToggle[3] + IsGroupToggle[4] + IsGroupToggle[5] + IsGroupToggle[6] + IsGroupToggle[7] + IsGroupToggle[8] + IsGroupToggle[9] + IsGroupToggle[10]);
+                // Log.Info("AGXTogLoadFin: " + IsGroupToggle[1] + IsGroupToggle[2] + IsGroupToggle[3] + IsGroupToggle[4] + IsGroupToggle[5] + IsGroupToggle[6] + IsGroupToggle[7] + IsGroupToggle[8] + IsGroupToggle[9] + IsGroupToggle[10]);
             }
             catch (Exception e)
             {
-                print("AGX LoadGroupVisibility Fail! " + errLine + " " + e);
+                Log.Info("AGX LoadGroupVisibility Fail! " + errLine + " " + e);
                 ShowGroupInFlightCurrent = 1;
                 for (int i = 1; i <= 250; i++)
                 {
@@ -4276,8 +4276,8 @@ namespace ActionGroupsExtended
                 errStep = "13";
                 //}
 
-                //print(p.partName + " " + SaveStringNames);
-                //print("Savegroup return " + SaveStringNames);
+                //Log.Info(p.partName + " " + SaveStringNames);
+                //Log.Info("Savegroup return " + SaveStringNames);
                 return SaveStringNames;
             }
             catch (Exception e)
@@ -4321,14 +4321,14 @@ namespace ActionGroupsExtended
                         LoadNames = LoadNames.Substring(LoadNames.IndexOf('\u2023'));
                     }
                     //errLine = "9";
-                    //print(groupName + " || " + AGXguiNames[groupNum] + " " + groupNum);
+                    //Log.Info(groupName + " || " + AGXguiNames[groupNum] + " " + groupNum);
                     //if (p.missionID == currentMissionId) //missionID matchs, group names on this part have priority
                     //{
                     //    AGXguiNames[groupNum] = groupName;
                     //}
                     //else if (AGXguiNames[groupNum].Length < 1) //missionID no match, only populate if groupname is blank
                     //{
-                    //    //print("Add name in");
+                    //    //Log.Info("Add name in");
                     //    AGXguiNames[groupNum] = groupName;
                     //}
                     DictToReturn[groupNum] = groupName;
@@ -4387,7 +4387,7 @@ namespace ActionGroupsExtended
                         //            LoadNames = LoadNames.Substring(LoadNames.IndexOf('\u2023'));
                         //        }
                         //        errLine = "9";
-                        //print(groupName + " || " + AGXguiNames[groupNum] + " " + groupNum);
+                        //Log.Info(groupName + " || " + AGXguiNames[groupNum] + " " + groupNum);
                         if (p.missionID == currentMissionId) //missionID matchs, group names on this part have priority
                         {
                             //AGXguiNames[groupNum] = groupName;
@@ -4395,7 +4395,7 @@ namespace ActionGroupsExtended
                         }
                         else //if (AGXguiNames[groupNum].Length < 1) //missionID no match, only populate if groupname is blank
                         {
-                            //print("Add name in");
+                            //Log.Info("Add name in");
                             //AGXguiNames[groupNum] = groupName;
                             Dictionary<int, string> tempNames = GroupNamesStringToDict(agxPM.groupNames);
                             for (int i = 1; i <= 250; i++)
@@ -4462,10 +4462,10 @@ namespace ActionGroupsExtended
                             LoadNames = LoadNames.Substring(LoadNames.IndexOf('\u2023'));
                         }
                         errLine = "9";
-                        //print(groupName + " || " + AGXguiNames[groupNum] + " " + groupNum);
+                        //Log.Info(groupName + " || " + AGXguiNames[groupNum] + " " + groupNum);
                         if (AGXguiNames[groupNum].Length < 1)
                         {
-                            //print("Add name in");
+                            //Log.Info("Add name in");
                             AGXguiNames[groupNum] = groupName;
                         }
 
@@ -4624,7 +4624,7 @@ namespace ActionGroupsExtended
         //    try
         //    {
         //        errLine = "2";
-        //        //print("call dockingevent");
+        //        //Log.Info("call dockingevent");
         //        StaticData.CurrentVesselActions.Clear();
         //        errLine = "3";
         //        bool ShowAmbiguousMessage = true;
@@ -4634,14 +4634,14 @@ namespace ActionGroupsExtended
         //        if (AGXFlightNode.HasNode(FlightGlobals.ActiveVessel.rootPart.flightID.ToString())) //find root node here, docking so we can not be coming from editor
         //        {
         //            errLine = "6";
-        //            //print("AGX flightID found");
+        //            //Log.Info("AGX flightID found");
         //            newVsl = AGXFlightNode.GetNode(FlightGlobals.ActiveVessel.rootPart.flightID.ToString());
 
         //        }
         //        else if (AGXFlightNode.HasNode(FlightGlobals.ActiveVessel.id.ToString()))
         //        {
         //            errLine = "7";
-        //            //print("AGX flight node found");
+        //            //Log.Info("AGX flight node found");
         //            newVsl = AGXFlightNode.GetNode(FlightGlobals.ActiveVessel.id.ToString());
         //        }
         //        else
@@ -4737,9 +4737,9 @@ namespace ActionGroupsExtended
         //                errLine = "26";
         //                foreach (ConfigNode actNode in prtNode.nodes)
         //                {
-        //                    //print("node " + actNode + " " + gamePart.ConstructID);
+        //                    //Log.Info("node " + actNode + " " + gamePart.ConstructID);
         //                    AGXAction actToAdd = StaticData.LoadAGXActionVer2(actNode, gamePart, ShowAmbiguousMessage2);
-        //                    //print("act to add " + actToAdd.ba);
+        //                    //Log.Info("act to add " + actToAdd.ba);
         //                    if (actToAdd != null && !StaticData.CurrentVesselActions.Contains(actToAdd))
         //                    {
         //                        StaticData.CurrentVesselActions.Add(actToAdd);
@@ -4763,7 +4763,7 @@ namespace ActionGroupsExtended
         //    }
         //    catch (Exception e)
         //    {
-        //        print("AGX Docking Fail " + errLine + e);
+        //        Log.Info("AGX Docking Fail " + errLine + e);
         //    }
         //}
 
@@ -4855,7 +4855,7 @@ namespace ActionGroupsExtended
                         errLine = "37";
                         if (Input.GetKeyDown(KC))
                         {
-                            //print("AGX keydown " + KC + "|");
+                            //Log.Info("AGX keydown " + KC + "|");
                             //InputLockManager.SetControlLock(2,"test");
                             for (int i = 1; i <= 250; i = i + 1)
                             {
@@ -4992,16 +4992,16 @@ namespace ActionGroupsExtended
         //public void UpdateOld() //not used, left for copying purposes
         //{
 
-        //    Log.Info("Start AGEXT update!");//print("lock " + InputLockManager.IsLocked(ControlTypes.ALL_SHIP_CONTROLS));
+        //    Log.Info("Start AGEXT update!");//Log.Info("lock " + InputLockManager.IsLocked(ControlTypes.ALL_SHIP_CONTROLS));
         //    //if ((ControlTypes.ALL_SHIP_CONTROLS & (ControlTypes)InputLockManager.lockMask) == 0)
         //    //{
-        //    //    print("not Locked");
+        //    //    Log.Info("not Locked");
         //    //}
         //    //else
         //    //{
-        //    //    print("locked");
+        //    //    Log.Info("locked");
         //    //}
-        //    //print("AGXLock state " + AGXLockSet);
+        //    //Log.Info("AGXLock state " + AGXLockSet);
         //    string errLine = "1";
         //    try
         //    {
@@ -5032,7 +5032,7 @@ namespace ActionGroupsExtended
         //            errLine = "8";
         //            if (AGXRoot != FlightGlobals.ActiveVessel.rootPart) //root part change, refresh stuff
         //            {
-        //                // print("AGX Root change"); 
+        //                // Log.Info("AGX Root change"); 
         //                bool isDocking = false;
         //                bool isUndocking = false;
         //                try
@@ -5040,31 +5040,31 @@ namespace ActionGroupsExtended
         //                    if (FlightGlobals.ActiveVessel.parts.Contains(AGXRoot))
         //                    {
         //                        isDocking = true;
-        //                        // print("AGX: Is a dock ");// + AGXRoot.ConstructID + " " + FlightGlobals.ActiveVessel.rootPart.ConstructID);
+        //                        // Log.Info("AGX: Is a dock ");// + AGXRoot.ConstructID + " " + FlightGlobals.ActiveVessel.rootPart.ConstructID);
         //                    }
         //                    else if (oldShipParts.Contains(FlightGlobals.ActiveVessel.rootPart))
         //                    {
         //                        isUndocking = true;
-        //                        //print("AGX: is an undock");
+        //                        //Log.Info("AGX: is an undock");
         //                        //only clear actions if not a docking event
         //                    }
         //                    else
         //                    {
-        //                        //print("AGX: vessel switch");
+        //                        //Log.Info("AGX: vessel switch");
         //                        //CurrentVesselActions.Clear();
         //                    }
         //                }
         //                catch
         //                {
-        //                    //print("AGX: something was null in docking check");
+        //                    //Log.Info("AGX: something was null in docking check");
         //                }
         //                errLine = "8a";
-        //                //print("Root part changed, AGX reloading");
-        //                //print("Root prt ch");
+        //                //Log.Info("Root part changed, AGX reloading");
+        //                //Log.Info("Root prt ch");
         //                //if(!overrideRootChange) //no longer using DockingEvent
         //                //{
         //                errLine = "8b";
-        //                //print("Root part changed, AGX reloading B");
+        //                //Log.Info("Root part changed, AGX reloading B");
         //                //loadFinished = false;
 
 
@@ -5093,24 +5093,24 @@ namespace ActionGroupsExtended
         //                    if (AGXRoot != null)
         //                    {
         //                        errLine = "9";
-        //                        // print("Root part changed, AGX reloadinga");
+        //                        // Log.Info("Root part changed, AGX reloadinga");
         //                        oldVsl = new ConfigNode(AGXRoot.vessel.rootPart.flightID.ToString());
         //                        if (AGXFlightNode.HasNode(AGXRoot.vessel.rootPart.flightID.ToString()))
         //                        {
         //                            errLine = "10";
-        //                            //print("Root part changed, AGX reloadingb");
+        //                            //Log.Info("Root part changed, AGX reloadingb");
         //                            oldVsl = AGXFlightNode.GetNode(AGXRoot.vessel.rootPart.flightID.ToString());
         //                            AGXFlightNode.RemoveNode(AGXRoot.vessel.rootPart.flightID.ToString());
         //                        }
         //                        else if (AGXFlightNode.HasNode(AGXRoot.vessel.id.ToString()))
         //                        {
         //                            errLine = "10";
-        //                            //print("Root part changed, AGX reloadingb");
+        //                            //Log.Info("Root part changed, AGX reloadingb");
         //                            oldVsl = AGXFlightNode.GetNode(AGXRoot.vessel.id.ToString());
         //                            AGXFlightNode.RemoveNode(AGXRoot.vessel.id.ToString());
         //                        }
         //                        errLine = "11";
-        //                        //print("Root part changed, AGX reloadingc");
+        //                        //Log.Info("Root part changed, AGX reloadingc");
         //                        if (oldVsl.HasValue("name"))
         //                        {
         //                            oldVsl.RemoveValue("name");
@@ -5167,7 +5167,7 @@ namespace ActionGroupsExtended
         //                            errLine = "17";
         //                            List<AGXAction> thisPartsActions = new List<AGXAction>();
         //                            errLine = "18 ";
-        //                            //print("part 18a" + p.ConstructID + " " + CurrentVesselActions);
+        //                            //Log.Info("part 18a" + p.ConstructID + " " + CurrentVesselActions);
         //                            thisPartsActions.AddRange(StaticData.CurrentVesselActions.FindAll(p2 => p2.ba.listParent.part == p));
         //                            errLine = "18a";
 
@@ -5198,9 +5198,9 @@ namespace ActionGroupsExtended
         //                        }
 
 
-        //                        //print("AGX Save old vessel "+ oldVsl);
+        //                        //Log.Info("AGX Save old vessel "+ oldVsl);
         //                        AGXFlightNode.AddNode(oldVsl);
-        //                        //print("Root part changed, AGX reloadingd " + oldVsl.GetValue("groupNames"));
+        //                        //Log.Info("Root part changed, AGX reloadingd " + oldVsl.GetValue("groupNames"));
         //                    }
         //                    errLine = "24a";
 
@@ -5218,37 +5218,37 @@ namespace ActionGroupsExtended
         //                    {
         //                        if (FlightGlobals.ActiveVessel.landedAt == "Runway")
         //                        {
-        //                            //print("Runway found");
+        //                            //Log.Info("Runway found");
         //                            checkIsVab = false;
         //                        }
         //                        else
         //                        {
-        //                            //print("runway not found");
+        //                            //Log.Info("runway not found");
         //                            checkIsVab = true;
         //                        }
 
         //                    }
         //                    catch
         //                    {
-        //                        //print("runway iffy");
+        //                        //Log.Info("runway iffy");
         //                        checkIsVab = true;
         //                    }
         //                    errLine = "24e";
         //                    if (AGXFlightNode.HasNode(FlightGlobals.ActiveVessel.id.ToString()))
         //                    {
-        //                        //print("AGX flight node found");
+        //                        //Log.Info("AGX flight node found");
         //                        vslNode = AGXFlightNode.GetNode(FlightGlobals.ActiveVessel.id.ToString());
 
         //                    }
         //                    else if (AGXFlightNode.HasNode(FlightGlobals.ActiveVessel.rootPart.flightID.ToString()))
         //                    {
-        //                        // print("AGX flightID found");
+        //                        // Log.Info("AGX flightID found");
         //                        vslNode = AGXFlightNode.GetNode(FlightGlobals.ActiveVessel.rootPart.flightID.ToString());
 
         //                    }
         //                    //else if(RootParts.HasNode(FlightGlobals.ActiveVessel.rootPart.flightID.ToString()) && AGXRoot != null)  //replace with previously docked ship check, in other parts of code
         //                    //{
-        //                    //    print("AGX root part found"); 
+        //                    //    Log.Info("AGX root part found"); 
         //                    //    vslNode = oldVsl;
         //                    //    ConfigNode FoundRootPart = RootParts.GetNode(FlightGlobals.ActiveVessel.rootPart.flightID.ToString());
         //                    //    vslNode.RemoveValue("currentKeyset");
@@ -5262,22 +5262,22 @@ namespace ActionGroupsExtended
 
         //                    else if (AGXEditorNodeFlight.HasNode(StaticData.EditorHashShipName(FlightGlobals.ActiveVessel.vesselName, checkIsVab)))
         //                    {
-        //                        // print("AGX VAB1 ");// + FlightGlobals.ActiveVessel.vesselName + " " + FlightGlobals.ActiveVessel.rootPart.ConstructID);
+        //                        // Log.Info("AGX VAB1 ");// + FlightGlobals.ActiveVessel.vesselName + " " + FlightGlobals.ActiveVessel.rootPart.ConstructID);
         //                        vslNode = AGXEditorNodeFlight.GetNode(StaticData.EditorHashShipName(FlightGlobals.ActiveVessel.vesselName, checkIsVab));
         //                        vslNode.name = FlightGlobals.ActiveVessel.rootPart.flightID.ToString();
         //                        AGXFlightNode.AddNode(vslNode);
-        //                        // print("node check " + vslNode.ToString());
+        //                        // Log.Info("node check " + vslNode.ToString());
         //                    }
         //                    else if (AGXEditorNodeFlight.HasNode(StaticData.EditorHashShipName(FlightGlobals.ActiveVessel.vesselName, !checkIsVab)))
         //                    {
-        //                        //print("AGX vab2");
+        //                        //Log.Info("AGX vab2");
         //                        vslNode = AGXEditorNodeFlight.GetNode(StaticData.EditorHashShipName(FlightGlobals.ActiveVessel.vesselName, !checkIsVab));
         //                        vslNode.name = FlightGlobals.ActiveVessel.rootPart.flightID.ToString();
         //                        AGXFlightNode.AddNode(vslNode);
         //                    }
         //                    else
         //                    {
-        //                        //print("AGX notfound");
+        //                        //Log.Info("AGX notfound");
         //                        vslNode = new ConfigNode(FlightGlobals.ActiveVessel.rootPart.flightID.ToString());
         //                        vslNode.AddValue("name", FlightGlobals.ActiveVessel.vesselName);
         //                        vslNode.AddValue("currentKeyset", "1");
@@ -5363,12 +5363,12 @@ namespace ActionGroupsExtended
         //                            ShowAmbiguousMessage2 = false;
         //                        }
         //                        errLine = "24k";
-        //                        //print("gamepart " + gamePart.ConstructID + " " + partDist);
+        //                        //Log.Info("gamepart " + gamePart.ConstructID + " " + partDist);
         //                        foreach (ConfigNode actNode in prtNode.nodes)
         //                        {
-        //                            //print("node " + actNode + " " + gamePart.ConstructID);
+        //                            //Log.Info("node " + actNode + " " + gamePart.ConstructID);
         //                            AGXAction actToAdd = StaticData.LoadAGXActionVer2(actNode, gamePart, ShowAmbiguousMessage2);
-        //                            //print("act to add " + actToAdd.ba);
+        //                            //Log.Info("act to add " + actToAdd.ba);
         //                            if (actToAdd != null && !StaticData.CurrentVesselActions.Contains(actToAdd))
         //                            {
         //                                StaticData.CurrentVesselActions.Add(actToAdd);
@@ -5401,9 +5401,9 @@ namespace ActionGroupsExtended
 
         //                        //foreach (BaseAction ba in partAllActions)
         //                        //{
-        //                        //    print(ba.listParent.part + " " + ba.listParent.module.moduleName + " " + ba.name + " " + ba.guiName);
+        //                        //    Log.Info(ba.listParent.part + " " + ba.listParent.module.moduleName + " " + ba.name + " " + ba.guiName);
         //                        //}
-        //                        // print("part orgpos " + p.ConstructID+ " "  + p.orgPos + " " + p.orgRot);
+        //                        // Log.Info("part orgpos " + p.ConstructID+ " "  + p.orgPos + " " + p.orgRot);
         //                    }
         //                    errLine = "24m";
         //                    foreach (BaseAction baLoad in partAllActions)
@@ -5455,7 +5455,7 @@ namespace ActionGroupsExtended
         //                PartActionsList.Clear();
         //                RefreshCurrentActions();
         //                loadFinished = true;
-        //                //print("sit " + FlightGlobals.ActiveVessel.situation.ToString());
+        //                //Log.Info("sit " + FlightGlobals.ActiveVessel.situation.ToString());
         //                errLine = "33";
         //                CurrentKeySetNameFlight = KeySetNamesFlight[CurrentKeySetFlight - 1];
         //                LoadCurrentKeyBindings();
@@ -5467,7 +5467,7 @@ namespace ActionGroupsExtended
         //        errLine = "34";
         //        if (LastPartCount != FlightGlobals.ActiveVessel.parts.Count) //parts count changed, remove any actions assigned to parts that have disconnected/been destroyed
         //        {
-        //            print("Part count change, reload AGX");
+        //            Log.Info("Part count change, reload AGX");
         //            if (FlightGlobals.ActiveVessel.parts.Count > LastPartCount)
         //            {
         //                DockingEvent();
@@ -5497,12 +5497,12 @@ namespace ActionGroupsExtended
         //                errLine = "37";
         //                if (Input.GetKeyDown(KC))
         //                {
-        //                    //print("keydown " + KC);
+        //                    //Log.Info("keydown " + KC);
         //                    for (int i = 1; i <= 250; i = i + 1)
         //                    {
         //                        if (AGXguiKeys[i] == KC)
         //                        {
-        //                            //print("Key act for some reason " + i);
+        //                            //Log.Info("Key act for some reason " + i);
         //                            ActivateActionGroupCheckModKeys(i);
         //                        }
         //                    }
@@ -5582,19 +5582,19 @@ namespace ActionGroupsExtended
         //                UIPartActionWindow UIPartsListThing = new UIPartActionWindow();
         //                UIPartsListThing = (UIPartActionWindow)FindObjectOfType(typeof(UIPartActionWindow));
         //                //UnityEngine.Object[] TempObj = FindObjectsOfType(typeof(UIPartActionWindow));
-        //                //print(TempObj.Length);
+        //                //Log.Info(TempObj.Length);
         //                try
         //                {
         //                    if (UIPartsListThing != null)
         //                    {
         //                        AddSelectedPart(UIPartsListThing.part);
         //                    }
-        //                    // print(UIPartsListThing.part.name); //finds part right-clicked on
+        //                    // Log.Info(UIPartsListThing.part.name); //finds part right-clicked on
         //                    RightLickPartAdded = true;
         //                }
         //                catch
         //                {
-        //                    // print("nope!");
+        //                    // Log.Info("nope!");
         //                    RightLickPartAdded = true;
         //                }
         //            }
@@ -5620,7 +5620,7 @@ namespace ActionGroupsExtended
         //        //    {
         //        //        foreach (BaseAction ba in pm.Actions)
         //        //        {
-        //        //            print(p.partName + " " + pm.moduleName + " " + ba.name + " " + ba.guiName);
+        //        //            Log.Info(p.partName + " " + pm.moduleName + " " + ba.name + " " + ba.guiName);
         //        //        }
         //        //    }
         //        //}
@@ -5637,7 +5637,7 @@ namespace ActionGroupsExtended
         //        //{
         //        //    actionsCheckFrameCount = actionsCheckFrameCount + (int)(Time.deltaTime * 1000f);
         //        //}
-        //        //print("delta time " + actionsCheckFrameCount);
+        //        //Log.Info("delta time " + actionsCheckFrameCount);
         //        errLine = "47";
         //        Log.Info("update middel e2");
         //        //count down action cool downs
@@ -5656,7 +5656,7 @@ namespace ActionGroupsExtended
         //        Log.Info("update middel f");
         //        errLine = "49";
         //        //PrintPartActs();
-        //        //print("landed " + FlightGlobals.ActiveVessel.landedAt);
+        //        //Log.Info("landed " + FlightGlobals.ActiveVessel.landedAt);
 
         //        //if (test == null)
         //        //{
@@ -5671,7 +5671,7 @@ namespace ActionGroupsExtended
         //    }
         //    catch (Exception e)
         //    {
-        //        print("AGX Update error: " + errLine + " " + e);
+        //        Log.Info("AGX Update error: " + errLine + " " + e);
         //    }
         //}
 
@@ -5914,19 +5914,19 @@ namespace ActionGroupsExtended
         //{
         //    try
         //    {
-        //        //print("crew " + FlightGlobals.ActiveVessel.GetVesselCrew().Count);
+        //        //Log.Info("crew " + FlightGlobals.ActiveVessel.GetVesselCrew().Count);
         //        foreach (Part p in FlightGlobals.ActiveVessel.parts)
         //        {
         //            foreach (ModuleEnginesFX eng in p.Modules.OfType<ModuleEnginesFX>())
         //            {
         //                foreach (BaseAction ba in eng.Actions)
         //                {
-        //                    print(p.name + " " + ba.name + " " + ba.guiName);
+        //                    Log.Info(p.name + " " + ba.name + " " + ba.guiName);
         //                }
         //            }
         //            foreach (ModuleGimbal gim in p.Modules.OfType<ModuleGimbal>())
         //            {
-        //                print(p.name + " " + gim.gimbalLock);
+        //                Log.Info(p.name + " " + gim.gimbalLock);
         //            }
         //        }
 
@@ -5934,24 +5934,24 @@ namespace ActionGroupsExtended
         //    }
         //    catch
         //    {
-        //        print("Print fail!");
+        //        Log.Info("Print fail!");
         //    }
         //}
 
         //public void PrintPartPos()
         //{
-        //    print("begin update pos " + StaticData.CurrentVesselActions.Count);
+        //    Log.Info("begin update pos " + StaticData.CurrentVesselActions.Count);
         //    try
         //    {
         //        foreach (Part p in FlightGlobals.ActiveVessel.Parts)
         //        {
-        //            print(p.name);
+        //            Log.Info(p.name);
 
         //        }
         //    }
         //    catch
         //    {
-        //        print("Print fail on pos!");
+        //        Log.Info("Print fail on pos!");
         //    }
         //}
 
@@ -5971,7 +5971,7 @@ namespace ActionGroupsExtended
 
         //public void CheckListForMultipleVessels() //call this when part count on vessel decrease to check for actions on split vessels
         //{
-        //    //print("call checklistformulti");
+        //    //Log.Info("call checklistformulti");
         //    List<Vessel> curActsVessels = new List<Vessel>(); //find out if actions exist on vessel that left
         //    foreach (AGXAction agAct in StaticData.CurrentVesselActions)
         //    {
@@ -6020,7 +6020,7 @@ namespace ActionGroupsExtended
         //                //errLine = "18";
         //                if (thisPartsActions.Count > 0)
         //                {
-        //                    //print("acts count " + thisPartsActions.Count);
+        //                    //Log.Info("acts count " + thisPartsActions.Count);
         //                    ConfigNode partTemp = new ConfigNode("PART");
         //                    //errLine = "19";
         //                    partTemp.AddValue("name", p.vessel.vesselName);
@@ -6032,7 +6032,7 @@ namespace ActionGroupsExtended
         //                    //errLine = "20";
         //                    foreach (AGXAction agxAct in thisPartsActions)
         //                    {
-        //                        //print("acts countb " + thisPartsActions.Count);
+        //                        //Log.Info("acts countb " + thisPartsActions.Count);
         //                        //errLine = "21";
         //                        partTemp.AddNode(StaticData.SaveAGXActionVer2(agxAct));
         //                    }
@@ -6054,25 +6054,25 @@ namespace ActionGroupsExtended
 
         public void DockingEventggg(GameEvents.HostTargetAction<Part, Part> htAct) //docking event happend, merge two vessel actions //never called, ggg voids it
         {
-            //print("undock " + htAct.host.vessel.rootPart.ConstructID + " " + htAct.target.vessel.rootPart.ConstructID);
+            //Log.Info("undock " + htAct.host.vessel.rootPart.ConstructID + " " + htAct.target.vessel.rootPart.ConstructID);
 
             try
             {
-                // print("Docking event!");
+                // Log.Info("Docking event!");
                 if (loadFinished)
                 {
                     Vessel vsl1 = htAct.host.vessel;
                     Vessel vsl2 = htAct.target.vessel;
-                    //print(vsl1.id + " " + vsl2.id);
+                    //Log.Info(vsl1.id + " " + vsl2.id);
                     if (vsl1 != vsl2) //check to make sure this is not the same vessel docking to itself somehow, both vsl1 and vsl2 would be FG.AC then.
                     {
-                        print("AGX Old Docking event!");
+                        Log.Info("AGX Old Docking event!");
                         //overrideRootChange = true;
                         if (vsl1 == FlightGlobals.ActiveVessel || vsl2 == FlightGlobals.ActiveVessel) //check to make sure at least one vessel is FG.AC  Not sure how a docking event could happen when neither vessel is active but make sure
                         {
                             if (AGXFlightNode.HasNode(vsl1.rootPart.flightID.ToString()))
                             {
-                                // print("vsl1 found");
+                                // Log.Info("vsl1 found");
                                 ConfigNode vsl1Node = AGXFlightNode.GetNode(vsl1.rootPart.flightID.ToString());
 
                                 foreach (ConfigNode prtNode in vsl1Node.nodes)
@@ -6100,9 +6100,9 @@ namespace ActionGroupsExtended
                                     }
                                     foreach (ConfigNode actNode in prtNode.nodes)
                                     {
-                                        //print("node " + actNode + " " + gamePart.ConstructID);
+                                        //Log.Info("node " + actNode + " " + gamePart.ConstructID);
                                         AGXAction actToAdd = StaticData.LoadAGXActionVer2(actNode, gamePart, ShowAmbiguousMessage);
-                                        //print("act to add " + actToAdd.ba);
+                                        //Log.Info("act to add " + actToAdd.ba);
                                         if (actToAdd != null)
                                         {
                                             List<AGXAction> Checking = new List<AGXAction>();
@@ -6129,7 +6129,7 @@ namespace ActionGroupsExtended
 
                             if (AGXFlightNode.HasNode(vsl2.rootPart.flightID.ToString()))
                             {
-                                //print("vsl2 found");
+                                //Log.Info("vsl2 found");
                                 ConfigNode vsl2Node = AGXFlightNode.GetNode(vsl2.rootPart.flightID.ToString());
 
                                 foreach (ConfigNode prtNode in vsl2Node.nodes)
@@ -6157,9 +6157,9 @@ namespace ActionGroupsExtended
                                     }
                                     foreach (ConfigNode actNode in prtNode.nodes)
                                     {
-                                        //print("node " + actNode + " " + gamePart.ConstructID);
+                                        //Log.Info("node " + actNode + " " + gamePart.ConstructID);
                                         AGXAction actToAdd = StaticData.LoadAGXActionVer2(actNode, gamePart, ShowAmbiguousMessage);
-                                        //print("act to add " + actToAdd.ba);
+                                        //Log.Info("act to add " + actToAdd.ba);
                                         if (actToAdd != null)
                                         {
                                             List<AGXAction> Checking = new List<AGXAction>();
@@ -6193,7 +6193,7 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                print("AGX Docking fail. Ignore this error if you did not just dock. " + e);
+                Log.Info("AGX Docking fail. Ignore this error if you did not just dock. " + e);
             }
         }
 
@@ -6393,7 +6393,7 @@ namespace ActionGroupsExtended
         //                //}
         //                AGXFlightNode.AddNode(newVsl);
         //                loadedVessels.Add(prtCheck.prt.vessel);
-        //                //print("part change case 2 " +newVsl);
+        //                //Log.Info("part change case 2 " +newVsl);
         //                prtCheck.pVsl = prtCheck.prt.vessel;
         //            }
 
@@ -6419,7 +6419,7 @@ namespace ActionGroupsExtended
         //                // }
         //                AGXFlightNode.AddNode(newVsl);
         //                loadedVessels.Add(prtCheck.pVsl);
-        //                // print("part change case 3 " + newVsl);
+        //                // Log.Info("part change case 3 " + newVsl);
         //                prtCheck.pVsl = prtCheck.prt.vessel;
         //            }
         //            //else  //incomplete code, one of the two vessels in this call should always exist, if we hit this else statement something else has seriously gone wrong.
@@ -6441,7 +6441,7 @@ namespace ActionGroupsExtended
         //    {
 
         //    }
-        //    // print("Done");
+        //    // Log.Info("Done");
         //}
 
         public void CalculateActiveActions()
@@ -6497,7 +6497,7 @@ namespace ActionGroupsExtended
                 }
 
             }
-            //print("Def 10 count " + DefaultTen.Count + " " + ActiveKeys.Count + " " + ActiveKeysDirect.Count);
+            //Log.Info("Def 10 count " + DefaultTen.Count + " " + ActiveKeys.Count + " " + ActiveKeysDirect.Count);
 
 
             Log.Info("calculateActiveActions22 end");
@@ -6513,7 +6513,7 @@ namespace ActionGroupsExtended
 
         public static void CalculateActionsState() //flag each actiongroup as activated or not
         {
-            // print("Calculate start");
+            // Log.Info("Calculate start");
             Log.Info("CalclateActionsState33 start!");
             //foreach(bool b in FlightGlobals.ActiveVessel.ActionGroups.groups)
             //{
@@ -6531,24 +6531,24 @@ namespace ActionGroupsExtended
                     actState.actionOff = false;
                 }
                 errLine = "4";
-                //print("Calculate start2");
+                //Log.Info("Calculate start2");
                 try
                 {
                     foreach (AGXAction agxAct in StaticData.CurrentVesselActions)
                     {
-                        //print("actions " + agxAct.ToString());
+                        //Log.Info("actions " + agxAct.ToString());
                         Log.Info("cnt " + ActiveActionsState.Count);
                         errLine = "5";
                         if (agxAct.activated)
                         {
                             errLine = "6";
-                            //print(agxAct.activated + agxAct.ba.name); 
+                            //Log.Info(agxAct.activated + agxAct.ba.name); 
                             ActiveActionsState.Find(p => p.group == agxAct.group).actionOn = true;
                         }
                         else if (!agxAct.activated)
                         {
                             errLine = "7";
-                            //print(agxAct.activated + agxAct.ba.name);
+                            //Log.Info(agxAct.activated + agxAct.ba.name);
                             ActiveActionsState.Find(p => p.group == agxAct.group).actionOff = true;
                         }
                         errLine = "8";
@@ -6592,9 +6592,9 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                print("AGXCalculateActionsState " + errLine + e);
+                Log.Info("AGXCalculateActionsState " + errLine + e);
             }
-            //print("Calculate start4");
+            //Log.Info("Calculate start4");
         }
 
         public static string SaveGroupVisibility(string str)
@@ -6618,14 +6618,14 @@ namespace ActionGroupsExtended
                         ReturnStr = ReturnStr + Convert.ToInt16(ShowGroupInFlight[i2, i]).ToString(); //add flight state visibility for each group
                     }
                 }
-                //print("AGXTogSave: " + ReturnStr);    
+                //Log.Info("AGXTogSave: " + ReturnStr);    
                 errLine = "9";
                 return ReturnStr;
                 //}
             }
             catch (Exception e)
             {
-                print("AGX Fail: SaveGroupVisibility " + errLine + " " + e);
+                Log.Info("AGX Fail: SaveGroupVisibility " + errLine + " " + e);
                 return str;
             }
         }
@@ -6682,7 +6682,7 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                print("AGX Save Group Names FAIL! (SaveGroupNames) " + errStep + " " + e);
+                Log.Info("AGX Save Group Names FAIL! (SaveGroupNames) " + errStep + " " + e);
                 return agxPM.groupNames;
             }
         }
@@ -6736,7 +6736,7 @@ namespace ActionGroupsExtended
                 }
                 catch (Exception e)
                 {
-                    print("AGX Action State Check Fail a " + agAct.ba.name + " " + agAct.ba.listParent.module.moduleName + " " + e);
+                    Log.Info("AGX Action State Check Fail a " + agAct.ba.name + " " + agAct.ba.listParent.module.moduleName + " " + e);
                     return actsListToCheck;
                 }
 
@@ -6863,7 +6863,7 @@ namespace ActionGroupsExtended
                             }
                             break;
                         case "ModuleReactionWheel":
-                            //print((string)agAct.ba.listParent.module.Fields.GetValue("stateString"));
+                            //Log.Info((string)agAct.ba.listParent.module.Fields.GetValue("stateString"));
                             if (agAct.ba.name == "Toggle" || agAct.ba.name == "Activate" || agAct.ba.name == "Deactivate")
                             {
                                 agAct.activated =
@@ -6911,7 +6911,7 @@ namespace ActionGroupsExtended
                         case "ModuleAnimateGeneric":
 
                             //ModuleAnimateGeneric animPM = (ModuleAnimateGeneric)agAct.ba.listParent.module;
-                            //print(ba.name + " " + ba.guiName + " " + animPM.animationName + " " + animPM.animTime);
+                            //Log.Info(ba.name + " " + ba.guiName + " " + animPM.animationName + " " + animPM.animTime);
 
                             if (agAct.ba.name == "ToggleAction")
                             {
@@ -7360,7 +7360,7 @@ namespace ActionGroupsExtended
 
                 catch (Exception e)
                 {
-                    print("AGX Action State Check Fail " + agAct.ba.name + " " + agAct.ba.listParent.module.moduleName + " " + e);
+                    Log.Info("AGX Action State Check Fail " + agAct.ba.name + " " + agAct.ba.listParent.module.moduleName + " " + e);
                 }
 
 

@@ -1,5 +1,10 @@
 ChangeLog
 
+2.4.1
+	Changed "print" to "Log.Info", which will eliminate logging those  lines in release version
+	Added AssemblyFileVersion
+	Updated version file for 1.12
+
 2.4.0.1
 	Fixed nullref on an edge case:
 		* Have the action editor open before going on EVA.
