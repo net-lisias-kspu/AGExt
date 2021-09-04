@@ -8,7 +8,6 @@ using System.Collections;
 using KSP.UI.Screens;
 using KSP.Localization;
 using UnityEngine;
-using AGExt;
 using ClickThroughFix;
 using ToolbarControl_NS;
 
@@ -489,7 +488,7 @@ namespace ActionGroupsExtended
                 {
                     //Log.Info("b");
                     errLine = "18";
-                    if ((string)AGExtNode.GetValue("OverrideCareer") == "1")
+                    if ((string)AGExtNode.GetValue("OverrideCareer") == "1" || HighLogic.CurrentGame.Parameters.CustomParams<AGExt>().OverrideCareer)
                     {
                         //Log.Info("c");
                         showCareerCustomAGs = true;

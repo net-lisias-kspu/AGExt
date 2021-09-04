@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using KSP.IO;
 using System.Reflection;
-using AGExt;
 using KSP.Localization;
 using UnityEngine;
 

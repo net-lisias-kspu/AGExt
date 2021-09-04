@@ -14,7 +14,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace AGExt
+namespace ActionGroupsExtended
 {
     [KSPAddon(KSPAddon.Startup.Instantly, true)]
     internal class Startup : MonoBehaviour

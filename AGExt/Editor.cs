@@ -8,7 +8,6 @@ using System.Timers;
 using UnityEngine;
 using KSP.UI.Screens;
 using KSP.Localization;
-using AGExt;
 using ClickThroughFix;
 using ToolbarControl_NS;
 
@@ -351,7 +350,7 @@ namespace ActionGroupsExtended
                 {
                     inVAB = false;
                 }
-                if (AGExtNode.HasValue("OverrideCareer")) //are action groups unlocked?
+                if (AGExtNode.HasValue("OverrideCareer") || HighLogic.CurrentGame.Parameters.CustomParams<AGExt>().OverrideCareer  ) //are action groups unlocked?
                 {
                     //Log.Info("b");
                     if ((string)AGExtNode.GetValue("OverrideCareer") == "1")
@@ -1783,8 +1782,8 @@ namespace ActionGroupsExtended
                ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.SPH,
                AGXFlight.MODID,
                "agextButton",
-               "Diazo/AGExt/icon_button_38",
-               "Diazo/AGExt/icon_button_24",
+               "Diazo/AGExt/PluginData/icon_button_38",
+               "Diazo/AGExt/PluginData/icon_button_24",
                AGXFlight.MODNAME
            );
            toolbarControl.AddLeftRightClickCallbacks(null, onRightButtonStockClick);

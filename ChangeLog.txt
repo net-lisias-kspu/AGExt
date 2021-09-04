@@ -1,5 +1,9 @@
 ChangeLog
 
+2.4.1.1
+	Fixed missing button texture in editor
+	Added Settings page to make the OverrideCareer option available without editing a file
+
 2.4.1
 	Changed "print" to "Log.Info", which will eliminate logging those  lines in release version
 	Added AssemblyFileVersion

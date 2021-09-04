@@ -5,7 +5,6 @@ using System.Text;
 using System.IO;
 using KSP.Localization;
 using UnityEngine;
-using AGExt;
 
 namespace ActionGroupsExtended
 {
