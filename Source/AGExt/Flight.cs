@@ -467,7 +467,7 @@ namespace ActionGroupsExtended
                 {
                     //print("b");
                     errLine = "18";
-                    if ((string)AGExtNode.GetValue("OverrideCareer") == "1")
+                    if ((string)AGExtNode.GetValue("OverrideCareer") == "1" || HighLogic.CurrentGame.Parameters.CustomParams<AGExt>().OverrideCareer)
                     {
                         //print("c");
                         showCareerCustomAGs = true;
