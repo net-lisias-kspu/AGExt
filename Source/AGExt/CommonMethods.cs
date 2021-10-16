@@ -93,7 +93,7 @@ namespace ActionGroupsExtended
                     nodeLoad = tempNode.GetNode("AGExtConfig");
                     SETTINGS.Save(nodeLoad); // Prevents dataloss in case of crash
                     System.IO.File.Delete(deprecated_path);
-					Log.Info("Deprecated Case 1 " + nodeLoad.ToString() + " - " + deprecated_path);
+					Log.info("Deprecated Case 1 {0} - {1}", nodeLoad, deprecated_path);
                 }
 				else if (System.IO.File.Exists(old_name))
                 {
@@ -101,7 +101,7 @@ namespace ActionGroupsExtended
                     nodeLoad = tempNode.GetNode("AGExtConfig");
                     SETTINGS.Save(nodeLoad); // Prevents dataloss in case of crash
 					System.IO.File.Delete(old_name);
-					Log.Info("Deprecated Case 2 " + nodeLoad.ToString() + " - " + old_name);
+					Log.info("Deprecated Case 2 {0} - {1}", nodeLoad, old_name);
 				}
 				else if (System.IO.File.Exists(previous_path))
 				{
@@ -109,7 +109,7 @@ namespace ActionGroupsExtended
 					nodeLoad = tempNode.GetNode("AGExtConfig");
                     SETTINGS.Save(nodeLoad); // Prevents dataloss in case of crash
 					System.IO.File.Delete(previous_path);
-					Log.Info("Deprecated Case 3 " + nodeLoad.ToString() + " - " + previous_path);
+					Log.info("Deprecated Case 3 {0} - {1}", nodeLoad, previous_path);
 				}
 
 				//nodeLoad = GameDatabase.Instance.GetConfigNode("Diazo/AGExt/AGExt/AGExtConfig");
@@ -426,7 +426,7 @@ namespace ActionGroupsExtended
         public override void OnSave(ConfigNode node)
         {
             string ErrLine = "1";
-            Log.Info("Saving Module start");
+            Log.trace("Saving Module start");
             try
             {
                 node.RemoveNodes("ACTION");
@@ -439,7 +439,7 @@ namespace ActionGroupsExtended
                 ErrLine = "2b";
                 if (HighLogic.LoadedSceneIsEditor)
                 {
-                    Log.Info("Editor save called by partmodule!");
+                    Log.trace("Editor save called by partmodule!");
 
                     ErrLine = "2c";
 
@@ -462,7 +462,7 @@ namespace ActionGroupsExtended
                             actsToSave.Add(agActSD);
                         }
                     }
-                    Log.Info("Partmodule Save action saved okay");
+                    Log.trace("Partmodule Save action saved okay");
                 }
 
                 ErrLine = "3";
@@ -537,20 +537,19 @@ namespace ActionGroupsExtended
                 //    //node.SetValue("hasData", "true", true);
                 //}
 
-
-
-                Log.Info("PartModule Save Okay"); //temporary
-                Log.Info("Saving Module end" + StaticData.CurrentVesselActions.Count());
+                Log.trace("PartModule Save Okay"); //temporary
+                Log.detail("Saving Module end {0}", StaticData.CurrentVesselActions.Count());
             }
             catch (Exception e)
             {
-                print("partModule OnSave fail: " + ErrLine + " " + e);
+                Log.err("partModule OnSave fail: {0}", ErrLine);
+                Log.ex(this, e);
             }
         }
 
         public override void OnLoad(ConfigNode node)
         {
-            Log.Info("Load Module" + node.ToString()); 
+            Log.detail("Load Module {0}", node); 
             string errLine = "1";
             try
             {
@@ -593,20 +592,21 @@ namespace ActionGroupsExtended
                     errLine = "9";
                     // Log.Info("Step 1 " + actionNode.ToString());
                     AGXAction actToAdd = StaticData.LoadAGXActionVer2(actionNode, this.part, false);
-                    Log.Info("Step 2 " + actToAdd.ToString());
+                    Log.trace("Step 2 {0}", actToAdd);
                     if (actToAdd != null && !agxActionsThisPart.Contains(actToAdd))
                     {
                         agxActionsThisPart.Add(actToAdd);
                     }
                 }
                 //.Log("AGX PartModule Load Okay"); //temporary
-                Log.Info("Load Module End" + agxActionsThisPart.Count()); 
+                Log.trace("Load Module End {0}", agxActionsThisPart.Count()); 
             }
             catch (Exception e)
             {
-                Log.Info("Module OnLoad Error " + errLine + " " + e);
+                Log.err("Module OnLoad Error {0}", errLine);
+                Log.ex(this, e);
             }
-            //print("Load called " + agxActionsThisPart.Count);
+            //Log.dbg("Load called " + agxActionsThisPart.Count);
         }
 
     }//ModuleAGX
@@ -622,10 +622,10 @@ namespace ActionGroupsExtended
         public AGXOtherVessel(uint FlightID)
         {
             flightID = FlightID;
-            Log.Info("Before");
+            Log.dbg("Before");
             List<Vessel> loadedVessels = FlightGlobals.Vessels.FindAll(vsl => vsl.loaded == true);
             thisVsl = loadedVessels.Find(ves => ves.rootPart.flightID == flightID);
-            Log.Info("After");
+            Log.dbg("After");
             actionsList = new List<AGXAction>();
             guiNames = new Dictionary<int, string>();
             if (thisVsl == null) //check vessel is loaded
@@ -797,24 +797,24 @@ namespace ActionGroupsExtended
 
             if (AGXFlight.RTFound)
             {
-                // Log.Info("RemoteTech found");
-                Log.Info("delay " + AGXRemoteTechLinks.RTTimeDelay(FlightGlobals.ActiveVessel));
-                Log.Info("in local " + AGXRemoteTechLinks.InLocal(FlightGlobals.ActiveVessel));
+                Log.detail("RemoteTech found");
+                Log.dbg("delay {0}", AGXRemoteTechLinks.RTTimeDelay(FlightGlobals.ActiveVessel));
+                Log.dbg("in local {0}", AGXRemoteTechLinks.InLocal(FlightGlobals.ActiveVessel));
                 //double curDelay = AGXRemoteTechLinks.RTTimeDelay(FlightGlobals.ActiveVessel);
-                //print("cur delay" + curDelay);
+                //Log.dbg("cur delay" + curDelay);
                 if (thisVsl.Parts.Any(p => p.protoModuleCrew.Any() && p.Modules.Contains("ModuleCommand"))) //are we in local control? Kerbal on board on a part with command abilities?
                 {
-                    Log.Info("RemoteTech local action");
+                    Log.trace("RemoteTech local action");
                     AGXFlight.AGXRemoteTechQueue.Add(new AGXRemoteTechQueueItem(group, actionsList.Find(act => act.group == group).grpName, thisVsl, Planetarium.GetUniversalTime(), force, forceDir, AGXRemoteTechItemState.COUNTDOWN));
                 }
                 else if (double.IsInfinity(AGXRemoteTechLinks.RTTimeDelay(thisVsl))) //remotetech returns positive infinity when a vessel is in local control so no delay, note that RT also returns positive infinity when a vessel has no connection so this check has to come second.
                 {
-                    Log.Info("RemoteTech infinity");
+                    Log.trace("RemoteTech infinity");
                     AGXFlight.AGXRemoteTechQueue.Add(new AGXRemoteTechQueueItem(group, actionsList.Find(act => act.group == group).grpName, thisVsl, Planetarium.GetUniversalTime(), force, forceDir, AGXRemoteTechItemState.NOCOMMS));
                 }
                 else
                 {
-                    Log.Info("RemoteTech normal " + AGXRemoteTechLinks.RTTimeDelay(thisVsl));
+                    Log.trace("RemoteTech normal {0}", AGXRemoteTechLinks.RTTimeDelay(thisVsl));
                     if (AGXFlight.useRT)
                     {
                         AGXFlight.AGXRemoteTechQueue.Add(new AGXRemoteTechQueueItem(group, actionsList.Find(act => act.group == group).grpName, thisVsl, Planetarium.GetUniversalTime() + AGXRemoteTechLinks.RTTimeDelay(thisVsl), force, forceDir, AGXRemoteTechItemState.COUNTDOWN));
@@ -878,7 +878,7 @@ namespace ActionGroupsExtended
                         {
                             ErrLine = "7";
                             KSPActionParam actParam = new KSPActionParam(KSPActionGroup.None, KSPActionType.Deactivate);
-                            //print("AGX action deactivate FIRE! " + agAct.ba.guiName);
+                            //Log.dbg("AGX action deactivate FIRE! " + agAct.ba.guiName);
                             ErrLine = "8";
                             // Log.Info("act it " + agAct.ba.active);
                             agAct.ba.Invoke(actParam);
@@ -896,9 +896,9 @@ namespace ActionGroupsExtended
                             ErrLine = "12";
                             KSPActionParam actParam = new KSPActionParam(KSPActionGroup.None, KSPActionType.Activate);
                             //agAct.activated = true;
-                            //print("AGX action activate FIRE!" + agAct.ba.guiName);
+                            //Log.dbg("AGX action activate FIRE!" + agAct.ba.guiName);
                             ErrLine = "13";
-                            Log.Info("act it2 " + agAct.ba.active);
+                            Log.trace("act it2 {0}", agAct.ba.active);
                             agAct.ba.Invoke(actParam);
                             agAct.activated = true;
                             ErrLine = "14";
@@ -923,7 +923,7 @@ namespace ActionGroupsExtended
                             ErrLine = "17";
                             //overide to activate part when activating an engine so gimbals come on
                             agAct.ba.listParent.part.force_activate();
-                            //print("Force act");
+                            //Log.dbg("Force act");
 
                         }
                         ErrLine = "18";
@@ -932,7 +932,7 @@ namespace ActionGroupsExtended
                             ErrLine = "19";
                             //overide to activate part when activating an engine so gimbals come on
                             agAct.ba.listParent.part.force_activate();
-                            //print("Force act");
+                            //Log.dbg("Force act");
                             ErrLine = "20";
                         }
                         ErrLine = "21";
@@ -943,8 +943,8 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.Info("OtherVsl ActivateActionGroup fail " + ErrLine + " " + e);
-
+                Log.err("OtherVsl ActivateActionGroup fail {0}", ErrLine);
+                Log.ex(this, e);
             }
 
         }
@@ -1006,7 +1006,7 @@ namespace ActionGroupsExtended
                         errLine = "18";
                         if (thisPartsActions.Count > 0)
                         {
-                            //print("acts count " + thisPartsActions.Count);
+                            //Log.dbg("acts count " + thisPartsActions.Count);
                             ConfigNode partTemp = new ConfigNode("PART");
                             errLine = "19";
                             partTemp.AddValue("name", p.partInfo.name);
@@ -1018,7 +1018,7 @@ namespace ActionGroupsExtended
                             errLine = "20";
                             foreach (AGXAction agxAct in thisPartsActions)
                             {
-                                //print("acts countb " + thisPartsActions.Count);
+                                //Log.dbg("acts countb " + thisPartsActions.Count);
                                 errLine = "21";
                                 partTemp.AddNode(StaticData.SaveAGXActionVer2(agxAct));
                             }
@@ -1042,13 +1042,14 @@ namespace ActionGroupsExtended
                         AGXFlight.AGXFlightNode.RemoveNode(thisVsl.rootPart.flightID.ToString());
                     }
                     errLine = "29";
-                    //print("save node " + thisVsl);
+                    //Log.dbg("save node " + thisVsl);
                     AGXFlight.AGXFlightNode.AddNode(thisVslNode);
                 }
             }
             catch (Exception e)
             {
-                Log.Info("OtherVslSaveNode Fail " + errLine + " " + e);
+                Log.info("OtherVslSaveNode Fail {0}", errLine);
+                Log.ex(this, e);
             }
 
         }
@@ -1079,7 +1080,7 @@ namespace ActionGroupsExtended
             {
                 hashedName = hashedName + (int)ch;
             }
-            //print("hashName " + hashedName);
+            //Log.dbg("hashName " + hashedName);
 
             return hashedName;
         }
@@ -1087,7 +1088,7 @@ namespace ActionGroupsExtended
         public static AGXAction LoadAGXActionVer2(ConfigNode actNode, Part actPart, bool showAmbiguousMessage) //returns null on error, check where returned
         {
             string errLine = "1";
-            //print("load action " + actPart.partName + " " + actNode);
+            //Log.dbg("load action " + actPart.partName + " " + actNode);
             try
             {
                 errLine = "2";
@@ -1119,7 +1120,7 @@ namespace ActionGroupsExtended
                     //actPart is part
                     PartModule ourPM = PartModuleIndexToModule((string)actNode.GetValue("partModule"), Int32.Parse((string)actNode.GetValue("pmIndex")), actPart); //e(string pmName, int pmIndex, Part p)
                     ActionToLoad.ba = ourPM.Actions[(string)actNode.GetValue("actionName")];
-                    Log.Info("New Load Okay " + ActionToLoad.ToString());
+                    Log.trace("New Load Okay {0}", ActionToLoad);
                     return ActionToLoad;
                 }
                 else //in theory this entire else statement is obsolete as of agx 1.34c and will never be run, leave for backwards compatibility
@@ -1169,7 +1170,7 @@ namespace ActionGroupsExtended
                     }
                     else if (pmName == "FSanimateGeneric")
                     {
-                        //print("load it");
+                        //Log.dbg("load it");
                         string animName = actNode.GetValue("custom1");
                         foreach (PartModule pm in actPart.Modules) //add actions to compare
                         {
@@ -1267,7 +1268,7 @@ namespace ActionGroupsExtended
                         //    print("2 " + ba6.name + " " + ba6.listParent.module.Fields.GetValue("resourceName"));
                         //}
                         //actsToCompare.RemoveAll(b2 => b2.guiName != actNode.GetValue("actionGuiName"));
-                        //print("2a " + startEventName);
+                        //Log.dbg("2a " + startEventName);
                         actsToCompare.RemoveAll(b3 => (string)b3.listParent.module.Fields.GetValue("resourceName") != (string)startEventName);
                         //foreach (BaseAction ba6 in actsToCompare)
                         //{
@@ -1363,11 +1364,11 @@ namespace ActionGroupsExtended
 
                         foreach (ModuleEnginesFX pm in actPart.Modules.OfType<ModuleEnginesFX>()) //add actions to compare
                         {
-                            //print("Fields " + (string)pm.Fields.GetValue("engineID") + "||" + (string)actNode.GetValue("custom1"));
+                            //Log.dbg("Fields " + (string)pm.Fields.GetValue("engineID") + "||" + (string)actNode.GetValue("custom1"));
                             if ((string)pm.Fields.GetValue("engineID") == (string)actNode.GetValue("custom1"))
                             {
                                 actsToCompare.AddRange(pm.Actions);
-                                //print("Acts to compare " + actsToCompare.Count + " " + pm.Actions.Count + pm.name + pm.moduleName);
+                                //Log.dbg("Acts to compare " + actsToCompare.Count + " " + pm.Actions.Count + pm.name + pm.moduleName);
                             }
                             actsToCompare.RemoveAll(b => b.name != (string)actNode.GetValue("actionName"));
 
@@ -1476,11 +1477,13 @@ namespace ActionGroupsExtended
                     }
                 }//close new if
                 errLine = "3";
-                //print("ActsCount " + actsToCompare.Count);
+                //Log.dbg("ActsCount " + actsToCompare.Count);
                 if (actsToCompare.Count != 1)
                 {
                     errLine = "4";
-                    Log.Info("actsToCompare.count != 1 " + actsToCompare.Count + " Part: " + actPart.name + " Module: " + actNode.GetValue("partModule") + " " + actNode.GetValue("actionName") + " " + actNode.GetValue("actionGuiName"));
+                    Log.trace("actsToCompare.count != 1 {0} Part: {1} Module: {2} {3} {4}"
+                        , actsToCompare.Count, actPart.name, actNode.GetValue("partModule"), actNode.GetValue("actionName"), actNode.GetValue("actionGuiName")
+                        );
                     //if (showAmbiguousMessage)
                     //{
                     //    ScreenMessages.PostScreenMessage("AGX Load Action ambiguous. Count: " + actsToCompare.Count, 10F, ScreenMessageStyle.UPPER_CENTER);
@@ -1501,23 +1504,24 @@ namespace ActionGroupsExtended
                     ActionToLoad = null;
                 }
                 errLine = "8";
-                //print("load action2 " + ActionToLoad.ba.name + " " + ActionToLoad.group);
-                //print("agx check " + actsToCompare.Count + " " + ActionToLoad.group + ActionToLoad.ba.name);
-                //print("actual act " + ActionToLoad + " " + ActionToLoad.ba.name);
-                //print("BA load " + ActionToLoad.ba.name + " " + ActionToLoad.ba.listParent.part.ConstructID + " " + ActionToLoad.prt.ConstructID);
+                //Log.dbg("load action2 " + ActionToLoad.ba.name + " " + ActionToLoad.group);
+                //Log.dbg("agx check " + actsToCompare.Count + " " + ActionToLoad.group + ActionToLoad.ba.name);
+                //Log.dbg("actual act " + ActionToLoad + " " + ActionToLoad.ba.name);
+                //Log.dbg("BA load " + ActionToLoad.ba.name + " " + ActionToLoad.ba.listParent.part.ConstructID + " " + ActionToLoad.prt.ConstructID);
                 return ActionToLoad;
 
             }
             catch (Exception e)
             {
-                Log.Info("AGXLoadAGXAction2 FAIL " + errLine + " " + e);
+                Log.err("LoadAGXAction2 FAIL {0}", errLine);
+                Log.ex(typeof(StaticData), e);
                 return null;
             }
         }
 
         public static ConfigNode SaveAGXActionVer2(AGXAction agxAct)
         {
-            //print("Save called");
+            //Log.dbg("Save called");
             string errLine = "1";
             try
             {
@@ -1560,7 +1564,7 @@ namespace ActionGroupsExtended
                     errLine = "15";
                     actionNode.AddValue("custom1", MAnim.animationName); //u2021 is sciencemodule
                     errLine = "16";
-                    //print(MAnim.animationName);
+                    //Log.dbg(MAnim.animationName);
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "FSanimateGeneric") //add this to the agxactions list somehow and add to save.load serialze
                 {
@@ -1569,7 +1573,7 @@ namespace ActionGroupsExtended
                     errLine = "15";
                     actionNode.AddValue("custom1", agxAct.ba.listParent.module.Fields.GetValue("animationName")); //u2021 is sciencemodule
                     errLine = "16";
-                    //print(MAnim.animationName);
+                    //Log.dbg(MAnim.animationName);
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "DMModuleScienceAnimate") //DMagic orbital science mod
                 {
@@ -1674,7 +1678,8 @@ namespace ActionGroupsExtended
 
             catch (Exception e)
             {
-                Log.Info("SaveAGXAction2 FAIL " + errLine + " " + agxAct.prt.partName + " " + agxAct.ba.name + " " + e);
+                Log.info("SaveAGXAction2 FAIL {0} {1} {2}", errLine, agxAct.prt.partName, agxAct.ba.name);
+                Log.ex(typeof(StaticData), e);
                 return new ConfigNode();
             }
 
@@ -1695,7 +1700,7 @@ namespace ActionGroupsExtended
             }
             catch
             {
-                Log.Info("SavePMIndex Fail, using default");
+                Log.err("SavePMIndex Fail, using default");
                 return 0;
             }
         }
@@ -1716,7 +1721,7 @@ namespace ActionGroupsExtended
             }
             catch
             {
-                Log.Info("Load Action Index fail, action probably lost");
+                Log.err("Load Action Index fail, action probably lost");
                 return new PartModule();
             }
         }

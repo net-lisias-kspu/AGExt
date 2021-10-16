@@ -29,43 +29,43 @@ namespace ActionGroupsExtended
             set => LOG.level = (KSPe.Util.Log.Level)(value % 6);
         }
 
-        public static void Force(string format, params object[] @parms)
+        public static void force(string format, params object[] @parms)
         {
             LOG.force(format, parms);
         }
 
-        public static void Trace(string format, params object[] @parms)
+        public static void trace(string format, params object[] @parms)
         {
             LOG.trace(format, parms);
         }
 
-        public static void Detail(string format, params object[] @parms)
+        public static void detail(string format, params object[] @parms)
         {
             LOG.detail(format, parms);
         }
 
-        public static void Info(string format, params object[] @parms)
+        public static void info(string format, params object[] @parms)
         {
             LOG.info(format, parms);
         }
 
-        public static void Warn(string format, params object[] @parms)
+        public static void warn(string format, params object[] @parms)
         {
             LOG.warn(format, parms);
         }
 
-        public static void Err(string format, params object[] parms)
+        public static void err(string format, params object[] parms)
         {
             LOG.error(format, parms);
         }
 
-        public static void ex(MonoBehaviour offended, System.Exception e)
+        public static void ex(object offended, System.Exception e)
         {
             LOG.error(offended, e);
         }
 
         [Conditional("DEBUG")]
-        public static void Dbg(string format, params object[] @parms)
+        public static void dbg(string format, params object[] @parms)
         {
             LOG.dbg(format, parms);
         }

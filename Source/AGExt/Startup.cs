@@ -25,7 +25,7 @@ namespace ActionGroupsExtended
 	{
         private void Start()
         {
-            Log.Force("Version {0}", Version.Text);
+            Log.force("Version {0}", Version.Text);
 
             try
             {
@@ -34,7 +34,7 @@ namespace ActionGroupsExtended
             }
             catch (KSPe.Util.InstallmentException e)
             {
-                Log.Err(e.ToShortMessage());
+                Log.err(e.ToShortMessage());
                 KSPe.Common.Dialogs.ShowStopperAlertBox.Show(e);
             }
         }

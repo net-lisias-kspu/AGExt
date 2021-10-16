@@ -145,7 +145,7 @@ namespace ActionGroupsExtended
 //                           errLine = "25";
 //                           SaveGroupsString = SaveGroupsString + '\u2024' + MAnim.animationName; //u2021 is sciencemodule
 //                           errLine = "26";
-//                           //print(MAnim.animationName);
+//                           //Log.dbg(MAnim.animationName);
 //                       }
 //                       else if (agAct.ba.listParent.module.moduleName == "DMModuleScienceAnimate") //DMagic orbital science mod
 //                       {
@@ -190,14 +190,14 @@ namespace ActionGroupsExtended
 
 //        AGXEditor.DetachedPartActions.AddRange(partAGActions); //add actiongroups on this part to List
 //        AGXEditor.DetachedPartReset.Stop(); //stop timer so it resets
-//        //print("Detach");
+//        //Log.dbg("Detach");
         
 //    }
 //    public void PartOnAttach() //callback that runs when part is attached in editor
 //    {
 //       AGXEditor.DetachedPartReset.Start(); //start timer to add actiongroups back onto symmetrical parts
 //       //AGXEditor.AttachAGXPart(this.part, partAllActions, partAGActions);
-//        //print("Attach");
+//        //Log.dbg("Attach");
 
 
 //    }
@@ -208,7 +208,7 @@ namespace ActionGroupsExtended
 //            this.part.OnEditorDetach -= PartOnDetach;
 //            this.part.OnEditorAttach -= PartOnAttach;
 //            CallBacksSet = false;
-//            //print("clear callbacks");
+//            //Log.dbg("clear callbacks");
 
 //        }
 //    }
@@ -391,7 +391,7 @@ namespace ActionGroupsExtended
 //                                    }
 //                                }
 //                                partAGActions2.Add(new AGXAction() { group = ActGroup, prt = this.part, ba = SciModuleActs.Find(b => b.name == ActionName), activated = Activated });
-//                                //print("AGXDataLoadAct1: " + this.part.ConstructID + " " + ActGroup + " " + SciModuleActs.Find(b => b.name == ActionName).name + " " + SciModuleActs.Find(b => b.name == ActionName).guiName + " " + Activated);
+//                                //Log.dbg("AGXDataLoadAct1: " + this.part.ConstructID + " " + ActGroup + " " + SciModuleActs.Find(b => b.name == ActionName).name + " " + SciModuleActs.Find(b => b.name == ActionName).guiName + " " + Activated);
 //                                LoadList = LoadList.Substring(KeyLength - 4); //remove this action from load string
 //                            }
 //                             else if (LoadList.Substring(0, KeyLength - 4).Contains('\u2022')) //science part
@@ -451,19 +451,19 @@ namespace ActionGroupsExtended
 
 //                                 string ActionName = LoadList.Substring(0, LoadList.IndexOf('\u2024')); //name of action
 //                                 string ActionGUIName = LoadList.Substring(LoadList.IndexOf('\u2024') + 1, KeyLength - 5 - LoadList.IndexOf('\u2024')); //name of action shown on gui
-//                                 //print("Load " + ActionName + " " + ActionGUIName);
+//                                 //Log.dbg("Load " + ActionName + " " + ActionGUIName);
 //                                 List<BaseAction> animActs = new List<BaseAction>();
 //                                 animActs.AddRange(partAllActions.Where(ba => ba.listParent.module.moduleName == "ModuleAnimateGeneric"));
                                  
 //                                 foreach (BaseAction baList in animActs) //find this actions science module and get actions list
 //                                 {
 //                                     ModuleAnimateGeneric animMdl = (ModuleAnimateGeneric)baList.listParent.module;
-//                                     //print(animMdl.animationName);
+//                                     //Log.dbg(animMdl.animationName);
 //                                     if (baList.name == ActionName && animMdl.animationName == ActionGUIName)
 //                                     {
 
 //                                         partAGActions2.Add(new AGXAction() { group = ActGroup, prt = this.part, ba = baList, activated = Activated });
-//                                         //print("AGXDataLoadAct3a: " + this.part.ConstructID + " " + ActGroup + " " + baList.name + " " + baList.guiName + " " + Activated);
+//                                         //Log.dbg("AGXDataLoadAct3a: " + this.part.ConstructID + " " + ActGroup + " " + baList.name + " " + baList.guiName + " " + Activated);
 //                                         goto BreakOut; //break out of foreach, only want to find one action
 //                                     }
 //                                 }
@@ -484,17 +484,17 @@ namespace ActionGroupsExtended
 //                                 //    print("Action! " +ba.listParent.part.partName+ " " + ba.listParent.module.moduleName);
 //                                 //}
 //                                 animActs.AddRange(partAllActions.Where(ba => ba.listParent.module.moduleName == "DMModuleScienceAnimate"));
-//                                 //print("Test " + baList.name + " " + baList.listParent.module.Fields.GetValue("startEventGUIName"));
-//                                 //print("Test " + animActs.Count);
+//                                 //Log.dbg("Test " + baList.name + " " + baList.listParent.module.Fields.GetValue("startEventGUIName"));
+//                                 //Log.dbg("Test " + animActs.Count);
 //                                 foreach (BaseAction baList in animActs) //find this actions science module and get actions list
 //                                 {
 //                                     //ModuleAnimateGeneric animMdl = (ModuleAnimateGeneric)baList.listParent.module;
-//                                     //print("Test " + baList.name + " " + baList.listParent.module.Fields.GetValue("startEventGUIName"));
+//                                     //Log.dbg("Test " + baList.name + " " + baList.listParent.module.Fields.GetValue("startEventGUIName"));
 //                                     if (baList.name == ActionName && (string)baList.listParent.module.Fields.GetValue("startEventGUIName") == ActionGUIName)
 //                                     {
 
 //                                         partAGActions2.Add(new AGXAction() { group = ActGroup, prt = this.part, ba = baList, activated = Activated });
-//                                         //print("AGXDataLoadAct3a: " + this.part.ConstructID + " " + ActGroup + " " + baList.name + " " + baList.guiName + " " + Activated);
+//                                         //Log.dbg("AGXDataLoadAct3a: " + this.part.ConstructID + " " + ActGroup + " " + baList.name + " " + baList.guiName + " " + Activated);
 //                                         goto BreakOut; //break out of foreach, only want to find one action
 //                                     }
 //                                 }
@@ -515,17 +515,17 @@ namespace ActionGroupsExtended
 //                                 //    print("Action! " +ba.listParent.part.partName+ " " + ba.listParent.module.moduleName);
 //                                 //}
 //                                 animActs.AddRange(partAllActions.Where(ba => ba.listParent.module.moduleName == "DMSolarCollector"));
-//                                 //print("Test " + baList.name + " " + baList.listParent.module.Fields.GetValue("startEventGUIName"));
-//                                 //print("Test " + animActs.Count);
+//                                 //Log.dbg("Test " + baList.name + " " + baList.listParent.module.Fields.GetValue("startEventGUIName"));
+//                                 //Log.dbg("Test " + animActs.Count);
 //                                 foreach (BaseAction baList in animActs) //find this actions science module and get actions list
 //                                 {
 //                                     //ModuleAnimateGeneric animMdl = (ModuleAnimateGeneric)baList.listParent.module;
-//                                     //print("Test " + baList.name + " " + baList.listParent.module.Fields.GetValue("startEventGUIName"));
+//                                     //Log.dbg("Test " + baList.name + " " + baList.listParent.module.Fields.GetValue("startEventGUIName"));
 //                                     if (baList.name == ActionName && (string)baList.listParent.module.Fields.GetValue("startEventGUIName") == ActionGUIName)
 //                                     {
 
 //                                         partAGActions2.Add(new AGXAction() { group = ActGroup, prt = this.part, ba = baList, activated = Activated });
-//                                         //print("AGXDataLoadAct3a: " + this.part.ConstructID + " " + ActGroup + " " + baList.name + " " + baList.guiName + " " + Activated);
+//                                         //Log.dbg("AGXDataLoadAct3a: " + this.part.ConstructID + " " + ActGroup + " " + baList.name + " " + baList.guiName + " " + Activated);
 //                                         goto BreakOut; //break out of foreach, only want to find one action
 //                                     }
 //                                 }
@@ -543,7 +543,7 @@ namespace ActionGroupsExtended
 //                            {
                                 
 //                                partAGActions2.Add(new AGXAction() { group = ActGroup, prt = this.part, ba = partAllActions.Find(b => b.name == LoadList.Substring(0, KeyLength - 4)), activated = Activated });    //add action, old string format                  
-//                                //print("AGXDataLoadAct4: " + this.part.ConstructID + " " + ActGroup + " " + partAllActions.Find(b => b.name == LoadList.Substring(0, KeyLength - 4)).name + " " + partAllActions.Find(b => b.name == LoadList.Substring(0, KeyLength - 4)).guiName + " " + Activated);
+//                                //Log.dbg("AGXDataLoadAct4: " + this.part.ConstructID + " " + ActGroup + " " + partAllActions.Find(b => b.name == LoadList.Substring(0, KeyLength - 4)).name + " " + partAllActions.Find(b => b.name == LoadList.Substring(0, KeyLength - 4)).guiName + " " + Activated);
 //                                     LoadList = LoadList.Substring(KeyLength - 4); //remove this action from load string
 //                            }
 //                             errLine = "7";
@@ -626,7 +626,7 @@ namespace ActionGroupsExtended
             
 //        }
 //        errLine = "12";
-//        //print("AGXLoadDataOK" + partAGActions2.Count);
+//        //Log.dbg("AGXLoadDataOK" + partAGActions2.Count);
 //        return partAGActions2;
 //    }
 
@@ -649,7 +649,7 @@ namespace ActionGroupsExtended
 //        //{
 //        //    print("load " +ba.name + " " + ba.guiName);
 //        //}
-//        //print("AGX Load Start: " + node.GetValue("name"));
+//        //Log.dbg("AGX Load Start: " + node.GetValue("name"));
 //        partAGActions = new List<AGXAction>();
 //        partAGActions.AddRange(LoadActionGroups());
 
@@ -667,7 +667,7 @@ namespace ActionGroupsExtended
 //            //{
 //            //    print("load " + ba.name + " " + ba.guiName);
 //            //}
-//            //print("AGX Save Start: " + node.GetValue("name"));
+//            //Log.dbg("AGX Save Start: " + node.GetValue("name"));
 //            if (!AGXLoaded)
 //            {
 //                partAGActions.Clear();
