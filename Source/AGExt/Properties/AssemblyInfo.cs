@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("AGExt")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Extended Action Groups for KSP")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AGExt")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany(ActionGroupsExtended.LegalMamboJambo.Company)]
+[assembly: AssemblyProduct(ActionGroupsExtended.LegalMamboJambo.Product)]
+[assembly: AssemblyCopyright(ActionGroupsExtended.LegalMamboJambo.Copyright)]
+[assembly: AssemblyTrademark(ActionGroupsExtended.LegalMamboJambo.Trademark)]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
