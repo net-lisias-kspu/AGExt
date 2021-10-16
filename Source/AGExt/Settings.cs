@@ -16,7 +16,9 @@
 	Action Groups Extended (AGExt) /L. If not, see <https://www.gnu.org/licenses/>.
 
 */
-﻿using System.Collections;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 
@@ -27,9 +29,10 @@ namespace ActionGroupsExtended
 
     //   HighLogic.CurrentGame.Parameters.CustomParams<AGExt>()
 
+    #if false
     public class AGExt : GameParameters.CustomParameterNode
     {
-        public override string Title { get { return ""; } }
+        public override string Title { get { return "Action Groups Extended"; } }
         public override GameParameters.GameMode GameMode { get { return GameParameters.GameMode.ANY; } }
         public override string Section { get { return "AGExt"; } }
         public override string DisplaySection { get { return "Action Groups Extended"; } }
@@ -44,24 +47,39 @@ namespace ActionGroupsExtended
 
         public override void SetDifficultyPreset(GameParameters.Preset preset)
         {
+            base.SetDifficultyPreset(preset);
         }
 
         public override bool Enabled(MemberInfo member, GameParameters parameters)
         {
-
             return true;
         }
 
 
         public override bool Interactible(MemberInfo member, GameParameters parameters)
         {
-
             return true;
         }
 
         public override IList ValidValues(MemberInfo member)
         {
-            return null;
+            switch (member.MemberType)
+            {
+                case MemberTypes.Field:
+                {
+                    Type t = ((FieldInfo)member).FieldType;
+                    Log.dbg("ValidValues {0} {1}", member, t);
+                    if (t == typeof(bool)) return new List<bool>(new bool[]{false, true });
+                }  break;
+                case MemberTypes.Event:
+                case MemberTypes.Method:
+                case MemberTypes.Property:
+                default:
+                    break;
+            }
+            Log.dbg("base.ValidValues {0}", member);
+            return base.ValidValues(member);
         }
     }
+    #endif
 }
