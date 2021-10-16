@@ -10,7 +10,7 @@
 <#@ output extension=".cs" #>
 <#@ import namespace="System.IO" #>
 <#
-	string PROJECT_NAME = "ActionGroupsExtended";
+	string PROJECT_NAME = "AGExt";
 	int major = 0;
 	int minor = 0;
 	int patch = 0;
@@ -18,8 +18,7 @@
 
 	try
 	{
-		//string file = this.Host.ResolvePath("../../../" + PROJECT_NAME + ".version");
-		string file = this.Host.ResolvePath("../../../AGExt.version");
+		string file = this.Host.ResolvePath("../../../" + PROJECT_NAME + ".version");
 		string text = File.ReadAllText(file);
 
 		{
@@ -75,7 +74,7 @@
 #>
 
 // Automatically generated code. Any changes will be lost!
-namespace <#= PROJECT_NAME #>
+namespace ActionGroupsExtended
 {
 	public static class Version
 	{
@@ -85,7 +84,9 @@ namespace <#= PROJECT_NAME #>
 		public const int build = <#= build #>;
 		public const string Number = "<#= major #>.<#= minor #>.<#= patch #>.<#= build #>";
 		public const string Text = Number + " /L Unofficial";
+		
 		public const string Namespace = "AGExt";
 		public const string Vendor = "net.lisias.ksp";
+		public const string FriendlyName = "Action Groups Extended /L";
 	}
 }

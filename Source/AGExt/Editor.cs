@@ -24,10 +24,10 @@ using System.Timers;
 using UnityEngine;
 using KSP.UI.Screens;
 using KSP.Localization;
-using ToolbarControl_NS;
 
 using GUILayout = KSPe.UI.GUILayout;
 using GUI = KSPe.UI.GUI;
+using Toolbar = KSPe.UI.Toolbar;
 
 namespace ActionGroupsExtended
 {
@@ -738,48 +738,13 @@ namespace ActionGroupsExtended
             }
         }
 
-        public void DummyVoid()
-        {
-
-        }
-#if true
-        public void onStockToolbarClick() //void method, now done with the delegate method
-        {
-            //if (showCareerStockAGs)
-            //{
-            //    //print("mouse " + Input.GetMouseButtonUp(1) + Input.GetMouseButtonDown(1));
-            //    if (Input.GetMouseButtonUp(1))
-            //    {
-            //        onRightButtonStockClick();
-            //    }
-            //    else
-            //    {
-            //        onLeftButtonClick();
-            //    }
-            //}
-            onLeftButtonClick();
-        }
-
-#endif
-        public Callback LeftClick = delegate
-        {
-            thisModule.onLeftButtonClick();
-
-        };
-        public Callback RightClick = delegate
-        {
-            thisModule.onRightButtonStockClick();
-
-        };
-
-
-        public void onRightButtonStockClick()
+        private void OnRightButtonClick()
         {
             //forceShowDefaultEditor = false;
             showAGXRightClickMenu = !showAGXRightClickMenu;
         }
 
-        public void onLeftButtonClick()
+        private void OnLeftButtonClick()
         {
             Log.Info("btn click " + Time.realtimeSinceStartup);
             try
@@ -1660,22 +1625,8 @@ namespace ActionGroupsExtended
             errLine = "3";
             SaveWindowPositions();
             errLine = "4";
-#if false
-                if (ToolbarManager.ToolbarAvailable) //if toolbar loaded, destroy button on leaving scene
-            {
-                errLine = "5";
-                AGXBtn.Destroy();
 
-            }
-            else
-            {
-                errLine = "6";
-                ApplicationLauncher.Instance.RemoveModApplication(AGXAppEditorButton);
-            }
-#endif
-
-            toolbarControl.OnDestroy();
-            Destroy(toolbarControl);
+            ToolbarController.Instance.Destroy();
 
             //EditorSaveToFile(); //some of my data has already been deleted by this point
             errLine = "7";
@@ -1751,37 +1702,19 @@ namespace ActionGroupsExtended
             return s.StartsWith("Joystick");
         }
 
-        ToolbarControl toolbarControl = null;
         void AddButtons()
         {
-#if false
-            while (!ApplicationLauncher.Ready)
-            {
-                yield return null;
-            }
-            if (!buttonCreated)
-            {
-                AGXAppEditorButton = ApplicationLauncher.Instance.AddModApplication(onStockToolbarClick, onStockToolbarClick, DummyVoid, DummyVoid, DummyVoid, DummyVoid,
-                    ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.SPH, (Texture)GameDatabase.Instance.GetTexture("Diazo/AGExt/icon_button_38", false));
-                //GameEvents.onGUIApplicationLauncherReady.Remove(AddButtons);
-                //CLButton.onLeftClick(StockToolbarClick);
-                AGXAppEditorButton.onLeftClick = (Callback)Delegate.Combine(AGXAppEditorButton.onLeftClick, LeftClick); //combine delegates together
-                AGXAppEditorButton.onRightClick = (Callback)Delegate.Combine(AGXAppEditorButton.onRightClick, RightClick); //combine delegates together
-                buttonCreated = true;
-            }
-#endif
-            Log.Info("Editor.AddButton");
-            toolbarControl = gameObject.AddComponent<ToolbarControl>();
-            toolbarControl.AddToAllToolbars(onStockToolbarClick, onStockToolbarClick, 
-               ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.SPH,
-               AGXFlight.MODID,
-               "agextButton",
-               File.Asset.Solve("Textures", "icon_button_38"),
-               File.Asset.Solve("Textures", "icon_button_24"),
-               AGXFlight.MODNAME
-           );
-           toolbarControl.AddLeftRightClickCallbacks(null, onRightButtonStockClick);
-
+            Log.Trace("AddButton");
+            Toolbar.Button button = Toolbar.Button.Create<AGXEditor>(this
+                    , ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.SPH
+                    , "icon_button_38"
+                    , "icon_button_24"
+                );
+            button.Mouse
+                .Add(Toolbar.Button.MouseEvents.Kind.Left, OnLeftButtonClick)
+                .Add(Toolbar.Button.MouseEvents.Kind.Right, OnRightButtonClick)
+            ;
+            ToolbarController.Instance.Add(button);
         }
 
         public void OnGUI()

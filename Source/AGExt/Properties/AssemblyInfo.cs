@@ -36,6 +36,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion(ActionGroupsExtended.Version.Number)]
 [assembly: KSPAssembly("AGExt", ActionGroupsExtended.Version.major, ActionGroupsExtended.Version.minor)]
 
-[assembly: KSPAssemblyDependency("ToolbarController", 1, 0)]
-[assembly: KSPAssemblyDependency("KSPe", 2, 1)]
-[assembly: KSPAssemblyDependency("KSPe.UI", 2, 1)]
+[assembly: KSPAssemblyDependency("KSPe", 2, 4)]
+[assembly: KSPAssemblyDependency("KSPe.UI", 2, 4)]

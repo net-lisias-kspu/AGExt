@@ -24,10 +24,10 @@ using System.Collections;
 using KSP.UI.Screens;
 using KSP.Localization;
 using UnityEngine;
-using ToolbarControl_NS;
 
 using GUILayout = KSPe.UI.GUILayout;
 using GUI = KSPe.UI.GUI;
+using Toolbar = KSPe.UI.Toolbar;
 
 namespace ActionGroupsExtended
 {
@@ -221,45 +221,12 @@ namespace ActionGroupsExtended
             showDockedSubVesselIndicators = false;
         }
 
-        public void DummyVoid()
-        {
-
-        }
-#if true
-        public void onStockToolbarClick() //void method, use delegates
-        {
-            //print("mouse " + Input.GetMouseButtonUp(1) + Input.GetMouseButtonDown(1));
-            //if (showCareerStockAGs)
-            //{
-            //    if (Input.GetMouseButtonUp(1))
-            //    {
-            //        onRightButtonStockClick();
-            //    }
-            //    else
-            //    {
-            //        onLeftButtonClick();
-            //    }
-            //}
-            onLeftButtonClick();
-        }
-
-        public Callback LeftClick = delegate
-        {
-            thisModule.onLeftButtonClick();
-
-        };
-        public Callback RightClick = delegate
-        {
-            thisModule.onRightButtonStockClick();
-
-        };
-#endif
-        public void onRightButtonStockClick()
+        private void OnRightButtonClick()
         {
             showAGXRightClickMenu = !showAGXRightClickMenu;
         }
 
-        public void onLeftButtonClick()
+        private void OnLeftButtonClick()
         {
             if (showCareerStockAGs)
             {
@@ -709,39 +676,19 @@ namespace ActionGroupsExtended
             GameEvents.onHideUI.Add(onMyUIHide);
         }
 
-        ToolbarControl toolbarControl = null;
-        internal const string MODID = "AGEXT_NS";
-        internal const string MODNAME = "Action Groups Extended";
         void AddButtons()
         {
-#if false
-            while (!ApplicationLauncher.Ready)
-            {
-                yield return null;
-            }
-            if (!buttonCreated)
-            {
-                AGXAppFlightButton = ApplicationLauncher.Instance.AddModApplication(onStockToolbarClick, onStockToolbarClick, DummyVoid, DummyVoid, DummyVoid, DummyVoid, 
-            ApplicationLauncher.AppScenes.FLIGHT, (Texture)GameDatabase.Instance.GetTexture("Diazo/AGExt/icon_button_38", false));
-                //GameEvents.onGUIApplicationLauncherReady.Remove(AddButtons);
-                //CLButton.onLeftClick(StockToolbarClick);
-                AGXAppFlightButton.onLeftClick = (Callback)Delegate.Combine(AGXAppFlightButton.onLeftClick, LeftClick); //combine delegates together
-                AGXAppFlightButton.onRightClick = (Callback)Delegate.Combine(AGXAppFlightButton.onRightClick, RightClick); //combine delegates together
-                buttonCreated = true;
-            }
-#endif
-            Log.Info("Flight.AddButton");
-            toolbarControl = gameObject.AddComponent<ToolbarControl>();
-            toolbarControl.AddToAllToolbars(onStockToolbarClick, onStockToolbarClick,
-                ApplicationLauncher.AppScenes.FLIGHT,
-                MODID,
-                "agextButton",
-                "Diazo/AGExt/icon_button_38",
-                "Diazo/AGExt/icon_button_24",
-                MODNAME
-            );
-            toolbarControl.AddLeftRightClickCallbacks(null, onRightButtonStockClick);
-
+            Log.Trace("AddButton");
+            Toolbar.Button button = Toolbar.Button.Create<AGXFlight>(this
+                    , ApplicationLauncher.AppScenes.FLIGHT
+                    , "icon_button_38"
+                    , "icon_button_24"
+                );
+            button.Mouse
+                .Add(Toolbar.Button.MouseEvents.Kind.Left, OnLeftButtonClick)
+                .Add(Toolbar.Button.MouseEvents.Kind.Right, OnRightButtonClick)
+            ;
+            ToolbarController.Instance.Add(button);
         }
 
         public static void LoadDirectActionState(string DirectActions)
@@ -1203,20 +1150,9 @@ namespace ActionGroupsExtended
 
         public void OnDisable()
         {
-
             SaveWindowPositions();
-#if false
-            if (ToolbarManager.ToolbarAvailable) //if toolbar loaded, destroy button on leaving scene
-            {
-                AGXBtn.Destroy();
-            }
-            else
-            {
-                ApplicationLauncher.Instance.RemoveModApplication(AGXAppFlightButton);
-            }
-#endif
-            toolbarControl.OnDestroy();
-            Destroy(toolbarControl);
+
+            ToolbarController.Instance.Destroy();
 
             //GameEvents.onPartAttach.Remove(DockingEvent);
             //flightNodeIsLoaded = false;
