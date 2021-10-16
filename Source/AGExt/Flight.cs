@@ -400,49 +400,6 @@ namespace ActionGroupsExtended
                     Log.err("Default cooldown not found, using 5 Update frames");
                 }
                 errLine = "13";
-#if false
-                if (ToolbarManager.ToolbarAvailable) //check if toolbar available, load if it is
-                {
-                    errLine = "14";
-
-                    AGXBtn = ToolbarManager.Instance.add("AGX", "AGXBtn");
-                    AGXBtn.TexturePath = "Diazo/AGExt/icon_button_24";
-                    // AGXBtn.ToolTip = "Action Groups Extended";
-                    AGXBtn.ToolTip = Localizer.Format("#AGEXT_UI_IN_TOOLBAR");
-                    AGXBtn.OnClick += (e) =>
-                    {
-                        if (e.MouseButton == 0)
-                        {
-                            onLeftButtonClick();
-                        }
-                        if (e.MouseButton == 1)
-                        {
-                            //ShowSettingsWin = !ShowSettingsWin;
-                            if (ShowSettingsWin)
-                            {
-                                AGXBtn.Drawable = null;
-                                ShowSettingsWin = false;
-                            }
-                            else
-                            {
-                                SettingsWindow Settings = new SettingsWindow();
-                                AGXBtn.Drawable = Settings;
-                                ShowSettingsWin = true;
-                            }
-
-                        }
-                    };
-                    //{
-                    //    ShowAGXMod = !ShowAGXMod;
-                    //};
-                }
-                else
-                {
-                    errLine = "15";
-                    StartCoroutine("AddButtons");
-
-                }
-#endif
                 AddButtons();
                 errLine = "16";
                 if (AGExtNode.GetValue("FltShow") == "0")
@@ -682,10 +639,10 @@ namespace ActionGroupsExtended
         void AddButtons()
         {
             Log.trace("AddButton");
-            Toolbar.Button button = Toolbar.Button.Create<AGXFlight>(this
+            Toolbar.Button button = Toolbar.Button.Create(this
                     , ApplicationLauncher.AppScenes.FLIGHT
-                    , "icon_button_38"
-                    , "icon_button_24"
+                    , UI.icon_button_38
+                    , UI.icon_button_24
                 );
             button.Mouse
                 .Add(Toolbar.Button.MouseEvents.Kind.Left, OnLeftButtonClick)

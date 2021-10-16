@@ -448,50 +448,6 @@ namespace ActionGroupsExtended
                 //LoadCurrentKeyBindings();
 
                 errLine = "15";
-#if false
-                if (ToolbarManager.ToolbarAvailable) //check if toolbar available, load if it is
-                {
-
-                    AGXBtn = ToolbarManager.Instance.add("AGX", "AGXBtn");
-                    AGXBtn.TexturePath = "Diazo/AGExt/icon_button_24";
-                    // AGXBtn.ToolTip = "Action Groups Extended";
-                    AGXBtn.ToolTip = Localizer.Format("#AGEXT_UI_IN_TOOLBAR");
-                    AGXBtn.OnClick += (e) =>
-                    {
-                        //List<UnityEngine.Transform> UIPanelList = new List<UnityEngine.Transform>(); //setup list to find Editor Actions UI transform into a list. Could not figure out how to find just a transform
-                        //UIPanelList.AddRange(FindObjectsOfType<UnityEngine.Transform>().Where(n => n.name == "PanelActionGroups")); //actual find command
-                        if (e.MouseButton == 0)
-                        {
-                            onLeftButtonClick();
-                        }
-                        if (e.MouseButton == 1)
-                        {
-                            if (EditorLogic.fetch.editorScreen == EditorScreen.Actions)
-                            {
-                                if (EditorShowToolbarPopout)
-                                {
-                                    AGXBtn.Drawable = null;
-                                    EditorShowToolbarPopout = false;
-                                }
-                                else
-                                {
-                                    SettingsWindowEditor SettingsEditor = new SettingsWindowEditor();
-                                    AGXBtn.Drawable = SettingsEditor;
-                                    EditorShowToolbarPopout = true;
-                                }
-                            }
-                        }
-                    };
-                }
-                else
-                {
-                    //AGXShow = true; //toolbar not installed, show AGX regardless
-
-                    //now using stock toolbar as fallback
-                    StartCoroutine("AddButtons");
-                    //AGXAppEditorButton = ApplicationLauncher.Instance.AddModApplication(onStockToolbarClick, onStockToolbarClick, DummyVoid, DummyVoid, DummyVoid, DummyVoid, ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.SPH, (Texture)GameDatabase.Instance.GetTexture("Diazo/AGExt/icon_button", false));
-                }
-#endif
                 AddButtons();
                 errLine = "16";
 
@@ -1709,10 +1665,10 @@ namespace ActionGroupsExtended
         void AddButtons()
         {
             Log.trace("AddButton");
-            Toolbar.Button button = Toolbar.Button.Create<AGXEditor>(this
+            Toolbar.Button button = Toolbar.Button.Create(this
                     , ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.SPH
-                    , "icon_button_38"
-                    , "icon_button_24"
+                    , UI.icon_button_38
+                    , UI.icon_button_24
                 );
             button.Mouse
                 .Add(Toolbar.Button.MouseEvents.Kind.Left, OnLeftButtonClick)

@@ -30,5 +30,7 @@ namespace ActionGroupsExtended
         internal static readonly Texture2D PartCenter = Asset.Texture2D.LoadFromFile("Textures", "PartLocationCross");
         internal static readonly Texture2D PartCross = Asset.Texture2D.LoadFromFile("Textures", "PartLocCross");
         internal static readonly Texture2D PartPlus = Asset.Texture2D.LoadFromFile("Textures", "PartLocPlus");
+        internal static readonly Texture2D icon_button_38 = Asset.Texture2D.LoadFromFile("Textures", "icon_button_38");
+        internal static readonly Texture2D icon_button_24 = Asset.Texture2D.LoadFromFile("Textures", "icon_button_24");
     }
 }

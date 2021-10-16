@@ -29,7 +29,7 @@ namespace ActionGroupsExtended
 		[UsedImplicitly]
 		private void Start()
 		{
-			KSPe.UI.Toolbar.Controller.Instance.RegisterMod<ToolbarController>(Version.FriendlyName);
+			KSPe.UI.Toolbar.Controller.Instance.Register<ToolbarController>(Version.FriendlyName);
 		}
 	}
 }
