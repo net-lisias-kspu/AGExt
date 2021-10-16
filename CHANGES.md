@@ -1,5 +1,10 @@
 # Action Groups Extended :: Changes
 
+* 2021-1016: 2.4.1.2 (lisias) for KSP >= 1.3
+	+ Updating the code to use the new KSPe 2.4 facilities
+	+ Compatibility down to KSP 1.3.0 verified.
+	+ Some log on the (huge) logging
+	+ Bumping up version to catch up with the upstream
 * 2018-0806: 2.4.0.2 (lisias) for KSP >= 1.4
 	+ Moving the whole shebang into `net-lisias-ksp` to prevent clashes with the upstream
 	+ Decluttered the GameData by moving Textures into `PluginData`
