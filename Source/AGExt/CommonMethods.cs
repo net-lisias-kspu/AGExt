@@ -63,14 +63,13 @@ namespace ActionGroupsExtended
 		private static readonly string GAMEDATA_DIR_DEPRECATED = Path.Combine(KSPUtil.ApplicationRootPath, "GameData/Diazo/AGExt");
 		private static readonly string PLUGINDATA_DIR_DEPRECATED = Path.Combine(KSPUtil.ApplicationRootPath, "PluginData/Diazo/AGExt");
 		public static bool cleanupAlreadyRun = false;
-        public static ConfigNode AGExtConfig;
         public static bool nodeLoaded = false;
         
         public static ConfigNode LoadBaseConfigNode()
         {
 			if (nodeLoaded)
             {
-                return AGExtConfig;
+                return SETTINGS.Node;
             }
             else
             {
@@ -374,7 +373,6 @@ namespace ActionGroupsExtended
                 {
                     nodeLoad.AddValue("OverrideCareer", "0");
                 }
-                AGExtConfig = nodeLoad;
                 nodeLoaded = true;
                 return nodeLoad;
             }
