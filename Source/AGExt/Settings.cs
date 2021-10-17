@@ -18,10 +18,7 @@
 */
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using KSPe.Annotations;
-using UnityEngine;
 
 namespace ActionGroupsExtended
 {
@@ -30,7 +27,7 @@ namespace ActionGroupsExtended
 
     //   HighLogic.CurrentGame.Parameters.CustomParams<AGExt>()
 
-    public class AGExt : GameParameters.CustomParameterNode
+	public class AGExt : GameParameters.CustomParameterNode
     {
         public override string Title => "Action Groups Extended";
         public override GameParameters.GameMode GameMode => GameParameters.GameMode.ANY;
@@ -79,22 +76,22 @@ namespace ActionGroupsExtended
         }
     }
 
-	[KSPAddon(KSPAddon.Startup.Instantly, true)]
-	internal class Test:MonoBehaviour
-	{
-		[UsedImplicitly]
-		private void Start()
-		{
-			Log.force("Test.Startup");
-			try
-			{
-				GameParameters gp = GameParameters.GetDefaultParameters(Game.Modes.SANDBOX, GameParameters.Preset.Easy);
-				Log.force("{0}", gp.CustomParams<AGExt>().OverrideCareer);
-			}
-			catch (Exception e)
-			{
-				Log.ex(this, e);
-			}
-		}
-	}
+	//[KSPAddon(KSPAddon.Startup.Instantly, true)]
+	//internal class Test:MonoBehaviour
+	//{
+	//	[UsedImplicitly]
+	//	private void Start()
+	//	{
+	//		Log.force("Test.Startup");
+	//		try
+	//		{
+	//			GameParameters gp = GameParameters.GetDefaultParameters(Game.Modes.SANDBOX, GameParameters.Preset.Easy);
+	//			Log.force("{0}", gp.CustomParams<AGExt>().OverrideCareer);
+	//		}
+	//		catch (Exception e)
+	//		{
+	//			Log.ex(this, e);
+	//		}
+	//	}
+	//}
 }
