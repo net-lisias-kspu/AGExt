@@ -1,5 +1,10 @@
 # Action Groups Extended /L Unleashed :: Change Log
 
+* 2021-1028: 2.4.1.3 (lisias) for KSP >= 1.3.1
+	+ Raising the bar to 1.3.1. 
+		- from KSP 1.3.0 to 1.3.1, Squad broke the interface for `GameParameters.CustomParameterUI`: `tittle` and `toolTip` were fields, and became properties. This obviously screwed up thing at runtime, leading to variables that was never null to be null on 1.3.1 and newer, and this is the reason something on the C++ land blew up on a Null Pointer when using DLLs compiled against 1.3.0 (and older) on 1.3.1 and newer that use `GameParameters.CustomParameterUI`
+		- So until I cook a way to overcome this, AGExt will be compatible to 1.3.1 and newer only.
+	+ Some pretty lame mistakes fixed...
 * 2021-1016: 2.4.1.2 (lisias) for KSP >= 1.3
 	+ Updating the code to use the new KSPe 2.4 facilities
 	+ Compatibility down to KSP 1.3.0 verified.
