@@ -362,7 +362,7 @@ namespace ActionGroupsExtended
                 {
                     inVAB = false;
                 }
-                if (AGExtNode.HasValue("OverrideCareer") /* || HighLogic.CurrentGame.Parameters.CustomParams<AGExt>().OverrideCareer */ ) //are action groups unlocked?
+                if (AGExtNode.HasValue("OverrideCareer") || HighLogic.CurrentGame.Parameters.CustomParams<AGExt>().OverrideCareer ) //are action groups unlocked?
                 {
                     //Log.dbg("b");
                     if ((string)AGExtNode.GetValue("OverrideCareer") == "1")

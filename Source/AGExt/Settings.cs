@@ -20,7 +20,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-
+using KSPe.Annotations;
+using UnityEngine;
 
 namespace ActionGroupsExtended
 {
@@ -29,57 +30,71 @@ namespace ActionGroupsExtended
 
     //   HighLogic.CurrentGame.Parameters.CustomParams<AGExt>()
 
-    #if false
     public class AGExt : GameParameters.CustomParameterNode
     {
-        public override string Title { get { return "Action Groups Extended"; } }
-        public override GameParameters.GameMode GameMode { get { return GameParameters.GameMode.ANY; } }
-        public override string Section { get { return "AGExt"; } }
-        public override string DisplaySection { get { return "Action Groups Extended"; } }
-        public override int SectionOrder { get { return 1; } }
-        public override bool HasPresets { get { return false; } }
-
+        public override string Title => "Action Groups Extended";
+        public override GameParameters.GameMode GameMode => GameParameters.GameMode.ANY;
+        public override string Section => "AGExt"; 
+        public override string DisplaySection => "Action Groups Extended";
+        public override int SectionOrder => 1;
+        public override bool HasPresets => false;
 
         [GameParameters.CustomParameterUI("Action Groups Lockout always availabe", toolTip = "To override Career mode and always have all action groups available")]
-        public bool OverrideCareer = false;
+        public Boolean OverrideCareer = false;
 
+        public override void OnLoad(ConfigNode node)
+        {
+            Log.dbg("OnLoad {0}", node);
+            base.OnLoad(node);
+        }
 
+        public override void OnSave(ConfigNode node)
+        {
+            Log.dbg("OnSave {0}", node);
+            base.OnSave(node);
+        }
 
         public override void SetDifficultyPreset(GameParameters.Preset preset)
         {
+            Log.dbg("SetDifficultyPreset {0}", preset);
             base.SetDifficultyPreset(preset);
         }
 
         public override bool Enabled(MemberInfo member, GameParameters parameters)
         {
+            Log.dbg("Enabled {0} {1}", member, parameters);
             return true;
         }
 
-
         public override bool Interactible(MemberInfo member, GameParameters parameters)
         {
+            Log.dbg("Interactibles {0} {1}", member, parameters);
             return true;
         }
 
         public override IList ValidValues(MemberInfo member)
         {
-            switch (member.MemberType)
-            {
-                case MemberTypes.Field:
-                {
-                    Type t = ((FieldInfo)member).FieldType;
-                    Log.dbg("ValidValues {0} {1}", member, t);
-                    if (t == typeof(bool)) return new List<bool>(new bool[]{false, true });
-                }  break;
-                case MemberTypes.Event:
-                case MemberTypes.Method:
-                case MemberTypes.Property:
-                default:
-                    break;
-            }
-            Log.dbg("base.ValidValues {0}", member);
+            Log.dbg("ValidValues {0}", member);
             return base.ValidValues(member);
         }
     }
-    #endif
+
+	[KSPAddon(KSPAddon.Startup.Instantly, true)]
+	internal class Test:MonoBehaviour
+	{
+		[UsedImplicitly]
+		private void Start()
+		{
+			Log.force("Test.Startup");
+			try
+			{
+				GameParameters gp = GameParameters.GetDefaultParameters(Game.Modes.SANDBOX, GameParameters.Preset.Easy);
+				Log.force("{0}", gp.CustomParams<AGExt>().OverrideCareer);
+			}
+			catch (Exception e)
+			{
+				Log.ex(this, e);
+			}
+		}
+	}
 }
