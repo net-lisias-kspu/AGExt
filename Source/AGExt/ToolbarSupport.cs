@@ -16,13 +16,20 @@
 	Action Groups Extended (AGExt) /L. If not, see <https://www.gnu.org/licenses/>.
 
 */
+using System.Collections.Generic;
+
 using UnityEngine;
+using KSP.UI.Screens;
+
 using KSPe.Annotations;
+using Toolbar = KSPe.UI.Toolbar;
+using GUI = KSPe.UI.GUI;
+using GUILayout = KSPe.UI.GUILayout;
 
 namespace ActionGroupsExtended
 {
 	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
-	public class ToolbarController :MonoBehaviour
+	public class ToolbarController : MonoBehaviour
 	{
 		internal static KSPe.UI.Toolbar.Toolbar Instance => KSPe.UI.Toolbar.Controller.Instance.Get<ToolbarController>();
 
