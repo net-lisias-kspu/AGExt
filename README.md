@@ -1,6 +1,8 @@
-# Action Groups Extended (Archive)
+# Action Groups Extended /L Unleashed
 
-Kerbal Space Program mod that increases the number of action groups to 250 and allows in-flight editing. Unofficial fork by Lisias.
+Kerbal Space Program mod that increases the number of action groups to 250 and allows in-flight editing.
+
+[Unleashed](https://ksp.lisias.net/add-ons-unleashed/) fork by Lisias.
 
 
 ## In a Hurry
@@ -54,7 +56,7 @@ This work is licensed under the [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.t
 	- You recognize and respect any trademarks
 	- You don't impersonate the authors, neither redistribute a derivative that could be misrepresented as theirs.
 	- You credit the author and republish the copyright notices on your works where the code is used.
-	- You relicense (and fully comply) your works using GPL 2.0 (or later)
+	- You relicense (and fully comply) your works using GPL 3.0
 	- You don't mix your work with GPL incompatible works.
 
 See [NOTICE](./NOTICE) for further copyright and trademarks notices.
@@ -69,7 +71,3 @@ See [NOTICE](./NOTICE) for further copyright and trademarks notices.
 * [Diazo](https://forum.kerbalspaceprogram.com/index.php?/profile/81549-diazo/) ROOT
 	+ [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/67235-122dec1016-action-groups-extended-250-action-groups-in-flight-editing-now-kosremotetech/&)
 	+ [GitHub](https://github.com/SirDiazo/AGExt)
-
-
-
-	

@@ -1,6 +1,6 @@
 /*
-	This file is part of Action Groups Extended (AGExt) /L
-	© 2018-21 Lisias T : http://lisias.net <support@lisias.net>
+	This file is part of Action Groups Extended (AGExt) /L Unleashed
+		© 2018-2021 Lisias T : http://lisias.net <support@lisias.net>
 
 	THIS FILE is licensed to you under:
 

@@ -83,10 +83,13 @@ namespace ActionGroupsExtended
 		public const int patch = <#= patch #>;
 		public const int build = <#= build #>;
 		public const string Number = "<#= major #>.<#= minor #>.<#= patch #>.<#= build #>";
-		public const string Text = Number + " /L Unofficial";
-		
 		public const string Namespace = "AGExt";
 		public const string Vendor = "net.lisias.ksp";
 		public const string FriendlyName = "Action Groups Extended /L";
+#if DEBUG
+		public const string Text = Number + " /L Unleashed DEBUG";
+#else
+		public const string Text = Number + " /L Unleashed";
+#endif
 	}
 }

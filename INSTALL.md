@@ -1,6 +1,8 @@
-# AirPark /L Unofficial
+# Action Groups Extended /L Unleashed
 
-KSP Mod to land vessel in the atmosphere.
+Kerbal Space Program mod that increases the number of action groups to 250 and allows in-flight editing. Unofficial fork by Lisias.
+
+[Unleashed](https://ksp.lisias.net/add-ons-unleashed/) fork by Lisias.
 
 
 ## Installation Instructions
@@ -22,7 +24,7 @@ The following file layout must be present after installation:
 <KSP_ROOT>
 	[GameData]
 		[net.lisias.ksp]
-			[AirPark]
+			[AGExt]
 				...
 				CHANGE_LOG.md
 				LICENSE
@@ -35,7 +37,7 @@ The following file layout must be present after installation:
 		...
 	[PluginData]
 		[net.lisias.ksp]
-			[AirPark]
+			[AGExt]
 				...
 	KSP.log
 	PartDatabase.cfg

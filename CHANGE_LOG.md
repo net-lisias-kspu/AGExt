@@ -1,4 +1,4 @@
-# Action Groups Extended :: Change Log
+# Action Groups Extended /L Unleashed :: Change Log
 
 * 2021-1016: 2.4.1.2 (lisias) for KSP >= 1.3
 	+ Updating the code to use the new KSPe 2.4 facilities

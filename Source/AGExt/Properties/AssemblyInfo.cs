@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AGExt")]
+[assembly: AssemblyTitle("AGExt /L Unleashed")]
 [assembly: AssemblyDescription("Extended Action Groups for KSP")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany(ActionGroupsExtended.LegalMamboJambo.Company)]
