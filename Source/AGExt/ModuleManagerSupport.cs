@@ -25,7 +25,7 @@ namespace ActionGroupsExtended
 	{
 		public static IEnumerable<string> ModuleManagerAddToModList()
 		{
-			string[] r = {typeof(ModuleManagerSupport).Namespace, "AGExt"};
+			string[] r = { Version.Namespace };
 			return r;
 		}
 	}
