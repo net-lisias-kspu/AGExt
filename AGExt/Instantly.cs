@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using static ActionGroupsExtended.RegisterToolbar;
 
 namespace ActionGroupsExtended
 {
@@ -13,7 +14,7 @@ namespace ActionGroupsExtended
         //abandoned module, no longer needed for key rebinding
         public void Start()
         {
-            ActionGroupsExtended.Log.Info("AGExt Ver. 2.2 loaded");
+            Log.Info("AGExt Ver. 2.2 loaded");
 
             
         }

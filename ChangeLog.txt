@@ -1,5 +1,11 @@
 ChangeLog
 
+2.4.1.2 
+	Added new dependency on SpacetuxLibrary
+	Removed local SpaceTuxUtility class
+	Replaced local logging class with KSP_Log from SpaceTuxLibrary
+	Fixed small memory leak by not removing a callback from a game event
+
 2.4.1.1
 	Fixed missing button texture in editor
 	Added Settings page to make the OverrideCareer option available without editing a file

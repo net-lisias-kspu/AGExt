@@ -6,6 +6,7 @@ using KSP.IO;
 using System.Reflection;
 using KSP.Localization;
 using UnityEngine;
+using static ActionGroupsExtended.RegisterToolbar;
 
 namespace ActionGroupsExtended
 {

@@ -10,6 +10,7 @@ using KSP.Localization;
 using UnityEngine;
 using ClickThroughFix;
 using ToolbarControl_NS;
+using static ActionGroupsExtended.RegisterToolbar;
 
 namespace ActionGroupsExtended
 {
@@ -709,6 +710,11 @@ namespace ActionGroupsExtended
             }
             GameEvents.onShowUI.Add(onMyUIShow);
             GameEvents.onHideUI.Add(onMyUIHide);
+        }
+
+        void OnDestroy()
+        {
+            GameEvents.onPartDie.Remove(partDead); //remove part from RootParts if possible
         }
 
         ToolbarControl toolbarControl = null;

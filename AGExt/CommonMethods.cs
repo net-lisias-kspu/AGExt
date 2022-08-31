@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using KSP.Localization;
 using UnityEngine;
+using static ActionGroupsExtended.RegisterToolbar;
 
 namespace ActionGroupsExtended
 {
@@ -514,7 +515,8 @@ namespace ActionGroupsExtended
 
         public override void OnLoad(ConfigNode node)
         {
-            Log.Info("Load Module" + node.ToString()); 
+            if (Log != null)
+                Log.Info("Load Module" + node.ToString()); 
             string errLine = "1";
             try
             {
@@ -557,18 +559,21 @@ namespace ActionGroupsExtended
                     errLine = "9";
                     // Log.Info("Step 1 " + actionNode.ToString());
                     AGXAction actToAdd = StaticData.LoadAGXActionVer2(actionNode, this.part, false);
-                    Log.Info("Step 2 " + actToAdd.ToString());
+                    if (Log != null)
+                        Log.Info("Step 2 " + actToAdd.ToString());
                     if (actToAdd != null && !agxActionsThisPart.Contains(actToAdd))
                     {
                         agxActionsThisPart.Add(actToAdd);
                     }
                 }
                 //.Log("AGX PartModule Load Okay"); //temporary
-                Log.Info("Load Module End" + agxActionsThisPart.Count()); 
+                if (Log != null)
+                    Log.Info("Load Module End" + agxActionsThisPart.Count()); 
             }
             catch (Exception e)
             {
-                Log.Info("Module OnLoad Error " + errLine + " " + e);
+                if (Log != null)
+                    Log.Info("Module OnLoad Error " + errLine + " " + e);
             }
             //Log.Info("Load called " + agxActionsThisPart.Count);
         }

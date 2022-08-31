@@ -10,6 +10,7 @@ using KSP.UI.Screens;
 using KSP.Localization;
 using ClickThroughFix;
 using ToolbarControl_NS;
+using static ActionGroupsExtended.RegisterToolbar;
 
 
 
@@ -4085,7 +4086,7 @@ namespace ActionGroupsExtended
         public void Update()
         {
             string errLine = "1";
-            Log.Info("update start " +Time.realtimeSinceStartup);
+            //Log.Info("update start " +Time.realtimeSinceStartup);
             try
             {
                 //Log.Info("EditorLogic.fetch.editorScreen " + EditorLogic.fetch.editorScreen.ToString());
@@ -4347,10 +4348,10 @@ namespace ActionGroupsExtended
                 //{
                 //    Log.Info(p.name + " " + p.symmetryCounterparts.Count + " " + p.GetHashCode());
                 //}
-                Log.Info("Editor Update end" + StaticData.CurrentVesselActions.Count());
+                //Log.Info("Editor Update end" + StaticData.CurrentVesselActions.Count());
                 // Log.Info("test " + FindObjectsOfType<EditorSubassemblyItem>().Count());
                 errLine = "30";
-                Log.Info("update end " + Time.realtimeSinceStartup);
+                //Log.Info("update end " + Time.realtimeSinceStartup);
             }
             catch (Exception e)
             {
