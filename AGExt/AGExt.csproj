@@ -72,10 +72,10 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="KSP_Log">
-      <HintPath>R:\KSP_1.12.2_dev\GameData\SpaceTuxLibrary\Plugins\KSP_Log.dll</HintPath>
+      <HintPath>$(KSPDIR)\GameData\SpaceTuxLibrary\Plugins\KSP_Log.dll</HintPath>
     </Reference>
     <Reference Include="SpaceTuxUtility">
-      <HintPath>R:\KSP_1.12.2_dev\GameData\SpaceTuxLibrary\Plugins\SpaceTuxUtility.dll</HintPath>
+      <HintPath>$(KSPDIR)\GameData\SpaceTuxLibrary\Plugins\SpaceTuxUtility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="ClickThroughBlocker, Version=0.1.6.2, Culture=neutral, processorArchitecture=MSIL">
