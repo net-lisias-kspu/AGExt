@@ -86,7 +86,7 @@ namespace ActionGroupsExtended
         //public static List<AGXAction> CurrentVesselActions;
         // private static bool MouseOverExitBtns = false;
 
-       // private IButton AGXBtn;
+        // private IButton AGXBtn;
 
 
 
@@ -243,6 +243,8 @@ namespace ActionGroupsExtended
             AGXBtnStyle.hover.background = ButtonTexture;
 
         }
+
+        int btnId;
         public void Start()
         {
             Log.Info("AGXEditorSTartSTart");
@@ -351,7 +353,7 @@ namespace ActionGroupsExtended
                 {
                     inVAB = false;
                 }
-                if (AGExtNode.HasValue("OverrideCareer") || HighLogic.CurrentGame.Parameters.CustomParams<AGExt>().OverrideCareer  ) //are action groups unlocked?
+                if (AGExtNode.HasValue("OverrideCareer") || HighLogic.CurrentGame.Parameters.CustomParams<AGExt>().OverrideCareer) //are action groups unlocked?
                 {
                     //Log.Info("b");
                     if ((string)AGExtNode.GetValue("OverrideCareer") == "1")
@@ -377,7 +379,7 @@ namespace ActionGroupsExtended
                             //Log.Info("AGX Career check VAB: " + facilityLevel);
                         }
 
-                        if (GameVariables.Instance.UnlockedActionGroupsCustom(facilityLevel, inVAB)) 
+                        if (GameVariables.Instance.UnlockedActionGroupsCustom(facilityLevel, inVAB))
                         {
                             //Log.Info("AGX 1");
                             showCareerStockAGs = true;
@@ -418,7 +420,7 @@ namespace ActionGroupsExtended
                         showCareerStockAGs = true;
                         showCareerCustomAGs = true;
                     }
-                    else if (GameVariables.Instance.UnlockedActionGroupsStock(facilityLevel2,inVAB))
+                    else if (GameVariables.Instance.UnlockedActionGroupsStock(facilityLevel2, inVAB))
                     {
                         //Log.Info("n");
                         showCareerStockAGs = true;
@@ -594,7 +596,7 @@ namespace ActionGroupsExtended
                 PartPlus.Apply();
                 //EditorLoadFromFile();
                 //if (HighLogic.LoadedScene == GameScenes.EDITOR)
-                
+
                 GameEvents.onPartAttach.Add(PartAttaching);// this game event only fires for part removed, not child parts
                 GameEvents.onPartRemove.Add(PartRemove);
                 GameEvents.onEditorPartEvent.Add(OnPartEvent);
@@ -608,8 +610,9 @@ namespace ActionGroupsExtended
                 errLine = "21";
 
                 //Log.Info("Loading now");
-                //EditorActionGroups.Instance.groupActionsList.AddValueChangedDelegate(OnGroupActionsListChange);
+
                 LoadFinished = true;
+
                 Log.Info("Editor Start Okay" + StaticData.CurrentVesselActions.Count());
                 Log.Info("AGXEditorSTartEnd");
             }
@@ -618,6 +621,11 @@ namespace ActionGroupsExtended
                 Log.Info("AGX Editor Start Fail " + errLine + " " + e);
                 Log.Info("AGX AGExt node dump: " + AGExtNode);
             }
+        }
+
+        public void OnExitButtonInput()
+        {
+            onStockToolbarClick();
         }
 
         //public void OnSaveTest(ConfigNode node)
@@ -636,7 +644,7 @@ namespace ActionGroupsExtended
 
         //}
 
-        
+
 
         public void OnShipLoad(ShipConstruct ship, CraftBrowserDialog.LoadType loadType)
         {
@@ -859,17 +867,17 @@ namespace ActionGroupsExtended
 
         IEnumerator CheckStockCustomActions(Part p) //check a part for custom actions to add to AGX (support for Default Action Groups Mod requies the delay)
         {
-           // Log.Info("stock check start");
+            // Log.Info("stock check start");
             //int i = 0;
             //while(i < 10) //delay check by 10 update frames
             //{
             //    i = i + 1;
             //    yield return null;
             //}
-            yield return new WaitForSeconds(0.1f); 
-            foreach(PartModule pm in p.Modules) 
+            yield return new WaitForSeconds(0.1f);
+            foreach (PartModule pm in p.Modules)
             {
-                foreach(BaseAction ba2 in pm.Actions) 
+                foreach (BaseAction ba2 in pm.Actions)
                 {
                     if (!(ba2.actionGroup == KSPActionGroup.None))//will cause false positives on actions with Default Groups assigned, but still worth it
                     {
@@ -967,7 +975,7 @@ namespace ActionGroupsExtended
                     }
                 }
             }
-           // Log.Info("stock check end");
+            // Log.Info("stock check end");
         }
 
         public void PartAttaching(GameEvents.HostTargetAction<Part, Part> host_target)
@@ -1006,7 +1014,7 @@ namespace ActionGroupsExtended
                     if (!StaticData.CurrentVesselActions.Contains(agAct))
                     {
                         //Log.Info("part attached detect");
-                        Log.Info("part attached detect"); 
+                        Log.Info("part attached detect");
                         ErrLine = "10";
                         StaticData.CurrentVesselActions.Add(agAct);
                         //DetachedPartActions.Add(agAct);
@@ -1025,7 +1033,7 @@ namespace ActionGroupsExtended
                     else
                     {
                         //Log.Info("part attached not detect");
-                        Log.Info("part attached not detect"); 
+                        Log.Info("part attached not detect");
                     }
                     ErrLine = "15";
                     if (!disablePartAttaching)
@@ -1352,58 +1360,58 @@ namespace ActionGroupsExtended
         public void ActualPanelsMovement()
         {
             Log.Info("mobe pbls" + EditorLogic.fetch.editorScreen);
-            
-                Log.Info("trying2 " + EditorLogic.fetch.editorScreen.ToString());
-                if(EditorLogic.fetch.editorScreen == EditorScreen.Parts)
+
+            Log.Info("trying2 " + EditorLogic.fetch.editorScreen.ToString());
+            if (EditorLogic.fetch.editorScreen == EditorScreen.Parts)
+            {
+                Log.Info("hit it");
+
+                EditorLogic.fetch.SelectPanelParts();
+                EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.partsEditor); //this works
+                EditorLogic.fetch.Unlock("AGXLock");
+                AGEditorSelectedParts.Clear();
+                EditorSaveToNode();
+                EditorLogic.fetch.SetBackup();
+            }
+            else if (EditorLogic.fetch.editorScreen == EditorScreen.Crew)
+            {
+                Log.Info("hit it2");
+
+                EditorLogic.fetch.SelectPanelCrew();
+                EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.crew); //this works
+                EditorLogic.fetch.Unlock("AGXLock");
+                AGEditorSelectedParts.Clear();
+                EditorSaveToNode();
+                EditorLogic.fetch.SetBackup();
+            }
+            else if (EditorLogic.fetch.editorScreen == EditorScreen.Actions)
+            {
+                Log.Info("hit it3");
+
+                EditorLogic.fetch.SelectPanelActions();
+                if (AGXShow)
                 {
-                    Log.Info("hit it");
-                    
-                    EditorLogic.fetch.SelectPanelParts();
-                    EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.partsEditor); //this works
+                    Log.Info("hit it3a");
+                    //EditorPanels.Instance.panelManager.Dismiss(); //this works
+                    StartCoroutine("DelayHidePanels");
                     EditorLogic.fetch.Unlock("AGXLock");
                     AGEditorSelectedParts.Clear();
                     EditorSaveToNode();
                     EditorLogic.fetch.SetBackup();
                 }
-                else if (EditorLogic.fetch.editorScreen == EditorScreen.Crew)
+                else
                 {
-                    Log.Info("hit it2");
-
-                    EditorLogic.fetch.SelectPanelCrew();
-                    EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.crew); //this works
+                    // Log.Info("hit it3b" + EditorLogic.fetch.editorScreen);
+                    //EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.actions);
+                    StartCoroutine("DelayShowPanels");
                     EditorLogic.fetch.Unlock("AGXLock");
                     AGEditorSelectedParts.Clear();
                     EditorSaveToNode();
                     EditorLogic.fetch.SetBackup();
                 }
-                else if (EditorLogic.fetch.editorScreen == EditorScreen.Actions)
-                {
-                    Log.Info("hit it3");
+            }
 
-                    EditorLogic.fetch.SelectPanelActions();
-                    if (AGXShow)
-                    {
-                        Log.Info("hit it3a");
-                        //EditorPanels.Instance.panelManager.Dismiss(); //this works
-                        StartCoroutine("DelayHidePanels");
-                        EditorLogic.fetch.Unlock("AGXLock");
-                        AGEditorSelectedParts.Clear();
-                        EditorSaveToNode();
-                        EditorLogic.fetch.SetBackup();
-                    }
-                    else
-                    {
-                       // Log.Info("hit it3b" + EditorLogic.fetch.editorScreen);
-                        //EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.actions);
-                        StartCoroutine("DelayShowPanels");
-                        EditorLogic.fetch.Unlock("AGXLock");
-                        AGEditorSelectedParts.Clear();
-                        EditorSaveToNode();
-                        EditorLogic.fetch.SetBackup();
-                    }
-                }
-
-                //StartCoroutine("DelayPanelsMovementSecondStage");
+            //StartCoroutine("DelayPanelsMovementSecondStage");
         }
 
 
@@ -1661,70 +1669,57 @@ namespace ActionGroupsExtended
             string errLine = "1";
             try
             {
-            LoadFinished = false;
-            errLine = "2";
-            SaveCurrentKeyBindings();
-            errLine = "3";
-            SaveWindowPositions();
-            errLine = "4";
-#if false
-                if (ToolbarManager.ToolbarAvailable) //if toolbar loaded, destroy button on leaving scene
-            {
-                errLine = "5";
-                AGXBtn.Destroy();
+                LoadFinished = false;
+                errLine = "2";
+                SaveCurrentKeyBindings();
+                errLine = "3";
+                SaveWindowPositions();
+                errLine = "4";
 
+                toolbarControl.OnDestroy();
+                Destroy(toolbarControl);
+
+                //EditorSaveToFile(); //some of my data has already been deleted by this point
+                errLine = "7";
+                GameEvents.onPartAttach.Remove(PartAttaching);
+                errLine = "8";
+                GameEvents.onPartRemove.Remove(PartRemove);
+                errLine = "9";
+                GameEvents.onEditorPartEvent.Remove(OnPartEvent);
+                errLine = "10";
+                //GameEvents.onEditorShipModified.Remove(VesselChanged);
+                GameEvents.onEditorLoad.Remove(OnShipLoad);
+                errLine = "11";
+                //GameEvents.onGameStateSave.Remove(OnSaveTest);
+                //GameEvents.onGameSceneLoadRequested.Remove(LeavingEditor);
+                //GameEvents.onEditorLoad(OnEditorLoadCall);
+
+
+                //EditorPanels.Instance.actions.RemoveValueChangedDelegate(OnUIChanged); //detect when EditorPanel moves. this ONLY detects editor panel, going from parts to crew will NOT trigger this
+                //EditorLogic.fetch.crewPanelBtn.RemoveValueChangedDelegate(OnOtherButtonClick); //detect when Part button clicked at top of screen
+                //EditorLogic.fetch.actionPanelBtn.RemoveValueChangedDelegate(OnActionButtonClick);
+                //EditorLogic.fetch.partPanelBtn.RemoveValueChangedDelegate(OnOtherButtonClick); //detect when Crew button clicked at top of screen
+                //EditorLogic.fetch.loadBtn.RemoveValueChangedDelegate(OnEditorResetButtonClick); //load button clicked to check for deleted ships
+                ////EditorLogic.fetch.saveBtn.RemoveValueChangedDelegate(OnSaveButtonClick); //run save when save button clicked. auto-save from Scenario module only runs on leaving editor! not on clicking save button
+                ////EditorLogic.fetch.launchBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
+                ////EditorLogic.fetch.exitBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
+                //EditorLogic.fetch.newBtn.RemoveValueChangedDelegate(OnEditorResetButtonClick);
+                //EditorPanels.Instance.actions.RemoveValueChangedDelegate(OnActionPanelsUIChanged); //hook buttons at top of screen for show/hide of action panel
+                //EditorLogic.fetch.partPanelBtn.RemoveValueChangedDelegate(OnPartButtonClick);
+                //EditorLogic.fetch.crewPanelBtn.RemoveValueChangedDelegate(OnCrewButtonClick);
+                //EditorLogic.fetch.actionPanelBtn.RemoveValueChangedDelegate(OnActionButtonClick);
+                //EditorLogic.fetch.loadBtn.RemoveValueChangedDelegate(OnLoadClick);
+                //EditorLogic.fetch.saveBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
+                //EditorLogic.fetch.launchBtn.RemoveValueChangedDelegate(OnLaunchButtonClick);
+                //EditorLogic.fetch.exitBtn.RemoveValueChangedDelegate(OnExitButtonClick);
+                //EditorLogic.fetch.newBtn.RemoveValueChangedDelegate(OnNewButtonClick);
+                //EditorLogic.fetch.Unlock("AGXLock");
+                InputLockManager.RemoveControlLock("AGXLock");
+                errLine = "12";
+                StaticData.CurrentVesselActions.Clear();
+                errLine = "13";
             }
-            else
-            {
-                errLine = "6";
-                ApplicationLauncher.Instance.RemoveModApplication(AGXAppEditorButton);
-            }
-#endif
-
-            toolbarControl.OnDestroy();
-            Destroy(toolbarControl);
-
-            //EditorSaveToFile(); //some of my data has already been deleted by this point
-            errLine = "7";
-            GameEvents.onPartAttach.Remove(PartAttaching);
-            errLine = "8";
-            GameEvents.onPartRemove.Remove(PartRemove);
-            errLine = "9";
-            GameEvents.onEditorPartEvent.Remove(OnPartEvent);
-            errLine = "10";
-            //GameEvents.onEditorShipModified.Remove(VesselChanged);
-            GameEvents.onEditorLoad.Remove(OnShipLoad);
-            errLine = "11";
-            //GameEvents.onGameStateSave.Remove(OnSaveTest);
-            //GameEvents.onGameSceneLoadRequested.Remove(LeavingEditor);
-            //GameEvents.onEditorLoad(OnEditorLoadCall);
-
-
-            //EditorPanels.Instance.actions.RemoveValueChangedDelegate(OnUIChanged); //detect when EditorPanel moves. this ONLY detects editor panel, going from parts to crew will NOT trigger this
-            //EditorLogic.fetch.crewPanelBtn.RemoveValueChangedDelegate(OnOtherButtonClick); //detect when Part button clicked at top of screen
-            //EditorLogic.fetch.actionPanelBtn.RemoveValueChangedDelegate(OnActionButtonClick);
-            //EditorLogic.fetch.partPanelBtn.RemoveValueChangedDelegate(OnOtherButtonClick); //detect when Crew button clicked at top of screen
-            //EditorLogic.fetch.loadBtn.RemoveValueChangedDelegate(OnEditorResetButtonClick); //load button clicked to check for deleted ships
-            ////EditorLogic.fetch.saveBtn.RemoveValueChangedDelegate(OnSaveButtonClick); //run save when save button clicked. auto-save from Scenario module only runs on leaving editor! not on clicking save button
-            ////EditorLogic.fetch.launchBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
-            ////EditorLogic.fetch.exitBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
-            //EditorLogic.fetch.newBtn.RemoveValueChangedDelegate(OnEditorResetButtonClick);
-            //EditorPanels.Instance.actions.RemoveValueChangedDelegate(OnActionPanelsUIChanged); //hook buttons at top of screen for show/hide of action panel
-            //EditorLogic.fetch.partPanelBtn.RemoveValueChangedDelegate(OnPartButtonClick);
-            //EditorLogic.fetch.crewPanelBtn.RemoveValueChangedDelegate(OnCrewButtonClick);
-            //EditorLogic.fetch.actionPanelBtn.RemoveValueChangedDelegate(OnActionButtonClick);
-            //EditorLogic.fetch.loadBtn.RemoveValueChangedDelegate(OnLoadClick);
-            //EditorLogic.fetch.saveBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
-            //EditorLogic.fetch.launchBtn.RemoveValueChangedDelegate(OnLaunchButtonClick);
-            //EditorLogic.fetch.exitBtn.RemoveValueChangedDelegate(OnExitButtonClick);
-            //EditorLogic.fetch.newBtn.RemoveValueChangedDelegate(OnNewButtonClick);
-            //EditorLogic.fetch.Unlock("AGXLock");
-            InputLockManager.RemoveControlLock("AGXLock");
-            errLine = "12";
-            StaticData.CurrentVesselActions.Clear();
-            errLine = "13";
-            }
-             catch(Exception e)
+            catch (Exception e)
             {
                 Log.Info("Editor.OnDestroy " + errLine + "|" + e);
             }
@@ -1761,25 +1756,9 @@ namespace ActionGroupsExtended
         ToolbarControl toolbarControl = null;
         void AddButtons()
         {
-#if false
-            while (!ApplicationLauncher.Ready)
-            {
-                yield return null;
-            }
-            if (!buttonCreated)
-            {
-                AGXAppEditorButton = ApplicationLauncher.Instance.AddModApplication(onStockToolbarClick, onStockToolbarClick, DummyVoid, DummyVoid, DummyVoid, DummyVoid,
-                    ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.SPH, (Texture)GameDatabase.Instance.GetTexture("Diazo/AGExt/icon_button_38", false));
-                //GameEvents.onGUIApplicationLauncherReady.Remove(AddButtons);
-                //CLButton.onLeftClick(StockToolbarClick);
-                AGXAppEditorButton.onLeftClick = (Callback)Delegate.Combine(AGXAppEditorButton.onLeftClick, LeftClick); //combine delegates together
-                AGXAppEditorButton.onRightClick = (Callback)Delegate.Combine(AGXAppEditorButton.onRightClick, RightClick); //combine delegates together
-                buttonCreated = true;
-            }
-#endif
             Log.Info("Editor.AddButton");
             toolbarControl = gameObject.AddComponent<ToolbarControl>();
-            toolbarControl.AddToAllToolbars(onStockToolbarClick, onStockToolbarClick, 
+            toolbarControl.AddToAllToolbars(onStockToolbarClick, onStockToolbarClick,
                ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.SPH,
                AGXFlight.MODID,
                "agextButton",
@@ -1787,7 +1766,7 @@ namespace ActionGroupsExtended
                "Diazo/AGExt/PluginData/icon_button_24",
                AGXFlight.MODNAME
            );
-           toolbarControl.AddLeftRightClickCallbacks(null, onRightButtonStockClick);
+            toolbarControl.AddLeftRightClickCallbacks(null, onRightButtonStockClick);
 
         }
 
@@ -1798,16 +1777,14 @@ namespace ActionGroupsExtended
             RealMousePos = Input.mousePosition;
             RealMousePos.y = Screen.height - Input.mousePosition.y;
 
+            ControlTypes i = InputLockManager.GetControlLock("ExitConfirmationDialog");
+            
+            if ((i & ControlTypes.EDITOR_EXIT) == ControlTypes.EDITOR_EXIT)
+                Log.Error("EditorExit active");
 
-
-            //if (!ToolbarManager.ToolbarAvailable) //stock toolbar now added
-            //{
-            //    AGXShow = true; //no toolbar so show AGX with KSP actions editor still up
-            //}
-
-
-
-            if (AGXShow)
+            if (AGXShow &&
+                (i & ControlTypes.EDITOR_EXIT) != ControlTypes.EDITOR_EXIT
+                )
             {
                 // Log.Info("Test call 3" + showCareerCustomAGs);
                 if (!showCareerCustomAGs)
@@ -4266,7 +4243,7 @@ namespace ActionGroupsExtended
 
                 if (ShowSelectedWin)
                 {
-                   // Log.Info("time start " + "|" + Time.realtimeSinceStartup);
+                    // Log.Info("time start " + "|" + Time.realtimeSinceStartup);
                     errLine = "13";
 
                     if (EditorActionGroups.Instance.GetSelectedParts() != null) //on first run, list is null
@@ -4480,60 +4457,60 @@ namespace ActionGroupsExtended
                 ////Log.Info("Selected group " + KSPDefaultLastActionGroup);
                 switch (EditorActionGroups.Instance.actionGroupList.SelectedIndex)
                 {
-                case 0:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Stage;
-                break;
-                case 1:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Gear;
-                break;
-                case 2:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Light;
-                break;
-                case 3:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.RCS;
-                break;
-                case 4:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.SAS;
-                break;
-                case 5:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Brakes;
-                break;
-                case 6:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Abort;
-                break;
-                case 7:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom01;
-                break;
-                case 8:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom02;
-                break;
-                case 9:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom03;
-                break;
-                case 10:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom04;
-                break;
-                case 11:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom05;
-                break;
-                case 12:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom06;
-                break;
-                case 13:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom07;
-                break;
-                case 14:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom08;
-                break;
-                case 15:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom09;
-                break;
-                case 16:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom10;
-                break;
-                default:
-                KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom01;
-                break;
+                    case 0:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Stage;
+                        break;
+                    case 1:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Gear;
+                        break;
+                    case 2:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Light;
+                        break;
+                    case 3:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.RCS;
+                        break;
+                    case 4:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.SAS;
+                        break;
+                    case 5:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Brakes;
+                        break;
+                    case 6:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Abort;
+                        break;
+                    case 7:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom01;
+                        break;
+                    case 8:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom02;
+                        break;
+                    case 9:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom03;
+                        break;
+                    case 10:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom04;
+                        break;
+                    case 11:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom05;
+                        break;
+                    case 12:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom06;
+                        break;
+                    case 13:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom07;
+                        break;
+                    case 14:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom08;
+                        break;
+                    case 15:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom09;
+                        break;
+                    case 16:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom10;
+                        break;
+                    default:
+                        KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom01;
+                        break;
                 }
 
             }

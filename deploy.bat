@@ -8,6 +8,9 @@ rem VERSIONFILE is the name of the version file, usually the same as GAMEDATA,
 rem    but not always
 
 set H=%KSPDIR%
+
+set H=R:\KSP_1.12.4
+
 set GAMEDIR=AGExt
 set GAMEDATA="GameData\Diazo"
 set VERSIONFILE=%GAMEDIR%.version
