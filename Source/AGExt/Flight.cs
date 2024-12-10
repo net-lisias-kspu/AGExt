@@ -565,7 +565,8 @@ namespace ActionGroupsExtended
                 AGXFlightNode = new ConfigNode();
                 errLine = "26";
 
-                {
+				if (KSPe.IO.SaveGameMonitor.Instance.IsValid)
+				{
 					string filename = KSPe.IO.Hierarchy.SAVE.Solve(HighLogic.SaveFolder, "AGExtEditor.cfg");
 					if (System.IO.File.Exists(filename))
 					{
@@ -578,7 +579,10 @@ namespace ActionGroupsExtended
 						AGXEditorNodeFlight = new ConfigNode("EDITOR");
 						AGXEditorNodeFlight.AddValue("name", "editor");
 					}
-                }
+				}
+				else
+					AGXEditorNodeFlight = new ConfigNode("EDITOR");
+
                 //AGXEditorNode = ConfigNode.Load(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExtEditor.cfg"); 
                 //AllVesselsActions = new List<AGXAction>();
                 loadedVessels = new List<Vessel>();
