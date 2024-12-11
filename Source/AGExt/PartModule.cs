@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of Action Groups Extended (AGExt) /L Unleashed
-		© 2018-2021 Lisias T : http://lisias.net <support@lisias.net>
+		© 2018-2024 LisiasT : https://lisias.net : http://lisias.net <support@lisias.net>
 		© 2017-2018 LinuxGuruGamer
 		© 2014-2016 Sir Diazo
 

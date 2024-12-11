@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of Action Groups Extended (AGExt) /L Unleashed
-		© 2018-2021 Lisias T : http://lisias.net <support@lisias.net>
+		© 2018-2024 LisiasT : https://lisias.net : http://lisias.net <support@lisias.net>
 		© 2017-2018 LinuxGuruGamer
 		© 2014-2016 Sir Diazo
 
@@ -23,8 +23,8 @@ namespace ActionGroupsExtended
 	public static class LegalMamboJambo
 	{
 		public const string Company = "/L Aerospace KSP Division";
-		public const string Copyright = "© 2018-2021 LisiasT";
+		public const string Copyright = "© 2018-2024 LisiasT";
 		public const string Product = "Action Groups Extended";
-		public const string Trademark = "Action Groups Extended by Sir Diazo; ReExtended by LinuxGuruGamer; /L Unleashed by LisiasT";
+		public const string Trademark = "Action Groups Extended™ by Sir Diazo; ReExtended™ by LinuxGuruGamer; /L Unleashed™ by LisiasT";
 	}
 }
