@@ -38,13 +38,14 @@ To install, place the GameData folder inside your Kerbal Space Program folder.
 **REMOVE ANY OLD VERSIONS OF THE PRODUCT BEFORE INSTALLING**.
 
 ### Dependencies
+
 * Hard Dependencies
-<!--		* [KSP API Extensions/L](https://github.com/net-lisias-ksp/KSPAPIExtensions) 2.0 or newer -->
-	* [Toolbar Control](https://github.com/net-lisias-kspu/ToolbarControl) 0.1.6.15 or newer
+	* [KSP Extended](https://github.com/net-lisias-ksp/KSPe) 2.5 or newer 
 * Soft Dependencies
 	* [Module Manager](https://github.com/sarnet-lisias-kspu/ModuleManager)
 
 ### Licensing
+
 This work is licensed under the [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.txt). See [here](./LICENSE)
 
 + You are free to:
@@ -57,6 +58,7 @@ This work is licensed under the [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.t
 	- You don't impersonate the authors, neither redistribute a derivative that could be misrepresented as theirs.
 	- You credit the author and republish the copyright notices on your works where the code is used.
 	- You relicense (and fully comply) your works using GPL 3.0
+		- Please note that upgrading the license to any future license version **IS NOT ALLOWED** for this work, as the author **DID NOT** added the "or (at your option) any later version" on the license
 	- You don't mix your work with GPL incompatible works.
 
 See [NOTICE](./NOTICE) for further copyright and trademarks notices.
