@@ -34,6 +34,7 @@ namespace ActionGroupsExtended
         FAILED,
         NOCOMMS,
     }
+
     public class AGXRemoteTechQueueItem //queue for remotetech action groups
     {
         public AGXRemoteTechItemState state;
@@ -56,7 +57,6 @@ namespace ActionGroupsExtended
         }
 
     }
-
 
     public static class AGXStaticData
     {
@@ -384,8 +384,6 @@ namespace ActionGroupsExtended
             SETTINGS.Save(cNode);
         }
     }
-
-
 
     public class ModuleAGX : PartModule
     {

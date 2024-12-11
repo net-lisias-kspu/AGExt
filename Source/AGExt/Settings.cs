@@ -26,8 +26,6 @@ namespace ActionGroupsExtended
     // http://forum.kerbalspaceprogram.com/index.php?/topic/147576-modders-notes-for-ksp-12/#comment-2754813
     // search for "Mod integration into Stock Settings
 
-    //   HighLogic.CurrentGame.Parameters.CustomParams<AGExt>()
-
 	public class AGExt : GameParameters.CustomParameterNode
     {
         public override string Title => "Action Groups Extended";
@@ -76,23 +74,4 @@ namespace ActionGroupsExtended
             return base.ValidValues(member);
         }
     }
-
-	//[KSPAddon(KSPAddon.Startup.Instantly, true)]
-	//internal class Test:MonoBehaviour
-	//{
-	//	[UsedImplicitly]
-	//	private void Start()
-	//	{
-	//		Log.force("Test.Startup");
-	//		try
-	//		{
-	//			GameParameters gp = GameParameters.GetDefaultParameters(Game.Modes.SANDBOX, GameParameters.Preset.Easy);
-	//			Log.force("{0}", gp.CustomParams<AGExt>().OverrideCareer);
-	//		}
-	//		catch (Exception e)
-	//		{
-	//			Log.ex(this, e);
-	//		}
-	//	}
-	//}
 }
