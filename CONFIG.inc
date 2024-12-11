@@ -16,7 +16,7 @@ GD_PRIORITY="000"
 LIB_DLLS="${DLLS}"
 
 PROJECT_BRANCH=`git branch | grep \* | cut -d ' ' -f2`
-if [ "$PROJECT_BRANCH" == "mestre" ] ; then
+if [ "$PROJECT_BRANCH" == "master" ] ; then
 	# Release mode
 	PROJECT_STATE=""
 else
