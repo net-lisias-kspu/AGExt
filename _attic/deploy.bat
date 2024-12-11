@@ -7,12 +7,20 @@ rem GAMEDATA is the name of the local GameData
 rem VERSIONFILE is the name of the version file, usually the same as GAMEDATA,
 rem    but not always
 
-set H=R:\KSP_1.7.0_dev
+set H=%KSPDIR%
+
+set H=R:\KSP_1.12.4
+
 set GAMEDIR=AGExt
 set GAMEDATA="GameData\Diazo"
 set VERSIONFILE=%GAMEDIR%.version
 
+set DP0=r:\dp0\kspdev
+
 copy /Y "%1%2" "%GAMEDATA%\%GAMEDIR%\Plugins"
+copy /Y "%1%3".pdb "%GAMEDATA%\%GAMEDIR%\Plugins"
+
 copy /Y %VERSIONFILE% %GAMEDATA%\%GAMEDIR%
 
-xcopy /y /s /I %GAMEDATA%\%GAMEDIR% "%H%\GameData\Diazo\%GAMEDIR%"
+xcopy /y /s /I %GAMEDATA% "%H%\%GAMEDATA%"
+xcopy /y /s /I %GAMEDATA% "%DP0%\%GAMEDATA%"

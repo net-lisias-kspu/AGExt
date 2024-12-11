@@ -268,7 +268,7 @@ namespace ActionGroupsExtended
                 }
                 if (!nodeLoad.HasValue("EditShow"))
                 {
-                    nodeLoad.AddValue("EditShow", "1");
+                    nodeLoad.AddValue("EditShow", "0");
                 }
                 if (!nodeLoad.HasValue("RTWinShow"))
                 {

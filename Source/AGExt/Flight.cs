@@ -156,7 +156,6 @@ namespace ActionGroupsExtended
         private bool ShowAGXFlightWin = true;
         //private string ActivatedGroups = "";
         public static bool loadFinished = false;
-        //private bool AGXShow = true;
         private int RightClickDelay = 0;
         private bool RightLickPartAdded = false;
         // private List<int> ActiveActions = new List<int>();
@@ -639,6 +638,11 @@ namespace ActionGroupsExtended
             }
             GameEvents.onShowUI.Add(onMyUIShow);
             GameEvents.onHideUI.Add(onMyUIHide);
+        }
+
+        void OnDestroy()
+        {
+            GameEvents.onPartDie.Remove(partDead); //remove part from RootParts if possible
         }
 
         void AddButtons()

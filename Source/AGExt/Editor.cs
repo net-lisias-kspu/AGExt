@@ -255,6 +255,7 @@ namespace ActionGroupsExtended
             AGXBtnStyle.hover.background = UI.ButtonTexture;
 
         }
+
         public void Start()
         {
             Log.trace("AGXEditorSTartSTart");
@@ -1274,55 +1275,56 @@ namespace ActionGroupsExtended
             
                 Log.detail("trying2 {0}",  EditorLogic.fetch.editorScreen);
                 if(EditorLogic.fetch.editorScreen == EditorScreen.Parts)
+            if (EditorLogic.fetch.editorScreen == EditorScreen.Parts)
+            {
+                Log.dbg("hit it");
+
+                EditorLogic.fetch.SelectPanelParts();
+                EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.partsEditor); //this works
+                EditorLogic.fetch.Unlock("AGXLock");
+                AGEditorSelectedParts.Clear();
+                EditorSaveToNode();
+                EditorLogic.fetch.SetBackup();
+            }
+            else if (EditorLogic.fetch.editorScreen == EditorScreen.Crew)
+            {
+                Log.dbg("hit it2");
+
+                EditorLogic.fetch.SelectPanelCrew();
+                EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.crew); //this works
+                EditorLogic.fetch.Unlock("AGXLock");
+                AGEditorSelectedParts.Clear();
+                EditorSaveToNode();
+                EditorLogic.fetch.SetBackup();
+            }
+            else if (EditorLogic.fetch.editorScreen == EditorScreen.Actions)
+            {
+                Log.dbg("hit it3");
+
+                EditorLogic.fetch.SelectPanelActions();
+                if (AGXShow)
                 {
-                    Log.trace("hit it");
-                    
-                    EditorLogic.fetch.SelectPanelParts();
-                    EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.partsEditor); //this works
+                    Log.dbg("hit it3a");
+                    //EditorPanels.Instance.panelManager.Dismiss(); //this works
+                    StartCoroutine("DelayHidePanels");
                     EditorLogic.fetch.Unlock("AGXLock");
                     AGEditorSelectedParts.Clear();
                     EditorSaveToNode();
                     EditorLogic.fetch.SetBackup();
                 }
-                else if (EditorLogic.fetch.editorScreen == EditorScreen.Crew)
+                else
                 {
-                    Log.trace("hit it2");
-
-                    EditorLogic.fetch.SelectPanelCrew();
-                    EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.crew); //this works
+                    // Log.dbg("hit it3b" + EditorLogic.fetch.editorScreen);
+                    //EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.actions);
+                    StartCoroutine("DelayShowPanels");
                     EditorLogic.fetch.Unlock("AGXLock");
                     AGEditorSelectedParts.Clear();
                     EditorSaveToNode();
                     EditorLogic.fetch.SetBackup();
                 }
-                else if (EditorLogic.fetch.editorScreen == EditorScreen.Actions)
-                {
-                    Log.trace("hit it3");
+            }
 
-                    EditorLogic.fetch.SelectPanelActions();
-                    if (AGXShow)
-                    {
-                        Log.trace("hit it3a");
-                        //EditorPanels.Instance.panelManager.Dismiss(); //this works
-                        StartCoroutine("DelayHidePanels");
-                        EditorLogic.fetch.Unlock("AGXLock");
-                        AGEditorSelectedParts.Clear();
-                        EditorSaveToNode();
-                        EditorLogic.fetch.SetBackup();
-                    }
-                    else
-                    {
-                        Log.trace("hit it3b {0}", EditorLogic.fetch.editorScreen);
-                        //EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.actions);
-                        StartCoroutine("DelayShowPanels");
-                        EditorLogic.fetch.Unlock("AGXLock");
-                        AGEditorSelectedParts.Clear();
-                        EditorSaveToNode();
-                        EditorLogic.fetch.SetBackup();
-                    }
-                }
-
-                //StartCoroutine("DelayPanelsMovementSecondStage");
+            //StartCoroutine("DelayPanelsMovementSecondStage");
         }
 
 
@@ -1579,56 +1581,54 @@ namespace ActionGroupsExtended
             string errLine = "1";
             try
             {
-            LoadFinished = false;
-            errLine = "2";
-            SaveCurrentKeyBindings();
-            errLine = "3";
-            SaveWindowPositions();
-            errLine = "4";
+                LoadFinished = false;
+                errLine = "2";
+                SaveCurrentKeyBindings();
+                errLine = "3";
+                SaveWindowPositions();
+                errLine = "4";
 
-            ToolbarController.Instance.Destroy();
-
-            //EditorSaveToFile(); //some of my data has already been deleted by this point
-            errLine = "7";
-            GameEvents.onPartAttach.Remove(PartAttaching);
-            errLine = "8";
-            GameEvents.onPartRemove.Remove(PartRemove);
-            errLine = "9";
-            GameEvents.onEditorPartEvent.Remove(OnPartEvent);
-            errLine = "10";
-            //GameEvents.onEditorShipModified.Remove(VesselChanged);
-            GameEvents.onEditorLoad.Remove(OnShipLoad);
-            errLine = "11";
-            //GameEvents.onGameStateSave.Remove(OnSaveTest);
-            //GameEvents.onGameSceneLoadRequested.Remove(LeavingEditor);
-            //GameEvents.onEditorLoad(OnEditorLoadCall);
+                //EditorSaveToFile(); //some of my data has already been deleted by this point
+                errLine = "7";
+                GameEvents.onPartAttach.Remove(PartAttaching);
+                errLine = "8";
+                GameEvents.onPartRemove.Remove(PartRemove);
+                errLine = "9";
+                GameEvents.onEditorPartEvent.Remove(OnPartEvent);
+                errLine = "10";
+                //GameEvents.onEditorShipModified.Remove(VesselChanged);
+                GameEvents.onEditorLoad.Remove(OnShipLoad);
+                errLine = "11";
+                //GameEvents.onGameStateSave.Remove(OnSaveTest);
+                //GameEvents.onGameSceneLoadRequested.Remove(LeavingEditor);
+                //GameEvents.onEditorLoad(OnEditorLoadCall);
 
 
-            //EditorPanels.Instance.actions.RemoveValueChangedDelegate(OnUIChanged); //detect when EditorPanel moves. this ONLY detects editor panel, going from parts to crew will NOT trigger this
-            //EditorLogic.fetch.crewPanelBtn.RemoveValueChangedDelegate(OnOtherButtonClick); //detect when Part button clicked at top of screen
-            //EditorLogic.fetch.actionPanelBtn.RemoveValueChangedDelegate(OnActionButtonClick);
-            //EditorLogic.fetch.partPanelBtn.RemoveValueChangedDelegate(OnOtherButtonClick); //detect when Crew button clicked at top of screen
-            //EditorLogic.fetch.loadBtn.RemoveValueChangedDelegate(OnEditorResetButtonClick); //load button clicked to check for deleted ships
-            ////EditorLogic.fetch.saveBtn.RemoveValueChangedDelegate(OnSaveButtonClick); //run save when save button clicked. auto-save from Scenario module only runs on leaving editor! not on clicking save button
-            ////EditorLogic.fetch.launchBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
-            ////EditorLogic.fetch.exitBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
-            //EditorLogic.fetch.newBtn.RemoveValueChangedDelegate(OnEditorResetButtonClick);
-            //EditorPanels.Instance.actions.RemoveValueChangedDelegate(OnActionPanelsUIChanged); //hook buttons at top of screen for show/hide of action panel
-            //EditorLogic.fetch.partPanelBtn.RemoveValueChangedDelegate(OnPartButtonClick);
-            //EditorLogic.fetch.crewPanelBtn.RemoveValueChangedDelegate(OnCrewButtonClick);
-            //EditorLogic.fetch.actionPanelBtn.RemoveValueChangedDelegate(OnActionButtonClick);
-            //EditorLogic.fetch.loadBtn.RemoveValueChangedDelegate(OnLoadClick);
-            //EditorLogic.fetch.saveBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
-            //EditorLogic.fetch.launchBtn.RemoveValueChangedDelegate(OnLaunchButtonClick);
-            //EditorLogic.fetch.exitBtn.RemoveValueChangedDelegate(OnExitButtonClick);
-            //EditorLogic.fetch.newBtn.RemoveValueChangedDelegate(OnNewButtonClick);
-            //EditorLogic.fetch.Unlock("AGXLock");
-            InputLockManager.RemoveControlLock("AGXLock");
-            errLine = "12";
-            StaticData.CurrentVesselActions.Clear();
-            errLine = "13";
+                //EditorPanels.Instance.actions.RemoveValueChangedDelegate(OnUIChanged); //detect when EditorPanel moves. this ONLY detects editor panel, going from parts to crew will NOT trigger this
+                //EditorLogic.fetch.crewPanelBtn.RemoveValueChangedDelegate(OnOtherButtonClick); //detect when Part button clicked at top of screen
+                //EditorLogic.fetch.actionPanelBtn.RemoveValueChangedDelegate(OnActionButtonClick);
+                //EditorLogic.fetch.partPanelBtn.RemoveValueChangedDelegate(OnOtherButtonClick); //detect when Crew button clicked at top of screen
+                //EditorLogic.fetch.loadBtn.RemoveValueChangedDelegate(OnEditorResetButtonClick); //load button clicked to check for deleted ships
+                ////EditorLogic.fetch.saveBtn.RemoveValueChangedDelegate(OnSaveButtonClick); //run save when save button clicked. auto-save from Scenario module only runs on leaving editor! not on clicking save button
+                ////EditorLogic.fetch.launchBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
+                ////EditorLogic.fetch.exitBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
+                //EditorLogic.fetch.newBtn.RemoveValueChangedDelegate(OnEditorResetButtonClick);
+                //EditorPanels.Instance.actions.RemoveValueChangedDelegate(OnActionPanelsUIChanged); //hook buttons at top of screen for show/hide of action panel
+                //EditorLogic.fetch.partPanelBtn.RemoveValueChangedDelegate(OnPartButtonClick);
+                //EditorLogic.fetch.crewPanelBtn.RemoveValueChangedDelegate(OnCrewButtonClick);
+                //EditorLogic.fetch.actionPanelBtn.RemoveValueChangedDelegate(OnActionButtonClick);
+                //EditorLogic.fetch.loadBtn.RemoveValueChangedDelegate(OnLoadClick);
+                //EditorLogic.fetch.saveBtn.RemoveValueChangedDelegate(OnSaveButtonClick);
+                //EditorLogic.fetch.launchBtn.RemoveValueChangedDelegate(OnLaunchButtonClick);
+                //EditorLogic.fetch.exitBtn.RemoveValueChangedDelegate(OnExitButtonClick);
+                //EditorLogic.fetch.newBtn.RemoveValueChangedDelegate(OnNewButtonClick);
+                //EditorLogic.fetch.Unlock("AGXLock");
+                InputLockManager.RemoveControlLock("AGXLock");
+                errLine = "12";
+                StaticData.CurrentVesselActions.Clear();
+                errLine = "13";
             }
-             catch(Exception e)
+            catch (Exception e)
             {
                 Log.err("Editor.OnDestroy ", errLine);
                 Log.ex(this,e);
@@ -1685,16 +1685,14 @@ namespace ActionGroupsExtended
             RealMousePos = Input.mousePosition;
             RealMousePos.y = Screen.height - Input.mousePosition.y;
 
+            ControlTypes i = InputLockManager.GetControlLock("ExitConfirmationDialog");
+            
+            if ((i & ControlTypes.EDITOR_EXIT) == ControlTypes.EDITOR_EXIT)
+                Log.err("EditorExit active");
 
-
-            //if (!ToolbarManager.ToolbarAvailable) //stock toolbar now added
-            //{
-            //    AGXShow = true; //no toolbar so show AGX with KSP actions editor still up
-            //}
-
-
-
-            if (AGXShow)
+            if (AGXShow &&
+                (i & ControlTypes.EDITOR_EXIT) != ControlTypes.EDITOR_EXIT
+                )
             {
                 // print("Test call 3" + showCareerCustomAGs);
                 if (!showCareerCustomAGs)
@@ -1971,10 +1969,7 @@ namespace ActionGroupsExtended
                     //GUI.skin.button.alignment = TxtAnch4;
                     RowCnt = RowCnt + 1;
                 }
-
-
             }
-
             else
             {
                 TextAnchor TxtAnch5 = new TextAnchor();
@@ -1995,9 +1990,6 @@ namespace ActionGroupsExtended
 
         public void KeySetWindow(int WindowID)
         {
-
-
-
             //GUI.DrawTexture(new Rect(6, (CurrentKeySet * 25) +1, 68, 18), BtnTexGrn,if();
 
             AGXBtnStyle.normal.background = CurrentKeySet == 1 ? UI.ButtonTextureGreen : UI.ButtonTexture;
@@ -2016,7 +2008,6 @@ namespace ActionGroupsExtended
             // if (GUI.Button(new Rect(5, 50, 70, 20), "Select 2:", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 50, 70, 20), Localizer.Format("#AGEXT_UI_select_2"), AGXBtnStyle))
             {
-
                 EditorSaveKeysetStuff();
                 SaveCurrentKeyBindings();
                 CurrentKeySet = 2;
@@ -2108,14 +2099,12 @@ namespace ActionGroupsExtended
             if (GUI.Button(new Rect(5, 265, 70, 20), Localizer.Format("#AGEXT_UI_group_5"), AGXBtnStyle))
             {
                 ShowGroupInFlightCurrent = 5;
-
             }
             ShowGroupInFlightNames[5] = GUI.TextField(new Rect(80, 265, 100, 20), ShowGroupInFlightNames[5]);
             AGXBtnStyle.normal.background = UI.ButtonTexture;
             // if (GUI.Button(new Rect(5, 300, 175, 30), "Close Window", AGXBtnStyle))
             if (GUI.Button(new Rect(5, 300, 175, 30), Localizer.Format("#AGEXT_UI_close_window"), AGXBtnStyle))
             {
-
                 EditorSaveKeysetStuff();
                 //superceeded by v2 save
                 //foreach (Part p in EditorLogic.fetch.getSortedShipList())
@@ -2128,28 +2117,21 @@ namespace ActionGroupsExtended
                 //}
                 ShowKeySetWin = false;
             }
-
             GUI.DragWindow();
         }
 
         //public static string SaveCurrentKeySet(Part p, String CurKey)
         //{
-
         //    if (LoadFinished)
         //        return CurrentKeySet.ToString();
         //    else
         //    {
         //        return CurKey;
         //    }
-
-
         //        }
-
 
         //public void LoadCurrentKeySet()
         //{
-
-
         //    string errLine = "1";
         //    try
         //    {
@@ -2246,12 +2228,8 @@ namespace ActionGroupsExtended
         //    }
         //}
 
-
-
-
         public static void LoadCurrentKeyBindings()
         {
-
             //Log.dbg("loading key set " + CurrentKeySet.ToString());          
             String LoadString = AGExtNode.GetValue("KeySet" + CurrentKeySet.ToString());
 
@@ -2273,19 +2251,15 @@ namespace ActionGroupsExtended
 
                     if (KeyLength == -1)
                     {
-
                         KeyIndex = Convert.ToInt32(LoadString.Substring(0, 3));
 
                         LoadString = LoadString.Substring(3);
 
                         LoadKey = (KeyCode)Enum.Parse(typeof(KeyCode), LoadString);
                         AGXguiKeys[KeyIndex] = LoadKey;
-
-
                     }
                     else
                     {
-
                         KeyIndex = Convert.ToInt32(LoadString.Substring(0, 3));
 
                         LoadString = LoadString.Substring(3);
@@ -2294,10 +2268,7 @@ namespace ActionGroupsExtended
                         LoadString = LoadString.Substring(KeyLength - 3);
 
                         AGXguiKeys[KeyIndex] = LoadKey;
-
-
                     }
-
                 }
             }
             String GroupKeysMod1ToLoad = AGExtNode.GetValue("KeySetMod1Group" + CurrentKeySet.ToString());
@@ -2327,9 +2298,6 @@ namespace ActionGroupsExtended
 
         public static void SaveCurrentKeyBindings()
         {
-
-
-
             AGExtNode.SetValue("KeySetName" + CurrentKeySet, CurrentKeySetName);
             string SaveString = "";
             int KeyID = new int();
@@ -2344,7 +2312,6 @@ namespace ActionGroupsExtended
             }
 
             AGExtNode.SetValue("KeySet" + CurrentKeySet.ToString(), SaveString);
-
 
             string GroupsMod1ToSave = "";
             string GroupsMod2ToSave = "";
@@ -2372,16 +2339,12 @@ namespace ActionGroupsExtended
             AGExtNode.SetValue("KeySetModKey1" + CurrentKeySet.ToString(), AGXguiMod1Key.ToString());
             AGExtNode.SetValue("KeySetModKey2" + CurrentKeySet.ToString(), AGXguiMod2Key.ToString());
 
-
-
             //AGExtNode.Save(KSPUtil.ApplicationRootPath + "GameData/Diazo/AGExt/AGExt.cfg");
             AGXStaticData.SaveBaseConfigNode(AGExtNode);
             //if (CurrentKeySet == 1)
             //{
             //    SaveDefaultCustomKeys();
             //}
-
-
         }
         //public static void SaveDefaultCustomKeys()
         //{
@@ -2407,6 +2370,7 @@ namespace ActionGroupsExtended
         //    GameSettings.CustomActionGroup9.primary = KeyCode.None;
         //    GameSettings.CustomActionGroup10.primary = KeyCode.None;
         //}
+
         public void KeyCodeWindow(int WindowID)
         {
             // if (GUI.Button(new Rect(5, 3, 80, 25), "Clear Key", AGXBtnStyle))
@@ -2519,7 +2483,6 @@ namespace ActionGroupsExtended
                             AGXguiKeys[AGXCurActGroup] = (KeyCode)Enum.Parse(typeof(KeyCode), KeyCodeNames.ElementAt(KeyListCount));
                             ShowKeyCodeWin = false;
                         }
-
                     }
                     KeyListCount = KeyListCount + 1;
                 }
@@ -2542,7 +2505,6 @@ namespace ActionGroupsExtended
                             AGXguiKeys[AGXCurActGroup] = (KeyCode)Enum.Parse(typeof(KeyCode), KeyCodeNames.ElementAt(KeyListCount));
                             ShowKeyCodeWin = false;
                         }
-
                     }
                     KeyListCount = KeyListCount + 1;
                 }
@@ -2565,7 +2527,6 @@ namespace ActionGroupsExtended
                             AGXguiKeys[AGXCurActGroup] = (KeyCode)Enum.Parse(typeof(KeyCode), KeyCodeNames.ElementAt(KeyListCount));
                             ShowKeyCodeWin = false;
                         }
-
                     }
                     KeyListCount = KeyListCount + 1;
                 }
@@ -2588,7 +2549,6 @@ namespace ActionGroupsExtended
                             AGXguiKeys[AGXCurActGroup] = (KeyCode)Enum.Parse(typeof(KeyCode), KeyCodeNames.ElementAt(KeyListCount));
                             ShowKeyCodeWin = false;
                         }
-
                     }
                     KeyListCount = KeyListCount + 1;
                 }
@@ -2616,7 +2576,6 @@ namespace ActionGroupsExtended
                             AGXguiKeys[AGXCurActGroup] = (KeyCode)Enum.Parse(typeof(KeyCode), JoyStickCodes.ElementAt(JoyStickCount));
                             ShowKeyCodeWin = false;
                         }
-
                     }
                     JoyStickCount = JoyStickCount + 1;
                 }
@@ -2639,7 +2598,6 @@ namespace ActionGroupsExtended
                             AGXguiKeys[AGXCurActGroup] = (KeyCode)Enum.Parse(typeof(KeyCode), JoyStickCodes.ElementAt(JoyStickCount));
                             ShowKeyCodeWin = false;
                         }
-
                     }
                     JoyStickCount = JoyStickCount + 1;
                 }
@@ -2662,7 +2620,6 @@ namespace ActionGroupsExtended
                             AGXguiKeys[AGXCurActGroup] = (KeyCode)Enum.Parse(typeof(KeyCode), JoyStickCodes.ElementAt(JoyStickCount));
                             ShowKeyCodeWin = false;
                         }
-
                     }
                     JoyStickCount = JoyStickCount + 1;
                 }
@@ -2692,9 +2649,7 @@ namespace ActionGroupsExtended
             KSPActs[10] = KSPActionGroup.Custom10;
 
             ba.actionGroup = ba.actionGroup & ~KSPActs[group];
-
         }
-
 
         public void RefreshPartActions()
         {
@@ -2716,7 +2671,6 @@ namespace ActionGroupsExtended
             int SelPartsLeft = new int();
             SelPartsLeft = -10;
 
-
             //GUI.DrawTexture(new Rect(25, 30, 80, PartsScrollHeight), TexBlk, ScaleMode.StretchToFill, false);
             //AGXPart FirstPart = new AGXPart();
             // FirstPart = AGEditorSelectedParts.First().AGPart.name;
@@ -2724,7 +2678,6 @@ namespace ActionGroupsExtended
             highlightPartThisFrameSelWin = false;
             if (AGEditorSelectedParts != null && AGEditorSelectedParts.Count > 0)
             {
-
                 int ButtonCount = new int();
                 ButtonCount = 1;
 
@@ -2741,11 +2694,8 @@ namespace ActionGroupsExtended
                         partToHighlight = AGEditorSelectedParts.ElementAt(ButtonCount - 1).AGPart;
                     }
 
-
-
                     if (GUI.Button(new Rect(5, 0 + ((ButtonCount - 1) * 20), 190, 20), AGEditorSelectedParts.ElementAt(ButtonCount - 1).AGPart.partInfo.title, AGXBtnStyle))
                     {
-
                         AGEditorSelectedParts.RemoveAt(ButtonCount - 1);
                         if (AGEditorSelectedParts.Count == 0)
                         {
@@ -2756,11 +2706,7 @@ namespace ActionGroupsExtended
 
                     ButtonCount = ButtonCount + 1;
                 }
-
                 GUI.EndScrollView();
-
-
-
             }
             else //no parts selected, show list all parts button?
             {
@@ -2807,12 +2753,9 @@ namespace ActionGroupsExtended
                 BtnTxt = Localizer.Format("#AGEXT_UI_select_mode_no");
             }
 
-
-
             if (GUI.Button(new Rect(SelPartsLeft + 245, 25, 110, 25), BtnTxt, AGXBtnStyle))
             {
                 SelPartsIncSym = !SelPartsIncSym;
-
             }
             AGXBtnStyle.normal.background = UI.ButtonTexture;
             // if (GUI.Button(new Rect(SelPartsLeft + 245, 55, 110, 25), "Clear List", AGXBtnStyle))
@@ -2821,14 +2764,12 @@ namespace ActionGroupsExtended
                 AGEditorSelectedParts.Clear();
                 PartActionsList.Clear();
                 AGEEditorSelectedPartsSame = false;
-
             }
 
             GUI.Box(new Rect(SelPartsLeft + 20, 150, 200, 110), "");
 
             if (AGEEditorSelectedPartsSame)
             {
-
                 if (PartActionsList.Count > 0)
                 {
                     int ActionsCount = new int();
@@ -2839,7 +2780,6 @@ namespace ActionGroupsExtended
 
                     while (ActionsCount <= ActionsCountTotal)
                     {
-
                         if (GUI.Button(new Rect(5, 0 + ((ActionsCount - 1) * 20), 190, 20), PartActionsList.ElementAt(ActionsCount - 1).guiName, AGXBtnStyle))
                         {
                             if (defaultShowingNonNumeric)
@@ -2868,11 +2808,9 @@ namespace ActionGroupsExtended
                                         if (ba.name == baname)
                                         {
                                             ba.actionGroup = ba.actionGroup | defaultGroupToShow;
-                                            Log.info("adding act");
-
+                                            Log.dbg("adding act");
                                         }
                                     }
-
                                 }
                                 RefreshDefaultActionsListType();
                             }
@@ -2905,18 +2843,12 @@ namespace ActionGroupsExtended
 
                                     //Checking.RemoveAll(p => p.ba != ToAdd.ba);
 
-
-
                                     //if (Checking.Count == 0)
                                     if (!StaticData.CurrentVesselActions.Contains(ToAdd)) //add action to main list
                                     {
-
                                         StaticData.CurrentVesselActions.Add(ToAdd);
-
-
                                         //SaveCurrentVesselActions();
                                     }
-
 
                                     ModuleAGX thisActionModule = ToAdd.ba.listParent.part.Modules.OfType<ModuleAGX>().First(); //add action to partmodules list, yes this duplicates the action but it necessary for add/remove/symmetry stuff in editor
                                     if (!thisActionModule.agxActionsThisPart.Contains(ToAdd))
@@ -2931,9 +2863,7 @@ namespace ActionGroupsExtended
                                     }
                                 }
                             }
-
                         }
-
                         ActionsCount = ActionsCount + 1;
                     }
                     GUI.EndScrollView();
@@ -2948,8 +2878,6 @@ namespace ActionGroupsExtended
                         }
                     }
                 }
-
-                // 
             }
             else
             {
@@ -2962,12 +2890,9 @@ namespace ActionGroupsExtended
                 // GUI.Label(new Rect(SelPartsLeft + 20, 180, 190, 40), "Select parts of\nthe same type", AGXLblStyle);
                 GUI.Label(new Rect(SelPartsLeft + 20, 180, 190, 40), Localizer.Format("#AGEXT_UI_select_part_hint"), AGXLblStyle);
 
-
                 AGXLblStyle.alignment = TextAnchor.MiddleLeft;
                 //GUI.skin.label.alignment = TxtAnch;
-
             }
-
 
             TextAnchor TxtAnch2 = new TextAnchor();
             TxtAnch2 = GUI.skin.button.alignment;
@@ -2983,7 +2908,6 @@ namespace ActionGroupsExtended
             }
             else
             {
-
                 if (GUI.Button(new Rect(SelPartsLeft + 245, 85, 120, 30), AGXCurActGroup + ": " + AGXguiNames[AGXCurActGroup], AGXBtnStyle))
                 {
                     TempShowGroupsWin = true;
@@ -2992,13 +2916,11 @@ namespace ActionGroupsExtended
                 AGXBtnStyle.alignment = TextAnchor.MiddleCenter;
                 if (IsGroupToggle[AGXCurActGroup])
                 {
-
                     Color TxtClr = GUI.contentColor;
                     GUI.contentColor = Color.green;
                     // if (GUI.Button(new Rect(SelPartsLeft + 230, 160, 90, 22), "StateVis:Yes", AGXBtnStyle))
                     if (GUI.Button(new Rect(SelPartsLeft + 230, 160, 90, 22), Localizer.Format("#AGEXT_UI_state_vis_yes"), AGXBtnStyle))
                     {
-
                         IsGroupToggle[AGXCurActGroup] = false;
                     }
                     GUI.contentColor = TxtClr;
@@ -3008,7 +2930,6 @@ namespace ActionGroupsExtended
                     // if (GUI.Button(new Rect(SelPartsLeft + 230, 160, 90, 22), "StateVis:No", AGXBtnStyle))
                     if (GUI.Button(new Rect(SelPartsLeft + 230, 160, 90, 22), Localizer.Format("#AGEXT_UI_state_vis_no"), AGXBtnStyle))
                     {
-
                         IsGroupToggle[AGXCurActGroup] = true;
                     }
                 }
@@ -3035,7 +2956,6 @@ namespace ActionGroupsExtended
                     }
                 }
 
-
                 // GUI.Label(new Rect(SelPartsLeft + 231, 183, 110, 22), "Show:", AGXLblStyle);
                 GUI.Label(new Rect(SelPartsLeft + 231, 183, 110, 22), Localizer.Format("#AGEXT_UI_show"), AGXLblStyle);
                 Color TxtClr2 = GUI.contentColor;
@@ -3061,6 +2981,7 @@ namespace ActionGroupsExtended
                 {
                     GUI.contentColor = Color.red;
                 }
+
                 if (GUI.Button(new Rect(SelPartsLeft + 291, 183, 20, 22), "2", AGXBtnStyle))
                 {
                     ShowGroupInFlight[2, AGXCurActGroup] = !ShowGroupInFlight[2, AGXCurActGroup];
@@ -3089,6 +3010,7 @@ namespace ActionGroupsExtended
                 {
                     GUI.contentColor = Color.red;
                 }
+
                 if (GUI.Button(new Rect(SelPartsLeft + 331, 183, 20, 22), "4", AGXBtnStyle))
                 {
                     ShowGroupInFlight[4, AGXCurActGroup] = !ShowGroupInFlight[4, AGXCurActGroup];
@@ -3103,11 +3025,13 @@ namespace ActionGroupsExtended
                 {
                     GUI.contentColor = Color.red;
                 }
+
                 if (GUI.Button(new Rect(SelPartsLeft + 351, 183, 20, 22), "5", AGXBtnStyle))
                 {
                     ShowGroupInFlight[5, AGXCurActGroup] = !ShowGroupInFlight[5, AGXCurActGroup];
                     // CalculateActionsToShow();
                 }
+
                 GUI.contentColor = TxtClr2;
                 // GUI.Label(new Rect(SelPartsLeft + 245, 115, 110, 20), "Description:", AGXLblStyle);
                 GUI.Label(new Rect(SelPartsLeft + 245, 115, 110, 20), Localizer.Format("#AGEXT_UI_action_name"), AGXLblStyle);
@@ -3133,11 +3057,13 @@ namespace ActionGroupsExtended
                 {
                     btnName = AGXguiKeys[AGXCurActGroup].ToString();
                 }
+
                 if (GUI.Button(new Rect(SelPartsLeft + 245, 222, 120, 20), btnName, AGXBtnStyle))
                 {
                     ShowKeyCodeWin = true;
                 }
             }
+
             if (GUI.Button(new Rect(SelPartsLeft + 245, 244, 120, 20), CurrentKeySetName, AGXBtnStyle))
             {
                 //Log.dbg("1a");
@@ -3156,7 +3082,6 @@ namespace ActionGroupsExtended
                 ShowKeySetWin = true;
                 //Log.dbg("6a");
             }
-
 
             GUI.DragWindow();
         }
@@ -3185,7 +3110,6 @@ namespace ActionGroupsExtended
         //        print("AGX Editor Fail (SaveCurrentVesselActions) " + errLine + " " + e);
         //    }
         //}
-
 
         public static void LoadDirectActionState(string DirectActions)
         {
@@ -3229,7 +3153,6 @@ namespace ActionGroupsExtended
         {
             try
             {
-
                 string ReturnStr = "";
 
                 for (int i = 1; i <= 250; i++)
@@ -3245,7 +3168,6 @@ namespace ActionGroupsExtended
 
                 }
                 return ReturnStr;
-
             }
             catch
             {
@@ -3278,7 +3200,6 @@ namespace ActionGroupsExtended
                 Log.err("RefDefActsList Error, safe to ignore. {0}", errLine);
                 Log.ex(this, e);
             }
-
         }
 
         public void RefreshDefaultActionsListType()
@@ -3301,11 +3222,10 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.info("RefDefActsListType Error {0}", errLine);
+                Log.err("RefDefActsListType Error {0}", errLine);
                 Log.ex(this, e);
             }
         }
-
 
         public void GroupsWindow(int WindowID)
         {
@@ -3313,7 +3233,6 @@ namespace ActionGroupsExtended
             string ErrLine = "1";
             try
             {
-
                 //if (AutoHideGroupsWin)
                 //{
                 //    GUI.DrawTexture(new Rect(6, 4, 78, 18), BtnTexRed);
@@ -3380,7 +3299,6 @@ namespace ActionGroupsExtended
                             //        {
                             //            ErrLine = "4h";
                             //            defaultActionsListAll.AddRange(pm.Actions);
-
                             //        }
                             //        ErrLine = "4i";
                             //    }
@@ -3742,12 +3660,10 @@ namespace ActionGroupsExtended
                             //btnName = btnName + AGXguiKeys[ButtonID].ToString();
                             if (GUI.Button(new Rect(0, (ButtonPos - 1) * 20, 120, 20), ButtonID + " Key: " + btnName, AGXBtnStyle))
                             {
-
                                 AGXCurActGroup = ButtonID;
                                 ShowKeyCodeWin = true;
                             }
                         }
-
                         else
                         {
                             //if (CurrentVesselActions.Any(pfd => pfd.group == ButtonID))
@@ -3773,7 +3689,6 @@ namespace ActionGroupsExtended
                     {
                         if (ShowKeySetWin)
                         {
-
                             string btnName2 = "";
                             if (AGXguiMod1Groups[ButtonID] && AGXguiMod2Groups[ButtonID])
                             {
@@ -3807,11 +3722,8 @@ namespace ActionGroupsExtended
                             AGXBtnStyle.hover.background = StaticData.CurrentVesselActions.Any(pfd => pfd.group == ButtonID) ? UI.ButtonTextureGreen : UI.ButtonTexture;
                             if (GUI.Button(new Rect(120, (ButtonPos - 26) * 20, 120, 20), ButtonID + ": " + AGXguiNames[ButtonID], AGXBtnStyle))
                             {
-
-
                                 AGXCurActGroup = ButtonID;
                                 TempShowGroupsWin = false;
-
                             }
                             AGXBtnStyle.normal.background = UI.ButtonTexture;
                             AGXBtnStyle.hover.background = UI.ButtonTexture;
@@ -3823,7 +3735,6 @@ namespace ActionGroupsExtended
                     AGXBtnStyle.alignment = TextAnchor.MiddleCenter;
 
                     GUI.EndScrollView();
-
                 }
                 GUI.DragWindow();
                 AGXBtnStyle.alignment = TextAnchor.MiddleCenter;
@@ -3869,15 +3780,12 @@ namespace ActionGroupsExtended
                 {
                     PartActionsList.AddRange(pm.Actions.Where(ba => ba.active == true));
                 }
-
             }
             return RetLst;
-
         }
 
         public static void LoadGroupNames(string LoadNames) //v2 done
         {
-
             string errLine = "1";
             try
             {
@@ -3903,23 +3811,18 @@ namespace ActionGroupsExtended
 
                         if (LoadNames.IndexOf('\u2023') == -1)
                         {
-
                             groupName = LoadNames;
                         }
                         else
                         {
-
                             groupName = LoadNames.Substring(0, LoadNames.IndexOf('\u2023'));
                             LoadNames = LoadNames.Substring(LoadNames.IndexOf('\u2023'));
                         }
 
-
                         AGXguiNames[groupNum] = groupName;
-
                     }
                 }
             }
-
             catch (Exception e)
             {
                 Log.err("LoadGroupNames Fail {0}", errLine);
@@ -3927,15 +3830,8 @@ namespace ActionGroupsExtended
             }
         }
 
-
-
-
-
-
-
         //public void LoadDefaultActionGroups() //not used?
         //{
-
         //    List<KSPActionGroup> CustomActions = new List<KSPActionGroup>();
         //    CustomActions.Add(KSPActionGroup.Custom01); //how do you add a range from enum?
         //    CustomActions.Add(KSPActionGroup.Custom02);
@@ -3957,11 +3853,8 @@ namespace ActionGroupsExtended
         //            {
         //                foreach (KSPActionGroup agrp in CustomActions)
         //                {
-
         //                    if ((ba.actionGroup & agrp) == agrp)
-
         //                    {
-
         //                        AddGroup = AddGroup + '\u2023' + (CustomActions.IndexOf(agrp) +1).ToString("000") + ba.guiName;
         //                    }
         //                }
@@ -3988,7 +3881,6 @@ namespace ActionGroupsExtended
                     case EditorScreen.Parts:
                         if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.partsEditor.State != "In")
                         {
-
                             Log.detail("BRING IN PARTS");
 
                             if (!transitioning)
@@ -3996,7 +3888,6 @@ namespace ActionGroupsExtended
                                 EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.partsEditor);
                                 transitioning = true;
                             }
-
                         }
                         else
                             transitioning = false;
@@ -4005,15 +3896,13 @@ namespace ActionGroupsExtended
                     case EditorScreen.Crew:
                         if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.crew.State != "In")
                         {
-
-                            Log.info("Detail IN CREW");
+                            Log.dbg("Detail IN CREW");
 
                             if (!transitioning)
                             {
                                 EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.crew);
                                 transitioning = true;
                             }
-
                         }
                         else
                             transitioning = false;
@@ -4050,15 +3939,12 @@ namespace ActionGroupsExtended
                 {
                     if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.partsEditor.State != "In")
                     {
-
-                        Log.Info("BRING IN PARTS");
-                       
+                        Log.dbg("BRING IN PARTS");
                         if (!transitioning)
                         {
                             EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.partsEditor);
                             transitioning = true;
                         }
-
                     }
                     else
                         transitioning = false;
@@ -4067,15 +3953,12 @@ namespace ActionGroupsExtended
                 {
                     if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.crew.State != "In")
                     {
-                        
-                        Log.Info("BRING IN CREW");
-                        
+                        Log.dbg("BRING IN CREW");
                         if (!transitioning)
                         {
                             EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.crew);
                             transitioning = true;
                         }
-                        
                     } else
                     {
                         transitioning = false;
@@ -4087,7 +3970,7 @@ namespace ActionGroupsExtended
                     {
                         if (EditorPanels.Instance.panelManager != null)
                         {
-                            Log.Info("HIDE PANELS");
+                            Log.dbg("HIDE PANELS");
                             EditorPanels.Instance.panelManager.Dismiss(EditorPanels.Instance.actions);
                         }
                     }
@@ -4095,7 +3978,7 @@ namespace ActionGroupsExtended
                     {
                         if (EditorPanels.Instance.panelManager == null || EditorPanels.Instance.actions.State != "In")
                         {
-                            Log.Info("BRING IN ACTIONS");
+                            Log.dbg("BRING IN ACTIONS");
                             if (!transitioning)
                             {
                                 EditorPanels.Instance.panelManager.BringIn(EditorPanels.Instance.actions);
@@ -4104,7 +3987,6 @@ namespace ActionGroupsExtended
                         }
                         else
                             transitioning = false;
-
                     }
                 }
                 
@@ -4144,10 +4026,7 @@ namespace ActionGroupsExtended
                 {
                     errLine = "8";
                     ShowSelectedWin = false;
-
-
                     errLine = "9";
-
                     AGEditorSelectedParts.Clear();//mod is hidden, clear list so parts don't get orphaned in it
                     errLine = "10";
                     PartActionsList.Clear();
@@ -4158,7 +4037,7 @@ namespace ActionGroupsExtended
 
                 if (ShowSelectedWin)
                 {
-                   // Log.Info("time start " + "|" + Time.realtimeSinceStartup);
+                   // Log.dbg("time start " + "|" + Time.realtimeSinceStartup);
                     errLine = "13";
 
                     if (EditorActionGroups.Instance.GetSelectedParts() != null) //on first run, list is null
@@ -4168,7 +4047,6 @@ namespace ActionGroupsExtended
                         {
                             errLine = "15";
                             UpdateActionsListCheck();
-
                         }
                         if (EditorActionGroups.Instance.GetSelectedParts().Count > 0) //are there parts selected?
                         {
@@ -4184,24 +4062,17 @@ namespace ActionGroupsExtended
                                     {
                                         errLine = "19";
                                         AGEditorSelectedParts.AddRange(AGXAddSelectedPart(EditorActionGroups.Instance.GetSelectedParts().First(), SelPartsIncSym));
-
-
                                     }
                                     else if (AGEditorSelectedParts.First().AGPart.name == EditorActionGroups.Instance.GetSelectedParts().First().name) //selected part matches first part already in selected parts list, so just add selected part
                                     {
                                         errLine = "20";
                                         AGEditorSelectedParts.AddRange(AGXAddSelectedPart(EditorActionGroups.Instance.GetSelectedParts().First(), SelPartsIncSym));
-
-
                                     }
                                     else //part does not match first part in list, clear list before adding part
                                     {
                                         errLine = "21";
                                         AGEditorSelectedParts.Clear();
                                         AGEditorSelectedParts.AddRange(AGXAddSelectedPart(EditorActionGroups.Instance.GetSelectedParts().First(), SelPartsIncSym));
-
-
-
                                     }
                                 }
                                 errLine = "22";
@@ -4274,8 +4145,6 @@ namespace ActionGroupsExtended
         //PrintSelectedPart();
         //Log.dbg("Keyset " + CurrentKeySet);
 
-
-
         public void PrintSelectedPart()
         {
             if (DateTime.Now.Second.ToString().Substring(DateTime.Now.Second.ToString().Length - 1, 1) == "0")
@@ -4314,7 +4183,6 @@ namespace ActionGroupsExtended
             {
                 foreach (Part p in EditorLogic.SortedShipList)
                 {
-
                     //List<BaseAction> partActs = new List<BaseAction>();
                     // partActs.AddRange(p.Actions);
                     foreach (PartModule pm in p.Modules)
@@ -4328,8 +4196,6 @@ namespace ActionGroupsExtended
                     //    print(ba.listParent.module.moduleName + " " + ba.name + " " + ba.guiName);
                     //}
                 }
-
-
             }
             catch
             {
@@ -4352,6 +4218,7 @@ namespace ActionGroupsExtended
                 Log.err("Print fail!");
             }
         }
+
         public void MonitorDefaultActions()
         {
             //Log.dbg("AGX Monitor default start " + StaticData.CurrentVesselActions.Count());
@@ -4428,12 +4295,12 @@ namespace ActionGroupsExtended
                 KSPDefaultActionGroupThisFrame = KSPActionGroup.Custom01;
                 break;
                 }
-
             }
             catch
             {
                 Log.err("AGX Monitor default list fail");
             }
+
             string errLine = "1";
             try
             {
@@ -4590,7 +4457,6 @@ namespace ActionGroupsExtended
                             }
 
                             errLine = "18";
-
 
                             //Log.dbg("2i");
 
@@ -4812,16 +4678,16 @@ namespace ActionGroupsExtended
                     }
                     //if (!loadingPM.hasData)//backwards compatibiliyt to load old seperate file storage
                     //{
-                    //    Log.Info("no data in pm");
+                    //    Log.dbg("no data in pm");
                     //    try
                     //    {
                     //        if (File.Exists(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExtEditor.cfg"))
                     //        {
                     //            ConfigNode oldStyleSaveData = null;
-                    //            Log.Info("old file found");
+                    //            Log.dbg("old file found");
                     //            errLine = "6b";
                     //            ConfigNode AGXEditorNode = ConfigNode.Load(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExtEditor.cfg");
-                    //            // Log.Info("old file loaded");
+                    //            // Log.dbg("old file loaded");
                     //            string hashedShipName = StaticData.EditorHashShipName(EditorLogic.fetch.shipNameField.Text, inVAB);
                     //            if (AGXEditorNode.HasNode(hashedShipName))
                     //            {
@@ -4830,7 +4696,7 @@ namespace ActionGroupsExtended
                     //            }
                     //            if (oldStyleSaveData != null)
                     //            {
-                    //                Log.Info("old ship confignode loaded");
+                    //                Log.dbg("old ship confignode loaded");
                     //                if (oldStyleSaveData.HasValue("currentKeyset"))
                     //                {
                     //                    loadingPM.currentKeyset = Convert.ToInt32((string)oldStyleSaveData.GetValue("currentKeyset"));
@@ -5129,7 +4995,6 @@ namespace ActionGroupsExtended
                     {
                         foreach (KSPActionGroup agrp in CustomActions)
                         {
-
                             if ((baLoad.actionGroup & agrp) == agrp)
                             {
                                 errLine = "17";
@@ -5139,18 +5004,12 @@ namespace ActionGroupsExtended
                                 List<AGXAction> Checking = new List<AGXAction>();
                                 Checking.AddRange(StaticData.CurrentVesselActions);
                                 Checking.RemoveAll(p => p.group != ToAdd.group);
-
                                 Checking.RemoveAll(p => p.prt != ToAdd.prt);
-
                                 Checking.RemoveAll(p => p.ba != ToAdd.ba);
-
-
 
                                 if (Checking.Count == 0)
                                 {
-
                                     StaticData.CurrentVesselActions.Add(ToAdd);
-
                                 }
                                 ModuleAGX toAddModule = ToAdd.ba.listParent.part.Modules.OfType<ModuleAGX>().First();
                                 if (!toAddModule.agxActionsThisPart.Contains(ToAdd))
@@ -5161,7 +5020,6 @@ namespace ActionGroupsExtended
                         }
                         errLine = "18";
                     }
-
                 }
                 catch
                 {
@@ -5170,26 +5028,20 @@ namespace ActionGroupsExtended
                 AGXRoot = EditorLogic.RootPart;
                 //Log.dbg("LoadFromNode Called End" + StaticData.CurrentVesselActions.Count());
             }
-
-
             catch (Exception e)
             {
                 print("AGX EditorLoadFromNode Fail " + errLine + " " + e);
             }
         }
 
-
         //public void LoadActionGroups()
         //{
-
         //    if(CurrentVesselActions == null)
         //    {
-
         //        CurrentVesselActions = new List<AGXAction>();
         //    }
         //    else
         //    {
-
         //    CurrentVesselActions.Clear();
         //    }
 
@@ -5206,12 +5058,10 @@ namespace ActionGroupsExtended
         //        RootPartExists = false;
         //    }
 
-
         //    if (RootPartExists)
         //    {
         //        foreach (Part p in EditorLogic.SortedShipList)
         //        {
-
         //            foreach (ModuleAGExtData agpm in p.Modules.OfType<ModuleAGExtData>())
         //            {
         //                CurrentVesselActions.AddRange(agpm.partAGActions);
@@ -5285,6 +5135,7 @@ namespace ActionGroupsExtended
                     KnownGood.Add(agxAct);
                 }
             }
+
             StaticData.CurrentVesselActions = KnownGood;
             RefreshDefaultActionsList();
             ActionsListDirty = false;
@@ -5299,7 +5150,6 @@ namespace ActionGroupsExtended
             {
                 AGEditorSelectedParts.Add(new AGXPart(p));
             }
-
 
             AGXPart AGPcompare = new AGXPart();
             AGPcompare = AGEditorSelectedParts.First(); //set first part in selected parts list to compare
@@ -5328,6 +5178,7 @@ namespace ActionGroupsExtended
         {
             return str;
         }
+
         public static string SaveGroupVisibilityNames(string str)
         {
             try
@@ -5339,22 +5190,21 @@ namespace ActionGroupsExtended
                 }
                 return StringToSave;
             }
-
             catch
             {
                 return str;
             }
         }
+
         public static string SaveGroupVisibility(Part p, string str)
         {
             return str;
         }
+
         public static string SaveGroupVisibility(string str)
         {
-
             try
             {
-
                 string ReturnStr = ShowGroupInFlightCurrent.ToString(); //add currently show flightgroup
 
                 for (int i = 1; i <= 250; i++)
@@ -5366,7 +5216,6 @@ namespace ActionGroupsExtended
                     }
                 }
                 return ReturnStr;
-
             }
             catch
             {
@@ -5380,7 +5229,6 @@ namespace ActionGroupsExtended
             EditorSaveGlobalInfo();
             //EditorWriteNodeToFile();
             // print("name check " + KeySetNames[1]);
-
         }
 
         public static void EditorSaveGlobalInfo()
@@ -5403,7 +5251,7 @@ namespace ActionGroupsExtended
 
         //public static void EditorWriteNodeToFile()
         //{
-        //    Log.Info("Editor Write Node Called, this is a bug, please report.");
+        //    Log.dbg("Editor Write Node Called, this is a bug, please report.");
         //    try
         //    {
         //        AGXEditorNode.Save(new DirectoryInfo(KSPUtil.ApplicationRootPath).FullName + "saves/" + HighLogic.SaveFolder + "/AGExtEditor.cfg");
@@ -5412,7 +5260,6 @@ namespace ActionGroupsExtended
         //    {
         //        print("AGX EditorWriteNodeToFileFail " + e);
         //    }
-
         //}
 
         public static void EditorSaveToNode() //no longer saves to node, now saves to partmodule, leaving name intact as i'm reusing the same method calls
@@ -5441,7 +5288,6 @@ namespace ActionGroupsExtended
             errLine = "5";
             try
             {
-
                 if (okayToProceed)
                 {
                     Log.trace("let's save");
@@ -5510,8 +5356,6 @@ namespace ActionGroupsExtended
                             //}
                             // print("part OrgPart "+ p.ConstructID+" " + p.orgPos + " " + p.orgRot);
                         }
-
-
                     }
                     catch (Exception e)
                     {
@@ -5536,15 +5380,11 @@ namespace ActionGroupsExtended
                     errLine = "28";
                 }
             }
-
             catch (Exception e)
             {
-                print("AGX EditorSaveToFile FAIL " + errLine + " " + e);
+                Log.err("AGX EditorSaveToFile FAIL {0} {1}", errLine, e);
+                Log.ex(errLine, e);
             }
         }
-
     }
 }
-
-
-
