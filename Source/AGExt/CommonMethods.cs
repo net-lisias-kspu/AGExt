@@ -422,23 +422,18 @@ namespace ActionGroupsExtended
 
         public override void OnSave(ConfigNode node)
         {
-            string ErrLine = "1";
             Log.trace("Saving Module start");
             try
             {
                 node.RemoveNodes("ACTION");
                 //node.RemoveNodes("TOGGLE");
                 //node.RemoveNodes("HOLD");
-                ErrLine = "2";
                 List<AGXAction> actsToSave = new List<AGXAction>();
-                ErrLine = "2a";
                 actsToSave.AddRange(agxActionsThisPart);
-                ErrLine = "2b";
                 if (HighLogic.LoadedSceneIsEditor)
                 {
                     Log.trace("Editor save called by partmodule!");
 
-                    ErrLine = "2c";
 
                     foreach (AGXAction agActSD in StaticData.CurrentVesselActions.Where(act => act.ba.listParent.part == this.part))
                     {
@@ -450,7 +445,6 @@ namespace ActionGroupsExtended
                 }
                 else if (HighLogic.LoadedSceneIsFlight)
                 {
-                    ErrLine = "2d";
 
                     foreach (AGXAction agActSD in StaticData.CurrentVesselActions.Where(act => act.ba.listParent.part == this.part))
                     {
@@ -462,62 +456,45 @@ namespace ActionGroupsExtended
                     Log.trace("Partmodule Save action saved okay");
                 }
 
-                ErrLine = "3";
                 foreach (AGXAction agAct in actsToSave)
                 {
-                    ErrLine = "4";
                     ConfigNode actionNode = new ConfigNode("ACTION");
-                    ErrLine = "5";
                     if (agAct != null)
                     {
-                        ErrLine = "5a";
 
                         actionNode = StaticData.SaveAGXActionVer2(agAct);
                     }
-                    ErrLine = "6";
                     node.AddNode(actionNode);
-                    ErrLine = "7";
                 }
                 //actions themselves are now saved
-                ErrLine = "7a";
                 if (HighLogic.LoadedSceneIsEditor)
                 {
                     if (AGXEditor.LoadFinished)
                     {
                         //node.RemoveNodes("TOGGLE"); //not using confignode to save this stuff
                         //node.RemoveNodes("HOLD");
-                        //ErrLine = "7b";
 
                         //ConfigNode toggleStates = new ConfigNode("TOGGLE");
                         //ConfigNode holdStates = new ConfigNode("HOLD");
-                        //ErrLine = "7c";
                         //for (int i = 1; i <= 250; i++)
                         //{
-                        //    ErrLine = "7ca";
                         //    if (AGXEditor.IsGroupToggle[i])
                         //    {
-                        //        ErrLine = "7cb";
                         //        toggleStates.AddValue("toggle", i.ToString());
                         //    }
-                        //    ErrLine = "7cc";
                         //    if (AGXEditor.isDirectAction[i])
                         //    {
-                        //        ErrLine = "7cd";
                         //        holdStates.AddValue("hold", i.ToString());
                         //    }
                         //}
-                        //ErrLine = "7d";
                         //node.AddNode(toggleStates);
                         //node.AddNode(holdStates);
                         //toggleNode = toggleStates;
                         //holdNode = holdStates;
 
                         node.SetValue("groupNames", AGXEditor.SaveGroupNames(""), true);
-                        ErrLine = "7e";
                         node.SetValue("groupVisibility", AGXEditor.SaveGroupVisibility(""), true);
-                        ErrLine = "7f";
                         node.SetValue("groupVisibilityNames", AGXEditor.SaveGroupVisibilityNames(""), true);
-                        ErrLine = "7g";
                         node.SetValue("DirectActionState", AGXEditor.SaveDirectActionState(""), true);
                         node.SetValue("hasData", "true", true);
                     }
@@ -525,11 +502,8 @@ namespace ActionGroupsExtended
                 //else if (HighLogic.LoadedSceneIsFlight) //do not save data, we are not guaranteed to be the FLightGlobals.ActiveVessel
                 //{
                 //    //node.SetValue("groupNames", AGXFlight.SaveGroupNames(""), true);
-                //    //ErrLine = "7e";
                 //    //node.SetValue("groupVisibility", AGXFlight.SaveGroupVisibility(""), true);
-                //    //ErrLine = "7f";
                 //    //node.SetValue("groupVisibilityNames", AGXFlight.SaveGroupVisibilityNames(""), true);
-                //    //ErrLine = "7g";
                 //    //node.SetValue("DirectActionState", AGXFlight.SaveDirectActionState(""), true);
                 //    //node.SetValue("hasData", "true", true);
                 //}
@@ -539,7 +513,6 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.err("partModule OnSave fail: {0}", ErrLine);
                 Log.ex(this, e);
             }
         }
@@ -547,12 +520,9 @@ namespace ActionGroupsExtended
         public override void OnLoad(ConfigNode node)
         {
             Log.detail("Load Module {0}", node); 
-            string errLine = "1";
             try
             {
-                errLine = "2";
                 ConfigNode[] actionsNodes = node.GetNodes("ACTION");
-                errLine = "3";
                 //string[] toggles;
                 //if(node.HasNode("TOGGLE")) //done in editor load now
                 //{
@@ -562,7 +532,6 @@ namespace ActionGroupsExtended
                 //{ 
                 //    toggles = new string[1];
                 //}
-                //errLine = "4";
                 //string[] holds;
                 //if(node.HasNode("HOLD"))
                 //{
@@ -572,21 +541,16 @@ namespace ActionGroupsExtended
                 //{
                 //    holds = new string[1];
                 //}
-                errLine = "5";
                 foreach (ConfigNode actionNode in actionsNodes)
                 {
-                    errLine = "6";
                     //if (HighLogic.LoadedSceneIsEditor && toggles.Contains(actionNode.GetValue("group")) && StaticData.CurrentVesselActions.FindAll(act => act.group.ToString() == actionNode.GetValue("group")).Count == 0)
                     //{
-                    //    errLine = "7";
                     //    AGXEditor.IsGroupToggle[int.Parse(actionNode.GetValue("group"))] = true;
                     //}
                     //if (HighLogic.LoadedSceneIsEditor && holds.Contains(actionNode.GetValue("group")) && StaticData.CurrentVesselActions.FindAll(act => act.group.ToString() == actionNode.GetValue("group")).Count == 0)
                     //{
-                    //    errLine = "8";
                     //    AGXEditor.isDirectAction[int.Parse(actionNode.GetValue("group"))] = true;
                     //}
-                    errLine = "9";
                     // Log.Info("Step 1 " + actionNode.ToString());
                     AGXAction actToAdd = StaticData.LoadAGXActionVer2(actionNode, this.part, false);
                     Log.trace("Step 2 {0}", actToAdd);
@@ -600,7 +564,6 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.err("Module OnLoad Error {0}", errLine);
                 Log.ex(this, e);
             }
             //Log.dbg("Load called " + agxActionsThisPart.Count);
@@ -830,7 +793,6 @@ namespace ActionGroupsExtended
 
         public void ActivateActionGroupActivation(int group, bool force, bool forceDir) //main activation method
         {
-            string ErrLine = "1";
             try
             {
                 if (thisVsl.HoldPhysics)
@@ -840,7 +802,6 @@ namespace ActionGroupsExtended
                 }
                 else if (vesselInstanceOK)
                 {
-                    ErrLine = "2";
                     Dictionary<int, KSPActionGroup> CustomActions = new Dictionary<int, KSPActionGroup>();
                     CustomActions.Add(1, KSPActionGroup.Custom01); //how do you add a range from enum?
                     CustomActions.Add(2, KSPActionGroup.Custom02);
@@ -852,14 +813,11 @@ namespace ActionGroupsExtended
                     CustomActions.Add(8, KSPActionGroup.Custom08);
                     CustomActions.Add(9, KSPActionGroup.Custom09);
                     CustomActions.Add(10, KSPActionGroup.Custom10);
-                    ErrLine = "3";
                     foreach (AGXAction agAct in actionsList.Where(agx => agx.group == group))
                     {
-                        ErrLine = "4";
 
                         if (force) //are we forcing a direction or toggling?
                         {
-                            ErrLine = "5";
                             if (forceDir) //we are forcing a direction so set the agAct.activated to trigger the direction below correctly
                             {
                                 agAct.activated = false; //we are forcing activation so activated is false
@@ -869,41 +827,30 @@ namespace ActionGroupsExtended
                                 agAct.activated = true;
                             }
                         }
-                        ErrLine = "6";
                         if (agAct.activated)
                         {
-                            ErrLine = "7";
                             KSPActionParam actParam = new KSPActionParam(KSPActionGroup.None, KSPActionType.Deactivate);
                             //Log.dbg("AGX action deactivate FIRE! " + agAct.ba.guiName);
-                            ErrLine = "8";
                             // Log.Info("act it " + agAct.ba.active);
                             agAct.ba.Invoke(actParam);
                             agAct.activated = false;
-                            ErrLine = "9";
                             if (group <= 10)
                             {
-                                ErrLine = "10";
                                 thisVsl.ActionGroups[CustomActions[group]] = false;
                             }
-                            ErrLine = "11";
                         }
                         else
                         {
-                            ErrLine = "12";
                             KSPActionParam actParam = new KSPActionParam(KSPActionGroup.None, KSPActionType.Activate);
                             //agAct.activated = true;
                             //Log.dbg("AGX action activate FIRE!" + agAct.ba.guiName);
-                            ErrLine = "13";
                             Log.trace("act it2 {0}", agAct.ba.active);
                             agAct.ba.Invoke(actParam);
                             agAct.activated = true;
-                            ErrLine = "14";
                             if (group <= 10)
                             {
-                                ErrLine = "15";
                                 thisVsl.ActionGroups[CustomActions[group]] = true;
                             }
-                            ErrLine = "16";
                         }
 
                         if (agAct.ba.name != "kOSVoidAction")
@@ -916,30 +863,23 @@ namespace ActionGroupsExtended
 
                         if (agAct.ba.listParent.module.moduleName == "ModuleEngines" && agAct.ba.name == "ActivateAction" || agAct.ba.listParent.module.moduleName == "ModuleEngines" && agAct.ba.name == "OnAction")
                         {
-                            ErrLine = "17";
                             //overide to activate part when activating an engine so gimbals come on
                             agAct.ba.listParent.part.force_activate();
                             //Log.dbg("Force act");
 
                         }
-                        ErrLine = "18";
                         if (agAct.ba.listParent.module.moduleName == "ModuleEnginesFX" && agAct.ba.name == "ActivateAction" || agAct.ba.listParent.module.moduleName == "ModuleEnginesFX" && agAct.ba.name == "OnAction")
                         {
-                            ErrLine = "19";
                             //overide to activate part when activating an engine so gimbals come on
                             agAct.ba.listParent.part.force_activate();
                             //Log.dbg("Force act");
-                            ErrLine = "20";
                         }
-                        ErrLine = "21";
                     }
-                    ErrLine = "22";
                 }
                 SaveThisVessel();
             }
             catch (Exception e)
             {
-                Log.err("OtherVsl ActivateActionGroup fail {0}", ErrLine);
                 Log.ex(this, e);
             }
 
@@ -976,75 +916,54 @@ namespace ActionGroupsExtended
 
         public void SaveThisVessel()
         {
-            string errLine = "1";
             try
             {
                 if (vesselInstanceOK)
                 {
                     ConfigNode thisVslNode = new ConfigNode(flightID.ToString());
-                    errLine = "2";
                     if (AGXFlight.AGXFlightNode.HasNode(flightID.ToString()))
                     {
-                        errLine = "3";
                         thisVslNode = AGXFlight.AGXFlightNode.GetNode(thisVsl.rootPart.flightID.ToString());
-                        errLine = "4";
                         AGXFlight.AGXFlightNode.RemoveNode(thisVsl.rootPart.flightID.ToString());
                     }
-                    errLine = "5";
                     thisVslNode.RemoveNodes("PART");
-                    errLine = "6";
                     foreach (Part p in thisVsl.Parts)
                     {
-                        errLine = "7";
                         List<AGXAction> thisPartsActions = new List<AGXAction>();
-                        errLine = "8";
                         thisPartsActions.AddRange(actionsList.FindAll(p2 => p2.ba.listParent.part == p));
-                        errLine = "18";
                         if (thisPartsActions.Count > 0)
                         {
                             //Log.dbg("acts count " + thisPartsActions.Count);
                             ConfigNode partTemp = new ConfigNode("PART");
-                            errLine = "19";
                             partTemp.AddValue("name", p.partInfo.name);
                             partTemp.AddValue("vesselName", p.vessel.vesselName);
                             //partTemp.AddValue("relLocX", FlightGlobals.ActiveVessel.rootPart.transform.InverseTransformPoint(p.transform.position).x);
                             //partTemp.AddValue("relLocY", FlightGlobals.ActiveVessel.rootPart.transform.InverseTransformPoint(p.transform.position).y);
                             //partTemp.AddValue("relLocZ", FlightGlobals.ActiveVessel.rootPart.transform.InverseTransformPoint(p.transform.position).z);
                             partTemp.AddValue("flightID", p.flightID.ToString());
-                            errLine = "20";
                             foreach (AGXAction agxAct in thisPartsActions)
                             {
                                 //Log.dbg("acts countb " + thisPartsActions.Count);
-                                errLine = "21";
                                 partTemp.AddNode(StaticData.SaveAGXActionVer2(agxAct));
                             }
-                            errLine = "22";
 
                             thisVslNode.AddNode(partTemp);
-                            errLine = "23";
                         }
-                        errLine = "24";
                     }
-                    errLine = "25";
                     if (AGXFlight.AGXFlightNode.HasNode(thisVsl.id.ToString()))
                     {
-                        errLine = "26";
                         AGXFlight.AGXFlightNode.RemoveNode(thisVsl.id.ToString());
                     }
-                    errLine = "27";
                     if (AGXFlight.AGXFlightNode.HasNode(thisVsl.rootPart.flightID.ToString()))
                     {
-                        errLine = "28";
                         AGXFlight.AGXFlightNode.RemoveNode(thisVsl.rootPart.flightID.ToString());
                     }
-                    errLine = "29";
                     //Log.dbg("save node " + thisVsl);
                     AGXFlight.AGXFlightNode.AddNode(thisVslNode);
                 }
             }
             catch (Exception e)
             {
-                Log.info("OtherVslSaveNode Fail {0}", errLine);
                 Log.ex(this, e);
             }
 
@@ -1083,22 +1002,16 @@ namespace ActionGroupsExtended
 
         public static AGXAction LoadAGXActionVer2(ConfigNode actNode, Part actPart, bool showAmbiguousMessage) //returns null on error, check where returned
         {
-            string errLine = "1";
             //Log.dbg("load action " + actPart.partName + " " + actNode);
             try
             {
-                errLine = "2";
                 AGXAction ActionToLoad = new AGXAction(); //create action we are loading
-                errLine = "2aa";
                 ActionToLoad.prt = actPart; //assign part
-                errLine = "2bb";
                 ActionToLoad.group = Convert.ToInt32(actNode.GetValue("group")); //assign group
-                errLine = "2cc";
                 if (actNode.HasValue("groupName"))
                 {
                     ActionToLoad.grpName = actNode.GetValue("groupName"); //assign group
                 }
-                errLine = "2a";
                 if (actNode.GetValue("activated") == "1") //assign activated
                 {
                     ActionToLoad.activated = true;
@@ -1107,10 +1020,8 @@ namespace ActionGroupsExtended
                 {
                     ActionToLoad.activated = false;
                 }
-                errLine = "2b";
                 string pmName = actNode.GetValue("partModule");//get partModule name
                 List<BaseAction> actsToCompare = new List<BaseAction>(); //create list of actions we will compare to
-                errLine = "2c";
                 if (actNode.HasValue("pmIndex"))
                 {
                     //actPart is part
@@ -1472,11 +1383,9 @@ namespace ActionGroupsExtended
 
                     }
                 }//close new if
-                errLine = "3";
                 //Log.dbg("ActsCount " + actsToCompare.Count);
                 if (actsToCompare.Count != 1)
                 {
-                    errLine = "4";
                     Log.trace("actsToCompare.count != 1 {0} Part: {1} Module: {2} {3} {4}"
                         , actsToCompare.Count, actPart.name, actNode.GetValue("partModule"), actNode.GetValue("actionName"), actNode.GetValue("actionGuiName")
                         );
@@ -1486,20 +1395,16 @@ namespace ActionGroupsExtended
                     //}
                     ActionToLoad = null;
                 }
-                errLine = "5";
                 if (actsToCompare.Count > 0)
                 {
                     // print("ActsCounta");
-                    errLine = "6";
                     ActionToLoad.ba = actsToCompare.First(); //action to load assign action, ready to return
                 }
                 else
                 {
-                    errLine = "7";
                     // print("ActsCountb");
                     ActionToLoad = null;
                 }
-                errLine = "8";
                 //Log.dbg("load action2 " + ActionToLoad.ba.name + " " + ActionToLoad.group);
                 //Log.dbg("agx check " + actsToCompare.Count + " " + ActionToLoad.group + ActionToLoad.ba.name);
                 //Log.dbg("actual act " + ActionToLoad + " " + ActionToLoad.ba.name);
@@ -1509,7 +1414,6 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.err("LoadAGXAction2 FAIL {0}", errLine);
                 Log.ex(typeof(StaticData), e);
                 return null;
             }
@@ -1518,155 +1422,100 @@ namespace ActionGroupsExtended
         public static ConfigNode SaveAGXActionVer2(AGXAction agxAct)
         {
             //Log.dbg("Save called");
-            string errLine = "1";
             try
             {
                 ConfigNode actionNode = new ConfigNode("ACTION");
-                errLine = "2";
                 actionNode.AddValue("group", agxAct.group);
-                errLine = "2a";
                 actionNode.AddValue("groupName", agxAct.grpName);
-                errLine = "3";
                 actionNode.AddValue("activated", (agxAct.activated) ? "1" : "0");
-                errLine = "4";
                 actionNode.AddValue("partModule", agxAct.ba.listParent.module.GetType().Name);
-                errLine = "5";
                 actionNode.AddValue("actionGuiName", agxAct.ba.guiName);
-                errLine = "6";
                 actionNode.AddValue("actionName", agxAct.ba.name);
-                errLine = "7";
                 actionNode.AddValue("pmIndex", PartModuleModuleToIndex(agxAct.ba.listParent.module, agxAct.ba.listParent.part.Modules).ToString());
 
                 if (agxAct.ba.listParent.module.moduleName == "ModuleEnviroSensor") //add this to the agxactions list somehow and add to save.load serialze
                 {
-                    errLine = "8";
                     ModuleEnviroSensor MSE = (ModuleEnviroSensor)agxAct.ba.listParent.module;
-                    errLine = "9";
                     actionNode.AddValue("custom1", MSE.sensorType); //u2020 is envirosensor
-                    errLine = "10";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "ModuleScienceExperiment") //add this to the agxactions list somehow and add to save.load serialze
                 {
-                    errLine = "11";
                     ModuleScienceExperiment MSE = (ModuleScienceExperiment)agxAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "12";
                     actionNode.AddValue("custom1", MSE.experimentID); //u2021 is sciencemodule
-                    errLine = "13";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "ModuleAnimateGeneric") //add this to the agxactions list somehow and add to save.load serialze
                 {
-                    errLine = "14";
                     ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agxAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "15";
                     actionNode.AddValue("custom1", MAnim.animationName); //u2021 is sciencemodule
-                    errLine = "16";
                     //Log.dbg(MAnim.animationName);
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "FSanimateGeneric") //add this to the agxactions list somehow and add to save.load serialze
                 {
-                    errLine = "14";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agxAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "15";
                     actionNode.AddValue("custom1", agxAct.ba.listParent.module.Fields.GetValue("animationName")); //u2021 is sciencemodule
-                    errLine = "16";
                     //Log.dbg(MAnim.animationName);
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "DMModuleScienceAnimate") //DMagic orbital science mod
                 {
-                    errLine = "17";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "18";
                     actionNode.AddValue("custom1", agxAct.ba.listParent.module.Fields.GetValue("startEventGUIName")); //u2021 is sciencemodule
-                    errLine = "19";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "DMSolarCollector") //DMagic orbital science mod
                 {
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     actionNode.AddValue("custom1", agxAct.ba.listParent.module.Fields.GetValue("startEventGUIName")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "BTSMModuleCrewReport" || agxAct.ba.listParent.module.moduleName == "BTSMModuleScienceExperiment" || agxAct.ba.listParent.module.moduleName == "BTSMModuleScienceExperimentWithTime") //DMagic orbital science mod
                 {
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     actionNode.AddValue("custom1", agxAct.ba.listParent.module.Fields.GetValue("experimentActionName")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "BTSMModuleResourceActionToggle") //
                 {
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     actionNode.AddValue("custom1", agxAct.ba.listParent.module.Fields.GetValue("resourceName")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "SCANsat") //
                 {
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     actionNode.AddValue("custom1", agxAct.ba.listParent.module.Fields.GetValue("scanName")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "ModuleEnginesFX") //
                 {
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     actionNode.AddValue("custom1", agxAct.ba.listParent.module.Fields.GetValue("engineID")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "RealChuteModule") //
                 { //RealChute needs no extra data saved, just add this for tracking so I know it is saving as exception.
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     //actionNode.AddValue("custom1", agxAct.ba.listParent.module.Fields.GetValue("engineID")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "REGO_ModuleAnimationGroup") //
                 {
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     actionNode.AddValue("custom1", (string)agxAct.ba.listParent.module.Fields.GetValue("deployAnimationName") + (string)agxAct.ba.listParent.module.Fields.GetValue("activeAnimationName")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "REGO_ModuleResourceHarvester") //
                 {
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     actionNode.AddValue("custom1", (string)agxAct.ba.listParent.module.Fields.GetValue("RecipeInputs") + (string)agxAct.ba.listParent.module.Fields.GetValue("ResourceName")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "REGO_ModuleResourceConverter") //
                 {
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     actionNode.AddValue("custom1", (string)agxAct.ba.listParent.module.Fields.GetValue("RecipeInputs") + (string)agxAct.ba.listParent.module.Fields.GetValue("RecipeOutputs")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
                 else if (agxAct.ba.listParent.module.moduleName == "REGO_ModuleAsteroidDrill") //
                 {
-                    errLine = "20";
                     //ModuleAnimateGeneric MAnim = (ModuleAnimateGeneric)agAct.ba.listParent.module; //all other modules use guiname
-                    errLine = "21";
                     actionNode.AddValue("custom1", (string)agxAct.ba.listParent.module.Fields.GetValue("ImpactTransform")); //u2021 is sciencemodule
-                    errLine = "22";
                 }
 
                 //BTSMModuleReactionWheel does not need custom save, just load
                 else //if (agAct.ba.listParent.module.moduleName == "ModuleScienceExperiment") //add this to the agxactions list somehow and add to save.load serialze
                 {
-                    errLine = "23";
                     //ModuleScienceExperiment MSE = (ModuleScienceExperiment)agAct.ba.listParent.module; //all other modules use guiname
                     actionNode.AddValue("custom1", "NA"); //u2021 is sciencemodule
-                    errLine = "24";
                 }
 
                 return actionNode;
@@ -1674,7 +1523,7 @@ namespace ActionGroupsExtended
 
             catch (Exception e)
             {
-                Log.info("SaveAGXAction2 FAIL {0} {1} {2}", errLine, agxAct.prt.partName, agxAct.ba.name);
+                Log.info("SaveAGXAction2 FAIL {0} {1}", agxAct.prt.partName, agxAct.ba.name);
                 Log.ex(typeof(StaticData), e);
                 return new ConfigNode();
             }

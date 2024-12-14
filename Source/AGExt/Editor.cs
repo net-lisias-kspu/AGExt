@@ -230,11 +230,9 @@ namespace ActionGroupsExtended
             }
             defaultActionsListThisType = new List<BaseAction>(); //initialize list
             defaultActionsListAll = new List<BaseAction>(); //initialize list
-            string errLine = "1";
             ThisGroupActions = new List<AGXAction>();
             try
             {
-                errLine = "2";
                 KSPActs[1] = KSPActionGroup.Custom01;
                 KSPActs[2] = KSPActionGroup.Custom02;
                 KSPActs[3] = KSPActionGroup.Custom03;
@@ -261,7 +259,6 @@ namespace ActionGroupsExtended
                     AGXguiNames[i] = "";
                     AGXguiKeys[i] = KeyCode.None;
                 }
-                errLine = "3";
 
                 KeyCodeNames = new List<String>();
                 KeyCodeNames.AddRange(Enum.GetNames(typeof(KeyCode)));
@@ -269,7 +266,6 @@ namespace ActionGroupsExtended
                 JoyStickCodes.AddRange(KeyCodeNames.Where(JoySticks));
                 KeyCodeNames.RemoveAll(JoySticks);
                 AGExtNode = AGXStaticData.LoadBaseConfigNode();
-                errLine = "4";
                 if (AGExtNode.GetValue("EditShow") == "0")
                 {
                     AGXShow = false;
@@ -278,9 +274,7 @@ namespace ActionGroupsExtended
                 {
                     AGXShow = true;
                 }
-                errLine = "5";
                 CurrentKeySet = 1;
-                errLine = "6";
                 //LoadCurrentKeySet();
                 CurrentKeySetName = (string)AGExtNode.GetValue("KeySetName" + CurrentKeySet);
                 KeySetNames[0] = (string)AGExtNode.GetValue("KeySetName1");
@@ -288,13 +282,9 @@ namespace ActionGroupsExtended
                 KeySetNames[2] = (string)AGExtNode.GetValue("KeySetName3");
                 KeySetNames[3] = (string)AGExtNode.GetValue("KeySetName4");
                 KeySetNames[4] = (string)AGExtNode.GetValue("KeySetName5");
-                errLine = "7";
                 //CurrentVesselActions = new List<AGXAction>();
-                errLine = "8";
                 AGXRoot = null;
-                errLine = "9";
                 StartLoadWindowPositions();
-                errLine = "14";
                 //Log.dbg("a");
                 if (EditorDriver.editorFacility == EditorFacility.VAB)
                 {
@@ -387,9 +377,7 @@ namespace ActionGroupsExtended
                 //Log.dbg("startd " + showCareerCustomAGs);
 
                 //LoadCurrentKeyBindings();
-                errLine = "15";
                 AddButtons();
-                errLine = "16";
 
                 DetachedPartActions = new List<AGXAction>();
 
@@ -409,9 +397,7 @@ namespace ActionGroupsExtended
 
                 SelectedWithSym = new List<Part>();
                 SelectedWithSymActions = new List<AGXDefaultCheck>();
-                errLine = "17";
 
-                errLine = "18";
                 IsGroupToggle = new Dictionary<int, bool>();
                 ShowGroupInFlight = new bool[6, 251];
                 ShowGroupInFlightNames = new string[6];
@@ -422,7 +408,6 @@ namespace ActionGroupsExtended
                 ShowGroupInFlightNames[4] = "Group 4";
                 ShowGroupInFlightNames[5] = "Group 5";
 
-                errLine = "19";
                 Log.trace("toggle dict set");
                 for (int i = 1; i <= 250; i++)
                 {
@@ -432,7 +417,6 @@ namespace ActionGroupsExtended
                         ShowGroupInFlight[i2, i] = true;
                     }
                 }
-                errLine = "20";
                 
                 GameEvents.onPartAttach.Add(PartAttaching);// this game event only fires for part removed, not child parts
                 GameEvents.onPartRemove.Add(PartRemove);
@@ -442,7 +426,6 @@ namespace ActionGroupsExtended
                 StaticData.CurrentVesselActions.Clear();
                 //EditorLoadFromFile();
                 EditorLoadFromNode();
-                errLine = "21";
 
                 LoadFinished = true;
                 Log.detail("Editor Start Okay {0}", StaticData.CurrentVesselActions.Count());
@@ -450,7 +433,6 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.err("Editor Start Fail {0}", errLine);
                 Log.err("node dump: {0}", AGExtNode);
                 Log.ex(this, e);
             }
@@ -479,7 +461,6 @@ namespace ActionGroupsExtended
 
         public void StartLoadWindowPositions()
         {
-            string errLine = "1";
             try
             {
                 int WinX;
@@ -493,7 +474,6 @@ namespace ActionGroupsExtended
                     GroupsWin = new Rect(100, 100, 250, 530);
                 }
 
-                errLine = "10";
                 if (Int32.TryParse((string)AGExtNode.GetValue("EdSelPartsX"), out WinX) && Int32.TryParse((string)AGExtNode.GetValue("EdSelPartsY"), out WinY))
                 {
                     SelPartsWin = new Rect(WinX, WinY, 365, 270);
@@ -503,7 +483,6 @@ namespace ActionGroupsExtended
                     SelPartsWin = new Rect(100, 100, 365, 270);
                 }
 
-                errLine = "11";
                 if (Int32.TryParse((string)AGExtNode.GetValue("EdKeyCodeX"), out WinX) && Int32.TryParse((string)AGExtNode.GetValue("EdKeyCodeY"), out WinY))
                 {
                     KeyCodeWin = new Rect(WinX, WinY, 410, 730);
@@ -513,7 +492,6 @@ namespace ActionGroupsExtended
                     KeyCodeWin = new Rect(100, 100, 410, 730);
                 }
 
-                errLine = "12";
                 if (Int32.TryParse((string)AGExtNode.GetValue("EdKeySetX"), out WinX) && Int32.TryParse((string)AGExtNode.GetValue("EdKeySetY"), out WinY))
                 {
                     KeySetWin = new Rect(WinX, WinY, 185, 335);
@@ -523,7 +501,6 @@ namespace ActionGroupsExtended
                     KeySetWin = new Rect(100, 100, 185, 335);
                 }
 
-                errLine = "13";
                 if (Int32.TryParse((string)AGExtNode.GetValue("EdCurActsX"), out WinX) && Int32.TryParse((string)AGExtNode.GetValue("EdCurActsY"), out WinY))
                 {
                     CurActsWin = new Rect(WinX, WinY, 345, 140);
@@ -535,7 +512,6 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.err("StartLoadWindowPostion Error, Recovered. {0}", errLine);
                 Log.ex(this, e);
                 GroupsWin = new Rect(100, 100, 250, 530);
                 SelPartsWin = new Rect(100, 100, 365, 270);
@@ -726,47 +702,34 @@ namespace ActionGroupsExtended
         public void PartAttaching(GameEvents.HostTargetAction<Part, Part> host_target)
         {
             Log.detail("Part attached fire!"); //+ StaticData.CurrentVesselActions.Count() + "||" + EditorLogic.fetch.FSMStarted);
-            string ErrLine = "1";
             try
             {
-                ErrLine = "2";
 
-                ErrLine = "6";
                 Log.trace("1 {0}", host_target.host.name);
                 Log.trace("2 {0}", host_target.host.Modules.Count);
 
-                ErrLine = "7";
                 ModuleAGX agxMod = host_target.host.Modules.OfType<ModuleAGX>().First();
 
-                ErrLine = "8";
                 Log.trace("Part attache fire2! {0}", agxMod.agxActionsThisPart.Count);
                 foreach (AGXAction agAct in agxMod.agxActionsThisPart)
                 {
-                    ErrLine = "9";
 
                     if (!StaticData.CurrentVesselActions.Contains(agAct))
                     {
                         Log.trace("part attached detect"); 
-                        ErrLine = "10";
                         StaticData.CurrentVesselActions.Add(agAct);
 
-                        ErrLine = "11";
 
-                        ErrLine = "11b";
                         if (AGXguiNames[agAct.group].Length == 0)
                         {
-                            ErrLine = "12";
                             AGXguiNames[agAct.group] = agAct.grpName;
-                            ErrLine = "13";
                         }
 
-                        ErrLine = "14";
                     }
                     else
                     {
                         Log.trace("part attached not detect"); 
                     }
-                    ErrLine = "15";
 
                     if (!disablePartAttaching)
                     {
@@ -774,16 +737,12 @@ namespace ActionGroupsExtended
                     }
                 }
 
-                ErrLine = "16";
                 AttachAGXPart(host_target.host);
                 foreach (Part p in host_target.host.FindChildParts<Part>(true)) //action only fires for part clicked on, have to parse all child parts this way
                 {
-                    ErrLine = "17";
                     agxMod = p.Modules.OfType<ModuleAGX>().First();
-                    ErrLine = "18";
                     foreach (AGXAction agAct in agxMod.agxActionsThisPart)
                     {
-                        ErrLine = "19";
                         if (!disablePartAttaching)
                         {
                             DetachedPartActions.Add(agAct);
@@ -791,15 +750,11 @@ namespace ActionGroupsExtended
                         if (!StaticData.CurrentVesselActions.Contains(agAct))
                         {
                             //Log.dbg("adding action " + agAct.ba.guiName + agAct.group);
-                            ErrLine = "20";
                             StaticData.CurrentVesselActions.Add(agAct);
 
-                            ErrLine = "21";
                             if (AGXguiNames[agAct.group].Length == 0)
                             {
-                                ErrLine = "22";
                                 AGXguiNames[agAct.group] = agAct.grpName;
-                                ErrLine = "23";
                             }
                         }
                     }
@@ -811,55 +766,39 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.err("Part Attaching Fail: {0}", ErrLine);
                 Log.ex(this, e);
             }
         }
 
         public void PartRemove(GameEvents.HostTargetAction<Part, Part> host_target)
         {
-            string errLine = "1";
             try
             {
                 Log.trace("Part Remove Event Fire!");
                 disablePartAttaching = false;
                 //.Log("AGX Part Remove Fire " + StaticData.CurrentVesselActions.Count());
-                errLine = "2";
                 UpdateAGXActionGroupNames();
-                errLine = "3";
                 //Log.dbg("Part detached! " + host_target.target.ConstructID);
                 DetachedPartActions.AddRange(StaticData.CurrentVesselActions.Where(p3 => p3.ba.listParent.part == host_target.target)); //add actiongroups on this part to List
-                errLine = "4";
                 foreach (Part p in host_target.target.FindChildParts<Part>(true)) //action only fires for part clicked on, have to parse all child parts this way
                 {
-                    errLine = "5";
                     // print("Part detached2! " + p.ConstructID);
                     DetachedPartActions.AddRange(StaticData.CurrentVesselActions.Where(p3 => p3.ba.listParent.part == p)); //add parts to list
-                    errLine = "6";
                 }
-                errLine = "7";
                 DetachedPartReset.Stop(); //stop timer so it resets
 
-                errLine = "8";
                 ModuleAGX agxMod = host_target.target.Modules.OfType<ModuleAGX>().First();
-                errLine = "9";
                 agxMod.agxActionsThisPart.AddRange(StaticData.CurrentVesselActions.Where(p3 => p3.ba.listParent.part == host_target.target));
 
-                errLine = "10";
                 foreach (Part p in host_target.target.FindChildParts<Part>(true)) //action only fires for part clicked on, have to parse all child parts this way
                 {
-                    errLine = "11";
                     agxMod = p.Modules.OfType<ModuleAGX>().First();
-                    errLine = "12";
                     agxMod.agxActionsThisPart.AddRange(StaticData.CurrentVesselActions.Where(p3 => p3.ba.listParent.part == p)); //add parts to list
-                    errLine = "13";
                 }
-                errLine = "14";
                 Log.trace("Part Remove Fire {0}", StaticData.CurrentVesselActions.Count());
             }
             catch (Exception e)
             {
-                Log.err("PartRemove FAIL {0}", errLine);
                 Log.ex(this, e);
             }
 
@@ -882,19 +821,14 @@ namespace ActionGroupsExtended
 
         public static void LoadGroupVisibility(string LoadString)
         {
-            string errLine = "1";
             try
             {
                 if (LoadString.Length == 1501)
                 {
-                    errLine = "15";
                     ShowGroupInFlightCurrent = Convert.ToInt32(LoadString.Substring(0, 1));
-                    errLine = "16";
                     LoadString = LoadString.Substring(1);
-                    errLine = "17";
                     for (int i = 1; i <= 250; i++)
                     {
-                        errLine = "18";
                         if (LoadString[0] == '1')
                         {
                             IsGroupToggle[i] = true;
@@ -919,13 +853,11 @@ namespace ActionGroupsExtended
                             //ReturnStr = ReturnStr + Convert.ToInt16(ShowGroupInFlight[i2, i]).ToString(); //add flight state visibility for each group
                         }
                     }
-                    errLine = "19";
                 }
                 else
                 {
                     for (int i = 1; i <= 250; i++)
                     {
-                        errLine = "20";
                         IsGroupToggle[i] = false;
                         for (int i2 = 1; i2 <= 5; i2++)
                         {
@@ -933,11 +865,9 @@ namespace ActionGroupsExtended
                         }
                     }
                 }
-                errLine = "21";
             }
             catch (Exception e)
             {
-                Log.err("LoadGroupVisibility Fail {0}", errLine);
                 Log.ex(typeof(AGXEditor), e);
             }
         }
@@ -1142,33 +1072,21 @@ namespace ActionGroupsExtended
 
         public void OnDisable()
         {
-            string errLine = "1";
             try
             {
                 LoadFinished = false;
-                errLine = "2";
                 SaveCurrentKeyBindings();
-                errLine = "3";
                 SaveWindowPositions();
-                errLine = "4";
 
-                errLine = "7";
                 GameEvents.onPartAttach.Remove(PartAttaching);
-                errLine = "8";
                 GameEvents.onPartRemove.Remove(PartRemove);
-                errLine = "9";
                 GameEvents.onEditorPartEvent.Remove(OnPartEvent);
-                errLine = "10";
                 GameEvents.onEditorLoad.Remove(OnShipLoad);
-                errLine = "11";
                 InputLockManager.RemoveControlLock("AGXLock");
-                errLine = "12";
                 StaticData.CurrentVesselActions.Clear();
-                errLine = "13";
             }
             catch (Exception e)
             {
-                Log.err("Editor.OnDestroy ", errLine);
                 Log.ex(this,e);
             }
         }
@@ -1239,7 +1157,6 @@ namespace ActionGroupsExtended
                         GroupsWin = GUI.Window(673467795, GroupsWin, GroupsWindow, "", UI.AGXWinStyle);
                     }
                     ShowCurActsWin = false;
-
                 }
 
                 if (ShowSelectedWin)
@@ -1263,33 +1180,24 @@ namespace ActionGroupsExtended
                         KeyCodeWin = GUI.Window(673467793, KeyCodeWin, KeyCodeWindow, "                Keycodes", UI.AGXWinStyle);
                         TrapMouse |= KeyCodeWin.Contains(RealMousePos);
                     }
-
                 }
 
                 if (ShowCurActsWin && ShowSelectedWin)
                 {
-                    // CurActsWin = GUI.Window(673467790, CurActsWin, CurrentActionsWindow, "Actions (This group): " + StaticData.CurrentVesselActions.FindAll(p => p.group == AGXCurActGroup).Count.ToString(), AGXWinStyle);
                     CurActsWin = GUI.Window(673467790, CurActsWin, CurrentActionsWindow, Localizer.Format("#AGEXT_UI_action_this_group") + StaticData.CurrentVesselActions.FindAll(p => p.group == AGXCurActGroup).Count.ToString(), UI.AGXWinStyle);
                     TrapMouse |= CurActsWin.Contains(RealMousePos);
                 }
 
-                string ErrLine = "1";
                 try
                 {
-                    ErrLine = "2";
-
-                    ErrLine = "7";
                     if (ShowSelectedWin)
                     {
                         if (defaultShowingNonNumeric)
                         {
                             foreach (BaseAction Act in defaultActionsListThisType)
                             {
-                                ErrLine = "8";
                                 Vector3 partScreenPosD = EditorLogic.fetch.editorCamera.WorldToScreenPoint(Act.listParent.part.transform.position);
-                                ErrLine = "9";
                                 Rect partCenterWinD = new Rect(partScreenPosD.x - 10, (Screen.height - partScreenPosD.y) - 10, 21, 21);
-                                ErrLine = "10";
                                 GUI.DrawTexture(partCenterWinD, UI.PartPlus);
                             }
                         }
@@ -1299,11 +1207,8 @@ namespace ActionGroupsExtended
                             {
                                 try
                                 {
-                                    ErrLine = "8";
                                     Vector3 partScreenPosC = EditorLogic.fetch.editorCamera.WorldToScreenPoint(agAct.ba.listParent.part.transform.position);
-                                    ErrLine = "9";
                                     Rect partCenterWinC = new Rect(partScreenPosC.x - 10, (Screen.height - partScreenPosC.y) - 10, 21, 21);
-                                    ErrLine = "10";
                                     GUI.DrawTexture(partCenterWinC, UI.PartPlus);
                                 }
                                 catch
@@ -1316,13 +1221,9 @@ namespace ActionGroupsExtended
                         {
                             try
                             {
-                                ErrLine = "3";
                                 Vector3 partScreenPosB = EditorLogic.fetch.editorCamera.WorldToScreenPoint(agPrt.AGPart.transform.position);
-                                ErrLine = "4";
                                 Rect partCenterWinB = new Rect(partScreenPosB.x - 10, (Screen.height - partScreenPosB.y) - 10, 21, 21);
-                                ErrLine = "5";
                                 GUI.DrawTexture(partCenterWinB, UI.PartCross);
-                                ErrLine = "6";
                             }
                             catch
                             {
@@ -1331,17 +1232,14 @@ namespace ActionGroupsExtended
                         }
                     }
 
-                    ErrLine = "11";
                     if (showAGXRightClickMenu)
                     {
                         Rect SettingsWinEditor = new Rect(Screen.width - 200, Screen.height - 150, 150, 110);
-                        // GUI.Window(2233452, SettingsWinEditor, DrawSettingsWinEditor, "AGX Settings", AGXEditor.AGXWinStyle);
                         GUI.Window(2233452, SettingsWinEditor, DrawSettingsWinEditor, Localizer.Format("#AGEXT_UI_agx_settings"), UI.AGXWinStyle);
                     }
                 }
                 catch (Exception e)
                 {
-                    Log.err("Draw cross fail. {0}", ErrLine);
                     Log.ex(this, e);
                 }
             }
@@ -1465,7 +1363,6 @@ namespace ActionGroupsExtended
                             }
                         }
                     }
-
                     ++RowCnt;
                 }
             }
@@ -2368,19 +2265,14 @@ namespace ActionGroupsExtended
 
         public void RefreshDefaultActionsList()
         {
-            string errLine = "1";
             try
             {
                 defaultActionsListAll.Clear();
-                errLine = "2";
                 foreach (Part p in EditorLogic.SortedShipList)
                 {
-                    errLine = "3";
                     defaultActionsListAll.AddRange(p.Actions);
-                    errLine = "4";
                     foreach (PartModule pm in p.Modules)
                     {
-                        errLine = "5";
                         defaultActionsListAll.AddRange(pm.Actions);
                     }
                 }
@@ -2388,43 +2280,35 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.err("RefDefActsList Error, safe to ignore. {0}", errLine);
+                Log.warn("RefDefActsList Error, safe to ignore.");
                 Log.ex(this, e);
             }
         }
 
         public void RefreshDefaultActionsListType()
         {
-            string errLine = "1";
             try
             {
-                errLine = "2";
                 defaultActionsListThisType.Clear();
-                errLine = "3";
                 foreach (BaseAction act in defaultActionsListAll)
                 {
-                    errLine = "4";
                     if ((act.actionGroup & defaultGroupToShow) == defaultGroupToShow)
                     {
-                        errLine = "5";
                         defaultActionsListThisType.Add(act);
                     }
                 }
             }
             catch (Exception e)
             {
-                Log.err("RefDefActsListType Error {0}", errLine);
                 Log.ex(this, e);
             }
         }
 
         public void GroupsWindow(int WindowID)
         {
-            string ErrLine = "1";
             try
             {
                 bool[] PageGrn = new bool[5];
-                ErrLine = "3";
                 foreach (AGXAction AGact in StaticData.CurrentVesselActions)
                 {
                     if (AGact.group <= 50)
@@ -2448,35 +2332,25 @@ namespace ActionGroupsExtended
                         PageGrn[4] = true;
                     }
                 }
-                ErrLine = "4";
 
                 if (showCareerCustomAGs)
                 {
-                    // if (GUI.Button(new Rect(20, 3, 80, 20), "Other", AGXBtnStyle))
                     if (GUI.Button(new Rect(20, 3, 80, 20), Localizer.Format("#AGEXT_UI_type_other"), UI.AGXBtnStyle))
                     {
-                        ErrLine = "4a";
                         defaultShowingNonNumeric = !defaultShowingNonNumeric;
-                        ErrLine = "4b";
                         if (defaultShowingNonNumeric)
                         {
-                            ErrLine = "4c";
                             RefreshDefaultActionsList();
-                            ErrLine = "4k";
                             RefreshDefaultActionsListType();
-                            ErrLine = "4l";
                         }
-                        ErrLine = "4m";
                     }
                 }
 
-                ErrLine = "5";
                 GUIStyle btnStyle = UI.AGXBtnStyle;
                 if (GroupsPage == 1)            btnStyle = UI.AGXBtnStyleDisabled;
                 else if (PageGrn[0])            btnStyle = UI.AGXBtnStyleEnabled;
                 else                            btnStyle = UI.AGXBtnStyle;
 
-                ErrLine = "6";
                 if (GUI.Button(new Rect(120, 3, 25, 20), "1", btnStyle))
                 {
                     GroupsPage = 1;
@@ -2495,7 +2369,6 @@ namespace ActionGroupsExtended
                 else if (PageGrn[2])            btnStyle = UI.AGXBtnStyleEnabled;
                 else                            btnStyle = UI.AGXBtnStyle;
 
-                ErrLine = "7";
                 if (GUI.Button(new Rect(170, 3, 25, 20), "3", btnStyle))
                 {
                     GroupsPage = 3;
@@ -2519,7 +2392,6 @@ namespace ActionGroupsExtended
                     GroupsPage = 5;
                 }
 
-                ErrLine = "8";
                 if (showAllPartsList) //show all parts list is clicked so change to that mode
                 {
                     ScrollGroups = GUI.BeginScrollView(new Rect(5, 25, 240, 500), ScrollGroups, new Rect(0, 0, 240, Mathf.Max(500, showAllPartsListTitles.Count * 20))); //scroll view just in case there are a lot of parts to list
@@ -2553,16 +2425,13 @@ namespace ActionGroupsExtended
                     }
 
                     GUI.EndScrollView();
-                    ErrLine = "9";
                 }
                 else if (defaultShowingNonNumeric)
                 {
-                    ErrLine = "10";
 
                     if (defaultGroupToShow == KSPActionGroup.Abort) btnStyle = UI.AGXBtnStyleEnabled;
                     else                                            btnStyle = UI.AGXBtnStyle;
 
-                    ErrLine = "11";
                     if (GUI.Button(new Rect(5, 25, 58, 20), Localizer.Format("#AGEXT_UI_type_abort"), btnStyle)) //button code
                     {
                         defaultGroupToShow = KSPActionGroup.Abort;
@@ -2572,7 +2441,6 @@ namespace ActionGroupsExtended
                     if (defaultGroupToShow == KSPActionGroup.Brakes)    btnStyle = UI.AGXBtnStyleEnabled;
                     else                                                btnStyle = UI.AGXBtnStyle;
 
-                    ErrLine = "12";
                     if (GUI.Button(new Rect(64, 25, 58, 20), Localizer.Format("#AGEXT_UI_type_brakes"), btnStyle)) //button code
                     {
                         defaultGroupToShow = KSPActionGroup.Brakes;
@@ -2624,12 +2492,10 @@ namespace ActionGroupsExtended
                         RefreshDefaultActionsListType();
                     }
 
-                    ErrLine = "17";
                     //add vector2
                     groupWinScroll = GUI.BeginScrollView(new Rect(5, 70, 240, 455), groupWinScroll, new Rect(0, 0, 240, Mathf.Max(455, defaultActionsListThisType.Count * 20)));
                     int listCount2 = 1;
                     highlightPartThisFrameGroupWin = false;
-                    ErrLine = "18";
                     while (listCount2 <= defaultActionsListThisType.Count)
                     {
                         if (Mouse.screenPos.y >= GroupsWin.y + 70 && Mouse.screenPos.y <= GroupsWin.y + 525 && new Rect(GroupsWin.x + 5, (GroupsWin.y + 70 + ((listCount2 - 1) * 20)) - groupWinScroll.y, 240, 20).Contains(Mouse.screenPos))
@@ -2647,11 +2513,9 @@ namespace ActionGroupsExtended
                         ++listCount2;
                     }
                     GUI.EndScrollView();
-                    ErrLine = "19";
                 }
                 else
                 {
-                    ErrLine = "20";
                     ScrollGroups = GUI.BeginScrollView(new Rect(5, 25, 240, 500), ScrollGroups, new Rect(0, 0, 240, 500));
 
                     int ButtonID = 1 + (50 * (GroupsPage - 1));
@@ -2697,7 +2561,6 @@ namespace ActionGroupsExtended
                         ButtonPos = ButtonPos + 1;
                         ButtonID = ButtonID + 1;
                     }
-                    ErrLine = "21";
                     while (ButtonPos <= 50)
                     {
                         if (ShowKeySetWin)
@@ -2742,11 +2605,9 @@ namespace ActionGroupsExtended
                     GUI.EndScrollView();
                 }
                 GUI.DragWindow();
-                ErrLine = "22";
             }
             catch (Exception e)
             {
-                Log.err("GroupsWin Error {0}", ErrLine);
                 Log.ex(this, e);
             }
         }
@@ -2792,7 +2653,6 @@ namespace ActionGroupsExtended
 
         public static void LoadGroupNames(string LoadNames) //v2 done
         {
-            string errLine = "1";
             try
             {
                 for (int i = 1; i <= 250; i = i + 1)
@@ -2800,15 +2660,12 @@ namespace ActionGroupsExtended
                     AGXguiNames[i] = "";
                 }
 
-                errLine = "13";
                 //Log.dbg("AGX Load Name: " + EditorLogic.RootPart.partName+" "+ LoadNames);
 
                 if (LoadNames.Length > 0)
                 {
-                    errLine = "14";
                     while (LoadNames[0] == '\u2023')
                     {
-                        errLine = "15";
                         string groupName = "";
                         LoadNames = LoadNames.Substring(1);
                         int groupNum = Convert.ToInt32(LoadNames.Substring(0, 3));
@@ -2830,7 +2687,6 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.err("LoadGroupNames Fail {0}", errLine);
                 Log.ex(typeof(AGXEditor), e);
             }
         }
@@ -2838,7 +2694,6 @@ namespace ActionGroupsExtended
         static bool transitioning = false;
         public void Update()
         {
-            string errLine = "1";
             Log.detail("update start {0}", Time.realtimeSinceStartup);
             try
             {
@@ -2906,105 +2761,75 @@ namespace ActionGroupsExtended
                 EditorLogic ELCur; // = new EditorLogic();
                 ELCur = EditorLogic.fetch;//get current editor logic instance
 
-                errLine = "2";
-
                 if (AGXDoLock && ELCur.editorScreen != EditorScreen.Actions)
                 {
-                    errLine = "3";
                     ELCur.Unlock("AGXLock");
                     AGXDoLock = false;
                 }
                 else if (AGXDoLock && !TrapMouse)
                 {
-                    errLine = "4";
                     ELCur.Unlock("AGXLock");
                     AGXDoLock = false;
                 }
                 else if (!AGXDoLock && TrapMouse && ELCur.editorScreen == EditorScreen.Actions)
                 {
-                    errLine = "5";
                     ELCur.Lock(false, false, false, "AGXLock");
                     AGXDoLock = true;
                 }
 
-                errLine = "6";
-
                 if (ELCur.editorScreen == EditorScreen.Actions) //only show mod if on actions editor screen
                 {
-                    errLine = "7";
                     ShowSelectedWin = true;
                 }
                 else
                 {
-                    errLine = "8";
                     ShowSelectedWin = false;
-                    errLine = "9";
                     AGEditorSelectedParts.Clear();//mod is hidden, clear list so parts don't get orphaned in it
-                    errLine = "10";
                     PartActionsList.Clear();
-                    errLine = "11";
                     ActionsListDirty = true;
                 }
-                errLine = "12";
 
                 if (ShowSelectedWin)
                 {
                    // Log.dbg("time start " + "|" + Time.realtimeSinceStartup);
-                    errLine = "13";
 
                     if (EditorActionGroups.Instance.GetSelectedParts() != null) //on first run, list is null
                     {
-                        errLine = "14";
                         if (ActionsListDirty)
                         {
-                            errLine = "15";
                             UpdateActionsListCheck();
                         }
 
                         if (EditorActionGroups.Instance.GetSelectedParts().Count > 0) //are there parts selected?
                         {
-                            errLine = "16";
-
                             if (PreviousSelectedPart != EditorActionGroups.Instance.GetSelectedParts().First()) //has selected part changed?
                             {
-                                errLine = "17";
                                 if (!AGEditorSelectedParts.Any(p => p.AGPart == EditorActionGroups.Instance.GetSelectedParts().First())) //make sure selected part is not already in AGEdSelParts
                                 {
-                                    errLine = "18";
                                     if (AGEditorSelectedParts.Count == 0) //no items in Selected Parts list, so just add selection
                                     {
-                                        errLine = "19";
                                         AGEditorSelectedParts.AddRange(AGXAddSelectedPart(EditorActionGroups.Instance.GetSelectedParts().First(), SelPartsIncSym));
                                     }
                                     else if (AGEditorSelectedParts.First().AGPart.name == EditorActionGroups.Instance.GetSelectedParts().First().name) //selected part matches first part already in selected parts list, so just add selected part
                                     {
-                                        errLine = "20";
                                         AGEditorSelectedParts.AddRange(AGXAddSelectedPart(EditorActionGroups.Instance.GetSelectedParts().First(), SelPartsIncSym));
                                     }
                                     else //part does not match first part in list, clear list before adding part
                                     {
-                                        errLine = "21";
                                         AGEditorSelectedParts.Clear();
                                         AGEditorSelectedParts.AddRange(AGXAddSelectedPart(EditorActionGroups.Instance.GetSelectedParts().First(), SelPartsIncSym));
                                     }
                                 }
-                                errLine = "22";
                                 PreviousSelectedPart = EditorActionGroups.Instance.GetSelectedParts().First(); //remember selected part so logic does not run unitl another part selected
                             }
-                            errLine = "23";
                         }
-                        errLine = "24";
                     }
-                    errLine = "25";
                 }
-                errLine = "26";
 
                 if (EditorLogic.fetch.editorScreen == EditorScreen.Actions && !AGXShow)
                 {
-                    errLine = "27";
                     MonitorDefaultActions();
                 }
-                errLine = "28";
                 try
                 {
                     if (AGXRoot != EditorLogic.RootPart)
@@ -3012,7 +2837,6 @@ namespace ActionGroupsExtended
                         //Log.dbg("AGX Root diff" + EditorLogic.RootPart.partInfo.name);
                         EditorLoadFromNode();
                         AGXRoot = EditorLogic.RootPart;
-                        errLine = "29";
                     }
                 }
                 catch
@@ -3020,12 +2844,10 @@ namespace ActionGroupsExtended
                     //silent fail, this gets hit if EditorLogic above is null, it's static so you can't null check it directly
                 }
                 Log.dbg("Editor Update end {0}", StaticData.CurrentVesselActions.Count());
-                errLine = "30";
                 Log.trace("update end {0}", Time.realtimeSinceStartup);
             }
             catch (Exception e)
             {
-                Log.err("Editor Update FAIL {0}", errLine);
                 Log.ex(this, e);
             }
         } //close Update()
@@ -3068,12 +2890,9 @@ namespace ActionGroupsExtended
             {
                 foreach (Part p in EditorLogic.SortedShipList)
                 {
-                    //List<BaseAction> partActs = new List<BaseAction>();
-                    // partActs.AddRange(p.Actions);
                     foreach (PartModule pm in p.Modules)
                     {
                         Log.dbg(pm.moduleName);
-                        //partActs.AddRange(pm.Actions);
                     }
                 }
             }
@@ -3168,19 +2987,14 @@ namespace ActionGroupsExtended
                 Log.err("AGX Monitor default list fail");
             }
 
-            string errLine = "1";
             try
             {
-                errLine = "2";
                 if (EditorActionGroups.Instance.GetSelectedParts() != null) //is a part selected?
                 {
-                    errLine = "3";
                     if (EditorActionGroups.Instance.GetSelectedParts().Count > 0) //list can exist with no parts in it if you selected then unselect one
                     {
-                        errLine = "4";
                         if (SelectedWithSym.Count == 0 || SelectedWithSym.First() != EditorActionGroups.Instance.GetSelectedParts().First() || KSPDefaultActionGroupThisFrame != KSPDefaultLastActionGroup) //check if there is a previously selected part, if so check if its changed
                         {
-                            errLine = "5";
                             //Log.dbg("2b");
                             //parts are different
                             SelectedWithSym.Clear(); //reset lastpart list
@@ -3188,27 +3002,21 @@ namespace ActionGroupsExtended
                             SelectedWithSym.AddRange(EditorActionGroups.Instance.GetSelectedParts().First().symmetryCounterparts);
                             SelectedWithSymActions.Clear(); //reset actions list
                             //Log.dbg("2c");
-                            errLine = "6";
                             foreach (Part prt in SelectedWithSym)
                             {
                                 //  print("2d");
-                                errLine = "7";
                                 foreach (BaseAction bap in prt.Actions) //get part actions
                                 {
                                     SelectedWithSymActions.Add(new AGXDefaultCheck() { ba = bap, agrp = bap.actionGroup }); //add actiongroup separate otherwise it links and so have nothing to compare
                                 }
-                                errLine = "8";
                                 foreach (PartModule pm in prt.Modules) //add actions from all partmodules
                                 {
-                                    errLine = "9";
                                     foreach (BaseAction bapm in pm.Actions)
                                     {
-                                        errLine = "10";
                                         SelectedWithSymActions.Add(new AGXDefaultCheck() { ba = bapm, agrp = bapm.actionGroup });
                                     }
                                 }
                             }
-                            errLine = "11";
                             int groupToAdd = 1;
                             switch (KSPDefaultActionGroupThisFrame)
                             {
@@ -3243,17 +3051,14 @@ namespace ActionGroupsExtended
                                     groupToAdd = 10;
                                     break;
                             }
-                            errLine = "12";
                             foreach (AGXAction agact2 in StaticData.CurrentVesselActions.Where(ag => ag.group == groupToAdd))
                             {
                                 SelectedWithSymActions.Add(new AGXDefaultCheck() { ba = agact2.ba, agrp = agact2.ba.actionGroup });
                             }
-                            errLine = "13";
                             KSPDefaultLastActionGroup = KSPDefaultActionGroupThisFrame;
                         }
                         else //selected part is the same a previously selected part
                         {
-                            errLine = "14";
                             //Log.dbg("2f");
                             List<Part> PartsThisFrame = new List<Part>(); //get list of parts this update frame
                             PartsThisFrame.AddRange(EditorActionGroups.Instance.GetSelectedParts());
@@ -3262,13 +3067,11 @@ namespace ActionGroupsExtended
                             List<BaseAction> ThisFrameActions = new List<BaseAction>(); //get actions fresh again this update frame
                             foreach (Part prt in PartsThisFrame)
                             {
-                                errLine = "15";
                                 // print("2h"); 
                                 foreach (BaseAction bap in prt.Actions)
                                 {
                                     ThisFrameActions.Add(bap);
                                 }
-                                errLine = "16";
                                 foreach (PartModule pm in prt.Modules)
                                 {
                                     foreach (BaseAction bapm in pm.Actions)
@@ -3277,7 +3080,6 @@ namespace ActionGroupsExtended
                                     }
                                 }
                             }
-                            errLine = "17";
                             int groupToAdd = 1;
                             switch (KSPDefaultActionGroupThisFrame)
                             {
@@ -3318,19 +3120,15 @@ namespace ActionGroupsExtended
                                 ThisFrameActions.Add(agact2.ba);
                             }
 
-                            errLine = "18";
-
                             //Log.dbg("2i");
 
                             foreach (BaseAction ba2 in ThisFrameActions) //check each action's actiongroup enum against last update frames actiongroup enum, this adds/removes a group to default KSP when added/removed in agx
                             {
                                 //Log.dbg("2j");
-                                errLine = "19";
                                 AGXDefaultCheck ActionLastFrame = new AGXDefaultCheck();
                                 //Log.dbg("2j1");
                                 ActionLastFrame = SelectedWithSymActions.Find(a => a.ba == ba2);
                                 // print("2j2");
-                                errLine = "20";
                                 if (ActionLastFrame.agrp != ba2.actionGroup) //actiongroup enum is different
                                 {
                                     //  print("2j3");
@@ -3377,12 +3175,10 @@ namespace ActionGroupsExtended
                                     }
 
                                     // print("2k");
-                                    errLine = "21";
 
                                     if (NewGroup != 0) //if one of the other actiongroups (gear, lights) has changed, ignore it. newgroup will be the actiongroup if I want to process it.
                                     {
                                         // print("Newgroup called on " + NewGroup);
-                                        errLine = "22";
                                         if (Mouse.screenPos.x >= 130 && Mouse.screenPos.x <= 280)
                                         {
                                             //Log.dbg("remove actions");
@@ -3391,7 +3187,6 @@ namespace ActionGroupsExtended
                                         }
                                         else
                                         {
-                                            errLine = "23";
                                             //Log.dbg("add actions");
                                             AGXAction ToAdd = new AGXAction() { prt = ba2.listParent.part, ba = ba2, group = NewGroup, activated = false };
                                             List<AGXAction> Checking = new List<AGXAction>();
@@ -3407,7 +3202,6 @@ namespace ActionGroupsExtended
                                         }
 
                                     }
-                                    errLine = "24";
                                     ActionLastFrame.agrp = KSPActionGroup.None;
                                     ActionLastFrame.agrp = ActionLastFrame.agrp | ba2.actionGroup;
                                     //Log.dbg("2l");
@@ -3416,15 +3210,12 @@ namespace ActionGroupsExtended
                             }
                             SelectedWithSymActions.Clear(); //reset actions list as one of the enums changed.
                             //Log.dbg("2k");
-                            errLine = "25";
                             foreach (Part prt in SelectedWithSym)
                             {
-                                errLine = "26";
                                 foreach (BaseAction bap in prt.Actions) //get part actions
                                 {
                                     SelectedWithSymActions.Add(new AGXDefaultCheck() { ba = bap, agrp = bap.actionGroup }); //add actiongroup separate otherwise it links and so have nothing to compare
                                 }
-                                errLine = "27";
                                 foreach (PartModule pm in prt.Modules) //add actions from all partmodules
                                 {
                                     foreach (BaseAction bapm in pm.Actions)
@@ -3433,12 +3224,10 @@ namespace ActionGroupsExtended
                                     }
                                 }
                             }
-                            errLine = "28";
                             foreach (AGXAction agact2 in StaticData.CurrentVesselActions.Where(ag => ag.group == groupToAdd))
                             {
                                 SelectedWithSymActions.Add(new AGXDefaultCheck() { ba = agact2.ba, agrp = agact2.ba.actionGroup });
                             }
-                            errLine = "29";
                         }
                     }
                 }
@@ -3446,7 +3235,6 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                Log.err("Monitor Default Actions Error {0}", errLine);
                 Log.ex(this, e);
             }
             //Log.dbg("2l " + Mouse.screenPos);
@@ -3454,27 +3242,21 @@ namespace ActionGroupsExtended
 
         public static void EditorLoadDataFromPartModuleNewMethod() //new method loading from partModule
         {
-            string errLine = "1";
             try
             {
                 ModuleAGX loadingPM = new ModuleAGX();
-                errLine = "2";
                 try
                 {
                     if (EditorLogic.RootPart.Modules.OfType<ModuleAGX>().First().hasData)
                     {
-                        errLine = "3";
                         loadingPM = EditorLogic.RootPart.Modules.OfType<ModuleAGX>().First();
                     }
                     else
                     {
-                        errLine = "4";
                         foreach (Part p in EditorLogic.SortedShipList)
                         {
-                            errLine = "5";
                             if (p.Modules.OfType<ModuleAGX>().First().hasData)
                             {
-                                errLine = "6";
                                 loadingPM = p.Modules.OfType<ModuleAGX>().First();
                             }
                         }
@@ -3484,36 +3266,24 @@ namespace ActionGroupsExtended
                 {
                     //silent fail on no vessel loaded so RootPart nullrefs
                 }
-                errLine = "7";
                 CurrentKeySet = loadingPM.currentKeyset;
-                errLine = "8";
                 LoadCurrentKeyBindings();
-                errLine = "9";
                 CurrentKeySetName = KeySetNames[CurrentKeySet - 1];
 
-                errLine = "10";
                 LoadGroupNames(loadingPM.groupNames);
-                errLine = "11";
                 LoadGroupVisibility(loadingPM.groupVisibility);
-                errLine = "12";
                 LoadGroupVisibilityNames(loadingPM.groupVisibilityNames);
-                errLine = "13";
                 LoadDirectActionState(loadingPM.DirectActionState);
-                errLine = "14";
                 try
                 {
                     if (EditorLogic.fetch != null && EditorLogic.SortedShipList.Count > 0)
                     {
-                        errLine = "14a";
                         foreach (Part p in EditorLogic.SortedShipList)
                         {
-                            errLine = "15";
                             foreach (AGXAction agAct in p.Modules.OfType<ModuleAGX>().First().agxActionsThisPart)
                             {
-                                errLine = "16";
                                 if (agAct.ba != null && !StaticData.CurrentVesselActions.Contains(agAct))
                                 {
-                                    errLine = "17";
                                     StaticData.CurrentVesselActions.Add(agAct);
                                 }
                             }
@@ -3529,7 +3299,6 @@ namespace ActionGroupsExtended
             catch (Exception e)
             {
                 //silently fail, will hit this if no parts placed
-                Log.err("temporary error on new loading thing {0}", errLine);
                 Log.ex(typeof(AGXEditor), e);
             }
         }
@@ -3537,12 +3306,9 @@ namespace ActionGroupsExtended
         public static void EditorLoadFromNode() //no longer loads from node as of agx 1.34, reusing the method for the basic load call now
         {
             //Log.dbg("LoadFromNode Called" + StaticData.CurrentVesselActions.Count());
-            string errLine = "1";
             try
             {
-                errLine = "10b";
                 EditorLoadDataFromPartModuleNewMethod();
-                errLine = "15b";
                 List<KSPActionGroup> CustomActions = new List<KSPActionGroup>();
                 CustomActions.Add(KSPActionGroup.Custom01); //how do you add a range from enum?
                 CustomActions.Add(KSPActionGroup.Custom02);
@@ -3555,7 +3321,6 @@ namespace ActionGroupsExtended
                 CustomActions.Add(KSPActionGroup.Custom09);
                 CustomActions.Add(KSPActionGroup.Custom10);
 
-                errLine = "16";
                 // string AddGroup = "";
                 List<BaseAction> partAllActions = new List<BaseAction>(); //is all vessel actions, copy pasting code
                 try
@@ -3575,7 +3340,6 @@ namespace ActionGroupsExtended
                         {
                             if ((baLoad.actionGroup & agrp) == agrp)
                             {
-                                errLine = "17";
                                 AGXAction ToAdd = new AGXAction() { prt = baLoad.listParent.part, ba = baLoad, group = CustomActions.IndexOf(agrp) + 1, activated = false };
                                 List<AGXAction> Checking = new List<AGXAction>();
                                 Checking.AddRange(StaticData.CurrentVesselActions);
@@ -3594,7 +3358,6 @@ namespace ActionGroupsExtended
                                 }
                             }
                         }
-                        errLine = "18";
                     }
                 }
                 catch
@@ -3606,7 +3369,7 @@ namespace ActionGroupsExtended
             }
             catch (Exception e)
             {
-                print("AGX EditorLoadFromNode Fail " + errLine + " " + e);
+                Log.warn("AGX EditorLoadFromNode Fail {0}", e);
             }
         }
 
@@ -3617,44 +3380,32 @@ namespace ActionGroupsExtended
 
         public static string SaveGroupNames(string str)
         {
-            string errLine = "1";
             bool OkayToSave = true;
             try
             {
-                errLine = "2";
 
                 if (OkayToSave)
                 {
-                    errLine = "3";
                     string SaveStringNames = "";
-                    errLine = "4";
 
-                    errLine = "5";
                     int GroupCnt = 1;
-                    errLine = "6";
                     while (GroupCnt <= 250)
                     {
-                        errLine = "7";
                         if (AGXguiNames[GroupCnt].Length >= 1)
                         {
-                            errLine = "8";
                             SaveStringNames = SaveStringNames + '\u2023' + GroupCnt.ToString("000") + AGXguiNames[GroupCnt];
                         }
-                        errLine = "9";
                         GroupCnt = GroupCnt + 1;
                     }
-                    errLine = "10";
                     return SaveStringNames;
                 }
                 else
                 {
-                    errLine = "11";
                     return str;
                 }
             }
             catch (Exception e)
             {
-                Log.err("Editor Fail (SaveGroupNames) {0}", errLine);
                 Log.ex(typeof(AGXEditor), e);
                 return str;
             }
@@ -3782,11 +3533,9 @@ namespace ActionGroupsExtended
         public static void EditorSaveToNode() //no longer saves to node, now saves to partmodule, leaving name intact as i'm reusing the same method calls
         {
             //Log.dbg("AGX EditorSaveToFile called"); 
-            string errLine = "1";
             bool okayToProceed = false;
             try
             {
-                errLine = "2";
                 if (EditorLogic.SortedShipList.Count > 0)
                 {
                     okayToProceed = true;
@@ -3795,54 +3544,40 @@ namespace ActionGroupsExtended
                 {
                     okayToProceed = false;
                 }
-                errLine = "3";
             }
             catch
             {
-                errLine = "4";
                 okayToProceed = false;
             }
-            errLine = "5";
             try
             {
                 if (okayToProceed)
                 {
                     Log.dbg("let's save");
-                    errLine = "14";
                     string groupNames = SaveGroupNames("");
-                    errLine = "15";
                     string groupVisibility = SaveGroupVisibility("");
-                    errLine = "16";
                     string groupVisibilityNames = SaveGroupVisibilityNames("");
-                    errLine = "17";
                     string DirectActionState = SaveDirectActionState("");
-                    errLine = "17a";
                     UpdateAGXActionGroupNames();
                     try
                     {
-                        errLine = "17c";
                         foreach (Part p in EditorLogic.SortedShipList)
                         {
-                            errLine = "17c1";
                             ModuleAGX thisPM = p.Modules.OfType<ModuleAGX>().First();
-                            errLine = "17d";
                             thisPM.agxActionsThisPart.Clear();
                             thisPM.agxActionsThisPart.AddRange(StaticData.CurrentVesselActions.FindAll(p2 => p2.prt == p));
                             thisPM.currentKeyset = CurrentKeySet;
-                            errLine = "18";
                         }
                     }
                     catch (Exception e)
                     {
-                        Log.err("No parts to save {0}", errLine);
                         Log.ex(typeof(AGXEditor), e);
                     }
                 }
             }
             catch (Exception e)
             {
-                Log.err("AGX EditorSaveToFile FAIL {0} {1}", errLine, e);
-                Log.ex(errLine, e);
+                Log.ex(typeof(AGXEditor), e);
             }
         }
     }
