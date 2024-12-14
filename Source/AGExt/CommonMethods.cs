@@ -620,7 +620,7 @@ namespace ActionGroupsExtended
         {
             flightID = FlightID;
             Log.dbg("Before");
-            List<Vessel> loadedVessels = FlightGlobals.Vessels.FindAll(vsl => vsl.loaded == true);
+            List<Vessel> loadedVessels = FlightGlobals.Vessels.FindAll(vsl => vsl.loaded);
             thisVsl = loadedVessels.Find(ves => ves.rootPart.flightID == flightID);
             Log.dbg("After");
             actionsList = new List<AGXAction>();
@@ -679,10 +679,9 @@ namespace ActionGroupsExtended
             {
                 while (LoadNames[0] == '\u2023')
                 {
-                    int groupNum = new int();
                     string groupName = "";
                     LoadNames = LoadNames.Substring(1);
-                    groupNum = Convert.ToInt32(LoadNames.Substring(0, 3));
+                    int groupNum = Convert.ToInt32(LoadNames.Substring(0, 3));
                     LoadNames = LoadNames.Substring(3);
                     if (LoadNames.IndexOf('\u2023') == -1)
                     {
@@ -1723,5 +1722,22 @@ namespace ActionGroupsExtended
             }
         }
     }
+
+	internal static class CONST
+	{
+		internal static readonly Dictionary<int, KSPActionGroup> CustomActions = new Dictionary<int, KSPActionGroup>
+		{
+			{1, KSPActionGroup.Custom01},
+			{2, KSPActionGroup.Custom02},
+			{3, KSPActionGroup.Custom03},
+			{4, KSPActionGroup.Custom04},
+			{5, KSPActionGroup.Custom05},
+			{6, KSPActionGroup.Custom06},
+			{7, KSPActionGroup.Custom07},
+			{8, KSPActionGroup.Custom08},
+			{9, KSPActionGroup.Custom09},
+			{10, KSPActionGroup.Custom10}
+		};
+	}
 
 }//name space closing bracket
