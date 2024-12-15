@@ -476,7 +476,7 @@ namespace ActionGroupsExtended
 
                         //ConfigNode toggleStates = new ConfigNode("TOGGLE");
                         //ConfigNode holdStates = new ConfigNode("HOLD");
-                        //for (int i = 1; i <= 250; i++)
+                        //for (int i = 1; i <= 250; ++i)
                         //{
                         //    if (AGXEditor.IsGroupToggle[i])
                         //    {
