@@ -3127,31 +3127,26 @@ namespace ActionGroupsExtended
             }
         }
 
-        public static string GroupNamesDictToString(Dictionary<int, string> namesDict)
-        {
-            try
-            {
-                string SaveStringNames = "";
-                int GroupCnt = 1;
-                while (GroupCnt <= 250)
-                {
-                    if (namesDict[GroupCnt].Length >= 1)
-                    {
-                        SaveStringNames = SaveStringNames + '\u2023' + GroupCnt.ToString("000") + namesDict[GroupCnt];
-                    }
-                    GroupCnt = GroupCnt + 1;
-                }
+		public static string GroupNamesDictToString(Dictionary<int, string> namesDict)
+		{
+			Log.dbg("Flight.GroupNamesDictToString(count={0})", namesDict.Count());
+			if (0 == namesDict.Count()) return "";
 
-                //Log.dbg(p.partName + " " + SaveStringNames);
-                //Log.dbg("Savegroup return " + SaveStringNames);
-                return SaveStringNames;
-            }
-            catch (Exception e)
-            {
-                Log.ex(typeof(AGXFlight), e);
-                return "";
-            }
-        }
+			string SaveStringNames = "";
+			int GroupCnt = 1;
+			while (GroupCnt <= 250)
+			{
+				if (namesDict[GroupCnt].Length >= 1)
+				{
+					SaveStringNames = SaveStringNames + '\u2023' + GroupCnt.ToString("000") + namesDict[GroupCnt];
+				}
+				++GroupCnt;
+			}
+
+			//Log.dbg(p.partName + " " + SaveStringNames);
+			//Log.dbg("Savegroup return " + SaveStringNames);
+			return SaveStringNames;
+		}
 
         public static Dictionary<int, string> GroupNamesStringToDict(string str)
         {
