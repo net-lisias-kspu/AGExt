@@ -3430,7 +3430,7 @@ namespace ActionGroupsExtended
                         StartCoroutine("GUIDelayCoroutine");
                     }
                 } //if(RootPartExists) closing bracket
-                Log.trace("Testd");
+                Log.dbg("Testd");
                 if (InputLockManager.GetControlLock("kOSTerminal") == ControlTypes.None && (ControlTypes.KSC_ALL & (ControlTypes)InputLockManager.lockMask) == 0)//.KSC_ALL catches both vessel not controllable via lock Squad sets as well as if ControlLock (my other mod) is engaged
                 {
                     //.Log("AGX Test");
@@ -3461,7 +3461,7 @@ namespace ActionGroupsExtended
                             {
                                 ActivateActionGroupCheckModKeys(kcPair.Key, true, true);
                                 DirectKeysState[kcPair.Key] = true;
-                                Log.trace("turn on");
+                                Log.dbg("turn on");
                             }
                         }
                         else if (!Input.GetKey(kcPair.Value) && DirectKeysState[kcPair.Key])
@@ -3470,7 +3470,7 @@ namespace ActionGroupsExtended
                             {
                                 ActivateActionGroupCheckModKeys(kcPair.Key, true, false);
                                 DirectKeysState[kcPair.Key] = false;
-                                Log.trace("turn off");
+                                Log.dbg("turn off");
                             }
                         }
                     }
@@ -3550,7 +3550,7 @@ namespace ActionGroupsExtended
                 {
                     CheckRTQueue();
                 }
-                Log.detail("TEst {0}|{1}|{2}", InputLockManager.IsLocked(ControlTypes.ALL_SHIP_CONTROLS), InputLockManager.IsUnlocked(ControlTypes.ALL_SHIP_CONTROLS), InputLockManager.IsAllLocked(ControlTypes.ALL_SHIP_CONTROLS) );
+                Log.dbg("TEst {0}|{1}|{2}", InputLockManager.IsLocked(ControlTypes.ALL_SHIP_CONTROLS), InputLockManager.IsUnlocked(ControlTypes.ALL_SHIP_CONTROLS), InputLockManager.IsAllLocked(ControlTypes.ALL_SHIP_CONTROLS) );
             } //public void Update() try close bracket
             catch (Exception e)
             {
